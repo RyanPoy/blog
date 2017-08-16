@@ -1,0 +1,14 @@
+*.pyc
+.project
+.pydevproject
+.settings
+.DS_Store
+func.py
+archive.sh
+static/media/avatars/*
+static/js/vakata-*
+nginx_access.log
+nginx_error.log
+static/media_ng_tmp/
+static/media/
+*.sketch
