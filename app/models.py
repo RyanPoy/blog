@@ -139,7 +139,20 @@ class PageManager(models.Manager):
 class Page(AbsArticle):
     """ 单页面，直接显示在导航栏上 """
     objects = PageManager
-    seq = models.IntegerField('排序', default=0)
+    seq = models.IntegerField('排序', default=0, db_index=True)
 
     class Meta:
         verbose_name = verbose_name_plural = '单页面'
+
+
+class Link(BaseModel):
+    name = models.CharField('名称', max_length=255)
+    url = models.URLField('链接地址', max_length=255)
+    seq = models.IntegerField('排序', default=0, db_index=True)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['seq']
+        verbose_name_plural = verbose_name = '链接'

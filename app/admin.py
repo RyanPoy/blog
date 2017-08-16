@@ -6,16 +6,25 @@ from .models import *
 
 # Register your models here.
 
+class LinkAdmin(admin.ModelAdmin):
+
+    search_fields = ['name']
+    list_display = ['id', 'name', 'url', 'seq', 'created_at', 'updated_at']
+    list_filter = ['show']
+
+
 class TagAdmin(admin.ModelAdmin):
 
     search_fields = ['name']
     list_display = ['id', 'name', 'article_number', 'created_at', 'updated_at']
+    list_filter = ['show']
 
 
 class ImageAdmin(admin.ModelAdmin):
 
     search_fields = ['name', 'url']
     list_display = ['id', 'img', 'name', 'size', 'url', 'created_at', 'updated_at']
+    list_filter = ['show']
 
     def size(self, obj):
         return '%.2f KB' % (obj.pic.size / 1024.0)
@@ -37,7 +46,7 @@ class PageAdmin(admin.ModelAdmin):
 
     search_fields = ['title', 'keywords', 'content']
     list_display = [ 'id', 'title', 'author', 'keywords', 'created_at', 'updated_at' ]
-    list_filter = ['author']
+    list_filter = ['author', 'show']
 
     def save_model(self, request, obj, form, change):
         obj.author = request.user
@@ -51,7 +60,7 @@ class ArticleAdmin(admin.ModelAdmin):
         'id', 'title', 'author', 'keywords', 'view_number', 
         'pretty_tags', 'created_at', 'updated_at'
     ]
-    list_filter = ['tags', 'author']
+    list_filter = ['tags', 'author', 'show']
     
     def pretty_tags(self, obj):
         return obj.pretty_tags
@@ -95,8 +104,8 @@ class ArticleAdmin(admin.ModelAdmin):
         ret = super(ArticleAdmin, self).delete_model(request, obj)
 
 
+admin.site.register(Link, LinkAdmin)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Image, ImageAdmin)
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Page, PageAdmin)
-
