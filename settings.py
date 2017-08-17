@@ -56,7 +56,7 @@ ROOT_URLCONF = 'urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'app', 'views', 'default')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -131,3 +131,22 @@ STATICFILES_DIRS = [ os.path.join(BASE_DIR, "static") ]
 MEDIA_URL = '/static/media/'
 MEDIA_DIR_NAME = 'media'
 MEDIA_ROOT = os.path.join(BASE_DIR, "static", MEDIA_DIR_NAME)
+
+
+#tornado configuration
+from app import ui
+def builder_tornado_env(views_dir='admin'):
+    return dict(
+        template_path       = os.path.join(BASE_DIR, 'app', 'views', views_dir),
+        static_path         = os.path.join(BASE_DIR, 'static'),
+        xsrf_cookies        = False,
+        cookie_secret       = "11oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo=",
+        autoescape          = None,
+        ui_modules          = ui,
+        debug               = DEBUG,
+    )
+
+db_ping_seconds = 30
+
+
+FACK_ADMIN_USER_ID = 1

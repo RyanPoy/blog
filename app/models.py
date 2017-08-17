@@ -108,7 +108,7 @@ class AbsArticle(BaseModel):
 class ArticleManager(models.Manager):
 
     def recents(self, n):
-        return Article.objects.all()[:n]
+        return self.all()[:n]
 
 
 class Article(AbsArticle):

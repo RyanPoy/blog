@@ -1,0 +1,44 @@
+{% extends base.html %}
+
+{% block main %}
+<section class="module">
+  <div class="container-fluid container-custom">
+
+    <div class="row">
+
+      <div class="col-sm-8 col-sm-offset-2">
+        {% for i in range(10) %}
+        <article class="post">
+          <div class="post-header">
+            <h2 class="post-title font-alt"><a href="blog-single.html">Capturing the Future Now</a></h2>
+            <div class="post-meta">
+              By <a href="#">Hovik Eduard</a> on November 12, 2015
+            </div>
+          </div>
+          <div class="post-content">
+            <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents.</p>
+            <a class="post-more" href="blog-single.html">Read more →</a>
+          </div>
+        </article>
+        {% end %}
+
+        <!-- PAGINATION -->
+        <div class="pagination font-alt">
+          <ul class="pagination">
+            <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
+            <li><a href="#">1</a></li>
+            <li class="active"><span>2</span></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+          </ul>
+        </div>
+        <!-- /PAGINATION -->
+
+      </div><!-- .col-* -->
+
+    </div><!-- .row -->
+
+  </div>
+</section>
+{% end %}

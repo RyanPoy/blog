@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="彭一">
+  
+  <title>博客列表</title>
+  
+  <!-- Favicons -->
+  <link rel="shortcut icon" href="{{ static_url('images/favicon.png') }}">
+  <link rel="apple-touch-icon" href="{{ static_url('images/apple-touch-icon.png') }}">
+  <link rel="apple-touch-icon" sizes="72x72" href="{{ static_url('images/apple-touch-icon-72x72.png') }}">
+  <link rel="apple-touch-icon" sizes="114x114" href="{{ static_url('images/apple-touch-icon-114x114.png') }}">
+  
+  <!-- Fonts -->
+  <link href='{{ static_url("css/css_family_Roboto_Condensed_400_300_400italic_700.css") }}' rel='stylesheet' type='text/css'>
+  <link href='{{ static_url("css/css_family_Open_Sans_400_400italic_700.css") }}' rel='stylesheet' type='text/css'>
+  
+  <!-- Bootstrap core CSS -->
+  <link href="{{ static_url('css/bootstrap.min.css') }}" rel="stylesheet">
+  
+  <!-- Icon Fonts -->
+  <link href="{{ static_url('css/font-awesome.min.css') }}" rel="stylesheet">
+  <link href="{{ static_url('css/et-line-font.min.css') }}" rel="stylesheet">
+  
+  <!-- Plugins -->
+  <link href="{{ static_url('css/magnific-popup.css') }}" rel="stylesheet">
+  <link href="{{ static_url('css/owl.carousel.css') }}" rel="stylesheet">
+  <link href="{{ static_url('css/superslides.css') }}" rel="stylesheet">
+  <link href="{{ static_url('css/vertical.min.css') }}" rel="stylesheet">
+  
+  <!-- Template core CSS -->
+  <link href="{{ static_url('css/template.css') }}" rel="stylesheet">
+</head>
+<body>
+
+  <div class="page-loader">
+    <div class="loader">Loading...</div>
+  </div>
+
+  <div class="sidebar">
+    {% include _left.html %}
+    <div class="copyright">
+      <p>© 2015 Stone Template</p>
+    </div>
+  </div>
+  <!-- WRAPPER -->
+  <div class="wrapper">
+    {% block main %} {% end %}
+    <hr class="divider">
+    {% include _footer.html %}
+  </div>
+  <!-- /WRAPPER -->
+
+  <!-- JAVASCRIPT FILES -->
+  <script src="{{ static_url('js/jquery-2.1.4.min.js') }}"></script>
+  <script src="{{ static_url('js/bootstrap.min.js') }}"></script>
+  <script src="{{ static_url('js/jquery.superslides.min.js') }}"></script>
+  <script src="{{ static_url('js/jquery.mb.YTPlayer.min.js') }}"></script>
+  <script src="{{ static_url('js/imagesloaded.pkgd.js') }}"></script>
+  <script src="{{ static_url('js/isotope.pkgd.min.js') }}"></script>
+  <script src="{{ static_url('js/jquery.magnific-popup.min.js') }}"></script>
+  <script src="{{ static_url('js/owl.carousel.min.js') }}"></script>
+  <script src="{{ static_url('js/jquery.fitvids.js') }}"></script>
+  <script src="{{ static_url('js/jqBootstrapValidation.js') }}"></script>
+  <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+  <script src="{{ static_url('js/gmap3.min.js') }}"></script>
+  <script src="{{ static_url('js/appear.js') }}"></script>
+  <script src="{{ static_url('js/smoothscroll.js') }}"></script>
+  <script src="{{ static_url('js/submenu-fix.js') }}"></script>
+  <script src="{{ static_url('js/contact.js') }}"></script>
+  <script src="{{ static_url('js/custom.js') }}"></script>
+</body>
+</html>
