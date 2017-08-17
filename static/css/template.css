@@ -660,6 +660,7 @@ blockquote cite{
 [Tags]
 */
 
+.tags {margin-top:40px; margin-bottom:40px;}
 .tags a{
 	position:relative;
 	background:#f5f5f5;
@@ -1323,7 +1324,6 @@ blockquote cite{
 
 .post{
 	/*margin-bottom:60px;*/
-	border-bottom: 1px solid #EEE;
 }
 
 .post-header{
@@ -1331,7 +1331,7 @@ blockquote cite{
 }
 
 .post-content{
-	/*padding-bottom:20px;*/
+	padding-bottom:20px;
 }
 
 .post-title, .post-title a{

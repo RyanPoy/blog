@@ -9,28 +9,22 @@
       <div class="col-sm-8 col-sm-offset-2">
         <article class="post">
           <div class="post-header">
-            <h2 class="post-title font-alt">Capturing the Future Now</h2>
+            <h2 class="post-title font-alt">{{ article.title }}</h2>
             <div class="post-meta">
-              By <a href="#">Hovik Eduard</a> on November 12, 2015
+              By <a href="/">彭一</a> on {{article.created_on_str()}}
             </div>
           </div>
           <div class="post-content">
-            <h5>Meet Stone</h5>
-            <p>Artisan Intelligentsia PBR Pinterest, trust fund PBR&amp;B church-key fap gastropub Blue Bottle butcher listicle Thundercats before they sold out post-ironic. +1 authentic squid sartorial. Echo Park slow-carb hashtag mumblecore cred art party. Wolf direct trade banh mi gastro pub letterpress tattooed ugh hoodie fap trust fund viral sartorial.</p>
-
-            <h5>Default styles</h5>
-            <p>A wonderful serenity has taken <a href="#">possession</a> of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine.</p>
-
-            <p>Odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+            {{article.content}}
           </div>
         </article>
         <!-- /POST CONTENT -->
 
         <!-- TAGS -->
         <div class="tags font-serif">
-          <a href="#">Art</a>
-          <a href="#">Design</a>
-          <a href="#">Pop Culture</a>
+          {% for t in article.tags.all() %}
+          <a href="/articles/tags/{{t.id}}">{{t.name}}</a>
+          {% end %}
         </div>
         <!-- /TAGS -->
 

@@ -150,5 +150,6 @@ class ArticleIndexController(BaseController):
 class ArticleShowController(BaseController):
 
     def get(self, _id):
-        return self.render_view('article_show.html')
+        article = self.get_object_or_404(Article, id=_id)
+        return self.render_view('article_show.html', article=article)
 

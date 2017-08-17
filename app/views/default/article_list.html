@@ -12,7 +12,7 @@
           <div class="post-header">
             <h2 class="post-title font-alt"><a href="/blogs/{{a.id}}">{{a.title}}</a></h2>
             <div class="post-meta">
-              By <a href="/">彭一</a> {{a.created_on_str()}}
+              By <a href="/">彭一</a> on {{a.created_on_str()}}
             </div>
           </div>
           <div class="post-content">
@@ -22,6 +22,7 @@
             </p>
           </div>
         </article>
+        <hr class="divider">
         {% end %}
 
         <!-- PAGINATION -->
