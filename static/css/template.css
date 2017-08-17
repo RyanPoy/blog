@@ -1322,7 +1322,8 @@ blockquote cite{
 */
 
 .post{
-	margin-bottom:60px;
+	/*margin-bottom:60px;*/
+	border-bottom: 1px solid #EEE;
 }
 
 .post-header{
@@ -1330,7 +1331,7 @@ blockquote cite{
 }
 
 .post-content{
-	padding-bottom:20px;
+	/*padding-bottom:20px;*/
 }
 
 .post-title, .post-title a{

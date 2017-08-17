@@ -1,6 +1,8 @@
 #coding: utf8
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime, date
+
 
 # Create your models here.
 class BaseModel(models.Model):
@@ -122,7 +124,8 @@ class Article(AbsArticle):
         return '，'.join([ t.name for t in self.tags.all() ])
 
     def limit_content(self, n=64):
-        return obj.content[:n] if len(obj.content) < n else obj.content[:n] + '...'
+        content = self.content.replace('\n', '').replace('\r', '')
+        return content[:n] if len(content) < n else content[:n] + '...'
 
     def __str__(self):
         return self.title

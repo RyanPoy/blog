@@ -143,7 +143,7 @@ class IndexController(BaseController):
 class ArticleIndexController(BaseController):
 
     def get(self):
-        articles = Article.objects.order_by('-id')
+        articles = self.paginator(Article.objects.order_by('-id'))
         return self.render_view('article_list.html', articles=articles)
 
 

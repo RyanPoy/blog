@@ -1,3 +1,5 @@
+init_sql.py
+*.sql
 __pycache__
 *.pyc
 .project
