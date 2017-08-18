@@ -115,11 +115,11 @@ class AbsArticle(BaseModel):
 class ArticleManager(models.Manager):
 
     def recents(self, n):
-        return self.all()[:n]
+        return self.order_by('-id').all()[:n+1]
 
 
 class Article(AbsArticle):
-    objects         = ArticleManager
+    objects         = ArticleManager()
 
     view_number     = models.IntegerField('浏览次数', null=False, default=0)
     tags            = models.ManyToManyField(Tag, verbose_name='标签')
@@ -146,7 +146,7 @@ class PageManager(models.Manager):
 
 class Page(AbsArticle):
     """ 单页面，直接显示在导航栏上 """
-    objects = PageManager
+    objects = PageManager()
     seq = models.IntegerField('排序', default=0, db_index=True)
     uri = models.CharField('跳转地址', db_index=True, null=False, max_length=255, unique=True)
 

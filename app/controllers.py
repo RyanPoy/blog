@@ -35,6 +35,10 @@ class BaseController(tornado.web.RequestHandler):
         return self.request.uri or '/'
 
     def __before_render_view_or_ajax(self, kwargs):
+        if 'recent_articles' not in kwargs:
+            kwargs['recent_articles'] = Article.objects.recents(5)
+        if 'all_tags' not in kwargs:
+            kwargs['all_tags'] = Tag.objects.all()
         return self
     
     def render_view(self, template_name, **kwargs):

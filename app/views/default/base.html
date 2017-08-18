@@ -35,6 +35,14 @@
 
   <!-- Template core CSS -->
   <link href="{{ static_url('css/template.css') }}" rel="stylesheet">
+  <style>
+    .panel-custom, .list-group, .list-group-item {
+      color: #FFF;
+    }
+    .panel-custom {
+
+    }
+  </style>
 </head>
 <body>
 
@@ -42,17 +50,19 @@
     <div class="loader">正在加载...</div>
   </div>
 
-  <div class="sidebar">
-    {% include _left.html %}
-    <div class="copyright">
-      <p>© 2008 彭一</p>
+  <div class="row">
+    <div class="sidebar col-sm-2">
+      {% include _left.html %}
+      <div class="copyright">
+        <p>© 2008 彭一</p>
+      </div>
     </div>
-  </div>
-  <!-- WRAPPER -->
-  <div class="wrapper">
-    {% block main %} {% end %}
-    <hr class="divider">
-    {% include _footer.html %}
+    <!-- WRAPPER -->
+    <div class="wrapper col-sm-9">
+      {% block main %} {% end %}
+      <hr class="divider">
+      {% include _footer.html %}
+    </div>
   </div>
   <!-- /WRAPPER -->
 

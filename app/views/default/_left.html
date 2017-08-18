@@ -8,18 +8,14 @@
       <span class="icon-bar"></span>
     </button>
 
-    <!-- YOU LOGO HERE -->
     <a class="navbar-brand" href="index.html">
-      <!-- IMAGE OR SIMPLE TEXT -->
 {#
       <img class="light-logo" src="{{ static_url('images/logo-light.png') }}" width="95" alt="">
 #}
     彭一的博客
     </a>
   </div>
-
   <div class="collapse navbar-collapse" id="custom-collapse">
-
     <ul class="nav navbar-nav">
 {# 带2级菜单的导航
       <li class="dropdown">
@@ -28,11 +24,36 @@
           <li><a href="index.html">Image</a></li>
         </ul>
       </li>
-#}  
+#}
       <li><a href="/blogs">博客</a></li>
       <li><a href="/archives">归档</a></li>
       <li><a href="/about">关于</a></li>
     </ul>
   </div>
-
 </nav>
+
+<hr>
+
+<div class="panel-custom">
+  <!-- Default panel contents -->
+  <div class="panel-heading">最新文章</div>
+  <!-- List group -->
+  <ul class="list-group">
+    {% for a in recent_articles %}
+    <li class="list-group-item"><a href="/blogs/{{a.id}}">{{a.title}}</a></li>
+    {% end %}
+  </ul>
+</div>
+
+<hr class="half">
+
+<div class="panel-custom">
+  <!-- Default panel contents -->
+  <div class="panel-heading">标签</div>
+  <!-- List group -->
+  <div class="panel-body">
+    {% for t in all_tags %}
+    <span class="t"><a href="/articles/tags/{{t.id}}">{{t.name}}({{t.article_number}})</a></span>
+    {% end %}
+  </div>
+</div>
