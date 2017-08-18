@@ -7,6 +7,7 @@ import tornado.web
 import functools
 import settings
 from .models import *
+from datetime import datetime
 
 
 class BaseController(tornado.web.RequestHandler):
@@ -118,6 +119,19 @@ class ArticleShowController(BaseController):
     def get(self, _id):
         article = self.get_object_or_404(Article, id=_id)
         return self.render_view('article_show.html', article=article)
+
+
+class ArchiveController(BaseController):
+
+    def get(self):
+        article_dict = {}
+        for d in Article.objects.values('id', 'title', 'created_at'):
+            year = datetime.strftime(d['created_at'], '%Y')
+            a = Article(**d)
+            article_dict.setdefault(year, []).append(a)
+
+        article_groups = [ (y, article_dict.get(y)) for y in sorted(article_dict.keys()) ]
+        return self.render_view('archive_index.html', article_groups=article_groups)
 
 
 class ErrorController(BaseController):

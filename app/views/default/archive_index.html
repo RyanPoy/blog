@@ -1,0 +1,35 @@
+{% extends base.html %}
+
+
+{% block main %}
+<section class="module">
+  <div class="container-fluid container-custom">
+
+    <div class="row">
+
+      <div class="col-sm-10 col-sm-offset-1">
+      {% for groups in article_groups %}
+        {% for idx, a in enumerate(groups[1]) %}
+        <article class="post">
+          <div class="post-header post-archive">
+            <h2 class="post-title font-alt">
+              <span class="year">
+              {% if idx == 0 %}
+                {{ a.created_year_for_view }}
+              {% end %}
+              </span>
+              <span class="month-day">{{ a.created_month_for_view }} {{a.created_day_for_view}}</span>
+              <a href="/blogs/{{a.id}}">{{a.title}}</a>
+            </h2>
+          </div>
+        </article>
+        <hr class="divider">
+        {% end %}
+      {% end %}
+      </div><!-- .col-* -->
+
+    </div><!-- .row -->
+
+  </div>
+</section>
+{% end %}
