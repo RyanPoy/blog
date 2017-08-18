@@ -1744,9 +1744,9 @@ blockquote cite{
 }
 
 .to-top-link{
-	position:absolute;
-	bottom:0;
-	left:50%;
+	position:fixed;
+	top:80%;
+	right:0;
 	width:40px;
 	height:40px;
 	background:#f5f5f5;
@@ -1754,6 +1754,8 @@ blockquote cite{
 	line-height:40px;
 	margin-left:-20px;
 }
+
+
 
 .to-top-link:hover{
 	background:#111;

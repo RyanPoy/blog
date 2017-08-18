@@ -32,19 +32,6 @@
   </div>
 </nav>
 
-<hr>
-
-<div class="panel-custom">
-  <!-- Default panel contents -->
-  <div class="panel-heading">最新文章</div>
-  <!-- List group -->
-  <ul class="list-group">
-    {% for a in recent_articles %}
-    <li class="list-group-item"><a href="/blogs/{{a.id}}">{{a.title}}</a></li>
-    {% end %}
-  </ul>
-</div>
-
 <hr class="half">
 
 <div class="panel-custom">
@@ -56,4 +43,17 @@
     <span class="t"><a href="/blogs/tags/{{t.id}}">{{t.name}}({{t.article_number}})</a></span>
     {% end %}
   </div>
+</div>
+
+<hr>
+
+<div class="panel-custom">
+  <!-- Default panel contents -->
+  <div class="panel-heading">最新文章</div>
+  <!-- List group -->
+  <ul class="list-group">
+    {% for a in recent_articles %}
+    <li class="list-group-item"><a href="/blogs/{{a.id}}">{{a.title}}</a></li>
+    {% end %}
+  </ul>
 </div>
