@@ -5,4 +5,5 @@ urls = [
     (r'^/$', IndexController),
     (r'^/blogs[/]?$', ArticleIndexController),
     (r'^/blogs/(\d+)[/]?$', ArticleShowController),
+    (r'/.*', ErrorController),
 ]

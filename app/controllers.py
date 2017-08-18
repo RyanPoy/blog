@@ -31,30 +31,9 @@ class BaseController(tornado.web.RequestHandler):
 
     @property
     def full_uri(self):
-        print '#'*20, self.request.uri or '/'
         return self.request.uri or '/'
 
     def __before_render_view_or_ajax(self, kwargs):
-        # from app.article.models import ArticleCategory
-        # if 'l1_product_cates' not in kwargs: kwargs['l1_product_cates'] = l1_product_cates
-        # if 'rmb_of' not in kwargs: kwargs['rmb_of'] = rmb_of
-        # if 'line_of_cates_for_view' not in kwargs: kwargs['line_of_cates_for_view'] = line_of_cates_for_view
-        # if 'pretty_date' not in kwargs: kwargs['pretty_date'] = pretty_date_for_view
-        # if 'limit' not in kwargs:       kwargs['limit'] = limit
-        # if 'format' not in kwargs:      kwargs['format'] = format
-        # if 'image_path' not in kwargs:  kwargs['image_path'] = image_path
-        # if 'active_css' not in kwargs:  kwargs['active_css'] = functools.partial(active_css, self.nav_uri)
-        # if 'left_active_css' not in kwargs:  kwargs['left_active_css'] = functools.partial(active_css, self.full_uri)
-        # if 'error_css' not in kwargs:  kwargs['error_css'] = error_css
-        # if 'tip_msg' not in kwargs:  kwargs['tip_msg'] = tip_msg
-        # if 'join_str' not in kwargs:  kwargs['join_str'] = join_str
-        # # if '_article_cates_level1' not in kwargs: kwargs['_article_cates_level1'] = ArticleCategory.level1()
-        # if 'set_query_para' not in kwargs: kwargs['set_query_para'] = set_query_para
-        # if 'form_for' not in kwargs: kwargs['form_for'] = form_helper.form_for
-        # for key in dir(form_helper.tags):
-        #     if key.endswith('_tag') and key not in kwargs:
-        #         kwargs[key] = getattr(form_helper.tags, key)
-
         return self
     
     def render_view(self, template_name, **kwargs):
@@ -99,21 +78,8 @@ class BaseController(tornado.web.RequestHandler):
         except EmptyPage:
             # If page is out of range (e.g. 9999), deliver last page of results.
             pagination_objects = paginator.page(paginator.num_pages)
-
-        #如果传入的分页索引大于总分页索引数，则返回最大分页索引数,如果传入的分页索引小于1，返回1
-        all_page_nums = pagination_objects.paginator.num_pages
-        if page_num > all_page_nums:
-            page_num = all_page_nums
-        elif page_num < 1:
-            page_num = 1
-        end_page = page_num + (number_per_page/2)
-        start_page = page_num - (number_per_page/2)
-        if start_page < 1:
-            start_page = 1
-        if end_page > all_page_nums:
-            end_page = all_page_nums
+        pagination_objects.count = paginator.count
         return pagination_objects
-        # return pagination_objects, start_page, end_page, page_num
 
     def is_ajax(self):
         return self.request.headers.get('X-Requested-With', '').upper() == 'XMLHTTPREQUEST'
@@ -124,7 +90,7 @@ class BaseController(tornado.web.RequestHandler):
             # in debug mode, try to send a traceback
             return super(BaseController, self).write_error(status_code, *args, **kwargs)
         else:
-            # print '?'*20, status_code
+            print (status_code)
             if status_code == 500:
                 return self.write('sorry, interval server error 500')
             if status_code == 404:
@@ -152,4 +118,16 @@ class ArticleShowController(BaseController):
     def get(self, _id):
         article = self.get_object_or_404(Article, id=_id)
         return self.render_view('article_show.html', article=article)
+
+
+class ErrorController(BaseController):
+
+    def get(self):
+        uri = self.request.uri
+        if uri and uri[-1] == '/':
+            uri = uri[:-1]
+        p = Page.objects.filter(uri=uri).first()
+        if not p:
+            raise tornado.web.HTTPError(404)
+        return self.render_view('page_show.html', page=p)
 

@@ -1,0 +1,31 @@
+{% extends base.html %}
+
+{% block js %}
+<script>
+  $(function() {
+
+    var $postContentDiv = $("#post-content");
+    var markDownHtml = marked($postContentDiv.html());
+    $postContentDiv.html(markDownHtml);
+  })
+</script>
+{% end %}
+
+{% block main %}
+<section class="module">
+  <div class="container-fluid container-custom">
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2">
+        <article class="post">
+          <div class="post-header">
+            <h2 class="post-title font-alt">{{ page.title }}</h2>
+          </div>
+          <div class="markdown-body post-content" id="post-content">
+            {{page.content}}
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+{% end %}

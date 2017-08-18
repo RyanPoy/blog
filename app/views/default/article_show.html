@@ -3,11 +3,9 @@
 {% block js %}
 <script>
   $(function() {
-
     var $postContentDiv = $("#post-content");
     var markDownHtml = marked($postContentDiv.html());
     $postContentDiv.html(markDownHtml);
-    console.log(marked('I am using __markdown__.\r\n\r\nI am using __markdown__.'));
   })
 </script>
 {% end %}

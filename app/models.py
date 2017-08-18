@@ -148,6 +148,7 @@ class Page(AbsArticle):
     """ 单页面，直接显示在导航栏上 """
     objects = PageManager
     seq = models.IntegerField('排序', default=0, db_index=True)
+    uri = models.CharField('跳转地址', db_index=True, null=False, max_length=255, unique=True)
 
     class Meta:
         verbose_name = verbose_name_plural = '单页面'

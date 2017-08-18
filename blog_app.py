@@ -46,7 +46,7 @@ LOGGER = logging.getLogger(__name__)
 def ping_db():
     from app.models import Tag
     Tag.objects.first()
-    print '*'*10, 'ping db'
+    print('*'*10, 'ping db')
 
 
 def main():
@@ -64,7 +64,7 @@ def main():
 
     http_server = tornado.httpserver.HTTPServer(application, xheaders=True)
     http_server.listen(port, address)
-    print 'server run on (%s:%s)，tmpl is "%s"' % (address, port, tmpl)
+    print('server run on (%s:%s)，tmpl is "%s"' % (address, port, tmpl))
 
     tornado.ioloop.PeriodicCallback(ping_db, int(db_ping_seconds * 1000)).start()
     try:
