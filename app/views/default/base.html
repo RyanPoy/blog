@@ -35,14 +35,6 @@
 
   <!-- Template core CSS -->
   <link href="{{ static_url('css/template.css') }}" rel="stylesheet">
-  <style>
-    .panel-custom, .list-group, .list-group-item {
-      color: #FFF;
-    }
-    .panel-custom {
-
-    }
-  </style>
 </head>
 <body>
 
@@ -85,6 +77,16 @@
   <script src="{{ static_url('js/custom.js') }}"></script>
   <script src="{{ static_url('js/marked.js') }}"></script>
 
+  <script>
+  $(function() {
+    var leftHeight = $('.sidebar').height();
+    var rightHeight = $('.wrapper').height();
+    
+    if (leftHeight < rightHeight) {
+      $('.sidebar').height(rightHeight);
+    }
+  });
+  </script>
   {% block js %}{% end %}
 
 </body>

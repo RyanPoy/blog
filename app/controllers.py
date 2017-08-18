@@ -118,6 +118,16 @@ class ArticleIndexController(BaseController):
         return self.render_view('article_list.html', articles=articles)
 
 
+class ArticleListController(BaseController):
+
+    def get(self, tagid):
+        tag = Tag.objects.filter(id=tagid).first()
+        if not tag: # tag 不存在
+            return self.redirect("/blogs")
+
+        articles = self.paginator(Article.objects.order_by('-id').filter(tags__id=tagid))
+        return self.render_view('article_list.html', articles=articles)    
+
 class ArticleShowController(BaseController):
 
     def get(self, _id):
