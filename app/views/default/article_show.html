@@ -1,5 +1,17 @@
 {% extends base.html %}
 
+{% block js %}
+<script>
+  $(function() {
+
+    var $postContentDiv = $("#post-content");
+    var markDownHtml = marked($postContentDiv.html());
+    $postContentDiv.html(markDownHtml);
+    console.log(marked('I am using __markdown__.\r\n\r\nI am using __markdown__.'));
+  })
+</script>
+{% end %}
+
 {% block main %}
 <section class="module">
   <div class="container-fluid container-custom">
@@ -14,7 +26,7 @@
               By <a href="/">彭一</a> on {{article.created_on_str()}}
             </div>
           </div>
-          <div class="post-content">
+          <div class="markdown-body post-content" id="post-content">
             {{article.content}}
           </div>
         </article>

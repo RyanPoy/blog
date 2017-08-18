@@ -50,7 +50,7 @@ class PageAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.author = request.user
-        return super(ArticleAdmin, self).save_model(request, obj, form, change)
+        return super(PageAdmin, self).save_model(request, obj, form, change)
 
 
 class ArticleAdmin(admin.ModelAdmin):

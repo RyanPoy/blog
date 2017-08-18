@@ -1350,10 +1350,10 @@ blockquote cite{
 }
 
 .post p > img, .post-thumbnail img{
-	width:120%;
+	width:100%;
 	max-width:none;
-	margin-left:-10%;
-	margin-right:-10%;
+	/*margin-left:-10%;*/
+	/*margin-right:-10%;*/
 }
 
 .post .slider img{

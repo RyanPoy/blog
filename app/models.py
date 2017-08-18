@@ -2,6 +2,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime, date
+import markdown2 as md
 
 
 # Create your models here.
@@ -102,6 +103,10 @@ class AbsArticle(BaseModel):
     keywords        = models.CharField('关键词', max_length=255, null=True, default='', editable=False)
     content         = models.TextField('MarkDown内容', null=False, default='')
     author          = models.ForeignKey(User, verbose_name='作者', editable=False)
+
+    @property
+    def html_content(self):
+        return md.markdown(self.content)
 
     class Meta:
         abstract = True

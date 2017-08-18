@@ -31,6 +31,8 @@
   <link href="{{ static_url('css/superslides.css') }}" rel="stylesheet">
   <link href="{{ static_url('css/vertical.min.css') }}" rel="stylesheet">
   
+  <link href="{{ static_url('css/github-markdown.css') }}" rel="stylesheet">
+
   <!-- Template core CSS -->
   <link href="{{ static_url('css/template.css') }}" rel="stylesheet">
 </head>
@@ -71,5 +73,9 @@
   <script src="{{ static_url('js/submenu-fix.js') }}"></script>
   <script src="{{ static_url('js/contact.js') }}"></script>
   <script src="{{ static_url('js/custom.js') }}"></script>
+  <script src="{{ static_url('js/marked.js') }}"></script>
+
+  {% block js %}{% end %}
+
 </body>
 </html>
