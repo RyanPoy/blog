@@ -8,7 +8,7 @@
       <span class="icon-bar"></span>
     </button>
 
-    <a class="navbar-brand" href="index.html">
+    <a class="navbar-brand" href="/">
 {#
       <img class="light-logo" src="{{ static_url('images/logo-light.png') }}" width="95" alt="">
 #}
@@ -54,6 +54,19 @@
   <ul class="list-group">
     {% for a in recent_articles %}
     <li class="list-group-item"><a href="/blogs/{{a.id}}">{{a.title}}</a></li>
+    {% end %}
+  </ul>
+</div>
+
+<hr>
+
+<div class="panel-custom">
+  <!-- Default panel contents -->
+  <div class="panel-heading">友情链接</div>
+  <!-- List group -->
+  <ul class="list-group">
+    {% for l in all_links %}
+    <li class="list-group-item"><a href="{{l.url}}">{{l.name}}</a></li>
     {% end %}
   </ul>
 </div>

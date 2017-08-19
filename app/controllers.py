@@ -39,6 +39,8 @@ class BaseController(tornado.web.RequestHandler):
             kwargs['recent_articles'] = Article.objects.recents(5)
         if 'all_tags' not in kwargs:
             kwargs['all_tags'] = Tag.objects.all()
+        if 'all_links' not in kwargs:
+            kwargs['all_links'] = Link.objects.order_by('-seq').all()
         return self
     
     def render_view(self, template_name, **kwargs):
