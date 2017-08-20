@@ -2,11 +2,12 @@
 ############import django
 import os
 
+from django.core.handlers.wsgi import WSGIHandler
 from django.core.wsgi import get_wsgi_application
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
 get_wsgi_application()
 
-from tornado import options, httputil
+from tornado import options, httputil, wsgi
 from settings import *
 from app.urls import urls
 import tornado.httpserver
@@ -34,7 +35,8 @@ def utf8(value):
     return value.encode("utf-8")
 tornado.escape.utf8 = utf8
 
-options.define('port', default=8001, type=int, help=u'抢票系统监听端口，默认：8001')
+options.define('port', default=8001, type=int, help=u'系统监听端口，默认：8001')
+options.define('admin_port', default=0, type=int, help=u'Admin监听端口，默认：8001')
 options.define('debug', default='true', type=str, help=u'是否是调试模式，默认：true')
 options.define('tmpl', default='default', type=str, help=u'模板，默认：default')
 
@@ -52,7 +54,7 @@ def ping_db():
 def main():
     options.parse_command_line()
     
-    address, port = '0.0.0.0', options.options.port
+    address, port, admin_port = '0.0.0.0', options.options.port, options.options.admin_port
     debug = options.options.debug == 'true'
     tmpl = options.options.tmpl
 
@@ -60,11 +62,32 @@ def main():
     tornado_env['debug'] = debug
 
     ioloop = tornado.ioloop.IOLoop.instance()
-    application = tornado.web.Application(urls, **tornado_env)
 
-    http_server = tornado.httpserver.HTTPServer(application, xheaders=True)
-    http_server.listen(port, address)
-    print('server run on (%s:%s)，tmpl is "%s"' % (address, port, tmpl))
+    def admin_listen():
+        if not admin_port:
+            return
+        wsgi_app = wsgi.WSGIContainer(WSGIHandler())
+        print (tornado_env['static_path'])
+        tornado_app = tornado.web.Application([
+            (r'/static/admin/(.*)', tornado.web.StaticFileHandler, {"path": os.path.join(BASE_DIR, 'admin', 'static', 'admin')}),
+            (r'/static/media/(.*)', tornado.web.StaticFileHandler, {"path": MEDIA_DIR_NAME}),
+            (r'/admin/(.*)', tornado.web.FallbackHandler, dict(fallback=wsgi_app)),
+
+            
+        ])
+        tornado.httpserver.HTTPServer(tornado_app).listen(admin_port)
+        print('run admin platform on (%s:%s)' % (address, admin_port))
+
+
+    def app_listen():
+        application = tornado.web.Application(urls, **tornado_env)
+
+        http_server = tornado.httpserver.HTTPServer(application, xheaders=True)
+        http_server.listen(port, address)
+        print('server run on (%s:%s)，tmpl is "%s"' % (address, port, tmpl))
+
+    admin_listen()
+    app_listen()
 
     tornado.ioloop.PeriodicCallback(ping_db, int(db_ping_seconds * 1000)).start()
     try:
