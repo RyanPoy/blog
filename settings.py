@@ -89,7 +89,7 @@ DATABASES = {
 }
 
 try:
-    from settings import *
+    from .settings_local import *
 except:
     pass
 

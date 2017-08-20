@@ -16,3 +16,4 @@ static/media_ng_tmp/
 static/media/
 *.sketch
 settings_local.py
+media.tag.gz
