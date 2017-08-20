@@ -6,6 +6,8 @@
     var $postContentDiv = $("#post-content");
     var markDownHtml = marked($postContentDiv.html());
     $postContentDiv.html(markDownHtml);
+
+    resize();
   })
 </script>
 {% end %}

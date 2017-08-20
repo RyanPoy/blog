@@ -75,13 +75,17 @@
   <script src="{{ static_url('js/marked.js') }}"></script>
 
   <script>
-  $(function() {
+  function resize() {
     var leftHeight = $('.sidebar').height();
     var rightHeight = $('.wrapper').height();
     
+    console.log(leftHeight, rightHeight)
     if (leftHeight < rightHeight) {
       $('.sidebar').height(rightHeight);
     }
+  }
+  $(function() {
+    resize();
   });
   </script>
   {% block js %}{% end %}
