@@ -88,11 +88,6 @@ DATABASES = {
     }
 }
 
-try:
-    from .settings_local import *
-except:
-    pass
-
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
@@ -153,4 +148,7 @@ def builder_tornado_env(views_dir='admin'):
 db_ping_seconds = 30
 
 
-FACK_ADMIN_USER_ID = 1
+try:
+    from settings_local import *
+except:
+    raise
