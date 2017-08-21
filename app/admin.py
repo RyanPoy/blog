@@ -45,8 +45,12 @@ class ImageAdmin(admin.ModelAdmin):
 class PageAdmin(admin.ModelAdmin):
 
     search_fields = ['title', 'keywords', 'content']
-    list_display = [ 'id', 'title', 'author', 'keywords', 'created_at', 'updated_at' ]
+    list_display = [ 'id', 'title_link', 'author', 'keywords', 'created_at', 'updated_at' ]
     list_filter = ['author', 'show']
+
+    def title_link(self, obj):
+        return mark_safe("<a href='/blogs/{}' target='_blank'>{}</a>".format(obj.id, obj.title))
+    title_link.short_description = '标题'
 
     def save_model(self, request, obj, form, change):
         obj.author = request.user
@@ -57,11 +61,15 @@ class ArticleAdmin(admin.ModelAdmin):
 
     search_fields = ['title', 'keywords', 'content']
     list_display = [
-        'id', 'title', 'author', 'keywords', 'view_number', 
+        'id', 'title_link', 'author', 'keywords', 'view_number', 
         'pretty_tags', 'created_at', 'updated_at'
     ]
     list_filter = ['tags', 'author', 'show']
     
+    def title_link(self, obj):
+        return mark_safe("<a href='/blogs/{}' target='_blank'>{}</a>".format(obj.id, obj.title))
+    title_link.short_description = '标题'
+
     def pretty_tags(self, obj):
         return obj.pretty_tags
     pretty_tags.short_description = '标签'
