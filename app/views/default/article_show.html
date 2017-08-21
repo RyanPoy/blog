@@ -1,8 +1,11 @@
 {% extends base.html %}
 
+{% block title %}{{article.title}}{% end %}
+
 {% block js %}
 <script>
   $(function() {
+    // build markdown html
     var $postContentDiv = $("#post-content");
     var markDownHtml = marked($postContentDiv.html());
     $postContentDiv.html(markDownHtml);

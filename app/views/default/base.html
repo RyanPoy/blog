@@ -6,7 +6,7 @@
   <meta name="description" content="">
   <meta name="author" content="彭一">
   
-  <title>博客列表</title>
+  <title>{% block title %}{% end %}</title>
   
   <!-- Favicons -->
   <link rel="shortcut icon" href="{{ static_url('images/favicon.png') }}">
@@ -75,6 +75,7 @@
   <script src="{{ static_url('js/marked.js') }}"></script>
 
   <script>
+  // 调整左右布局的高度，因为css没有搞定，所以用js来做了。
   function resize() {
     var leftHeight = $('.sidebar').height();
     var rightHeight = $('.wrapper').height();
@@ -84,9 +85,24 @@
       $('.sidebar').height(rightHeight);
     }
   }
+  
   $(function() {
     resize();
   });
+
+  // 百度的url自动推送
+  (function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
   </script>
   {% block js %}{% end %}
 
