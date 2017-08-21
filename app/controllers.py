@@ -146,7 +146,7 @@ class ArchiveController(BaseController):
             a = Article(**d)
             article_dict.setdefault(year, []).append(a)
 
-        article_groups = [ (y, article_dict.get(y)) for y in sorted(article_dict.keys()) ]
+        article_groups = [ (y, article_dict.get(y)) for y in sorted(article_dict.keys(), reverse=True) ]
         return self.render_view('archive_index.html', article_groups=article_groups)
 
 

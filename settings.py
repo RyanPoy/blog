@@ -151,4 +151,4 @@ db_ping_seconds = 30
 try:
     from settings_local import *
 except:
-    raise
+    pass
