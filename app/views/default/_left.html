@@ -12,8 +12,9 @@
 {#
       <img class="light-logo" src="{{ static_url('images/logo-light.png') }}" width="95" alt="">
 #}
-    彭一的博客
+    彭一的博客 
     </a>
+
   </div>
   <div class="collapse navbar-collapse" id="custom-collapse">
     <ul class="nav navbar-nav">
@@ -25,9 +26,14 @@
         </ul>
       </li>
 #}
-      <li><a href="/blogs">博客</a></li>
-      <li><a href="/archives">归档</a></li>
-      <li><a href="/about">关于</a></li>
+      <li class="{{active_css('/blogs')}}"><a href="/blogs">博客</a></li>
+      <li class="{{active_css('/archives')}}"><a href="/archives">归档</a></li>
+      {% for p in all_pages %}
+      <li class="{{active_css(p.uri)}}"><a href="{{p.uri}}">{{p.title}}</a></li>
+      {% end %}
+      <li>
+        <a href="/rss" target="_blank">RSS订阅<img class="rss-img" src="{{ static_url('images/rss.png') }}" /></a>
+      </li>
     </ul>
   </div>
 </nav>

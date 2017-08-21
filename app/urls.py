@@ -7,5 +7,6 @@ urls = [
     (r'^/blogs/(\d+)[/]?$', ArticleShowController),
     (r'^/blogs/tags/(\d+)[/]?$', ArticleListController),
     (r'^/archives[/]?$', ArchiveController),
+    (r'^/rss[/]?$', RssController),
     (r'/.*', ErrorController),
 ]

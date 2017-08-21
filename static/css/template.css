@@ -10,6 +10,10 @@ Primary use: Portfolio
 [General Styles]
 */
 
+.rss-img {
+	width:8px;height:8px;
+}
+
 body{
 	background:#fff;
 	font-family:'Open Sans', sans-serif;
@@ -977,10 +981,11 @@ blockquote cite{
 	color:rgba(255, 255, 255, .7);
 }
 
-.navbar-custom .nav > li > a:hover, .navbar-custom .nav > li > a:focus, .navbar-custom .nav .open > a, .navbar-custom .nav .open > a:hover, .navbar-custom .nav .open > a:focus, .navbar-custom .dropdown-menu > li > a:hover, .navbar-custom .dropdown-menu > li > a:focus{
+.navbar-custom .nav > li.active > a, .navbar-custom .nav > li > a:hover, .navbar-custom .nav > li > a:focus, .navbar-custom .nav .open > a, .navbar-custom .nav .open > a:hover, .navbar-custom .nav .open > a:focus, .navbar-custom .dropdown-menu > li > a:hover, .navbar-custom .dropdown-menu > li > a:focus{
 	background:transparent;
 	color:#fff;
 }
+
 
 .navbar-custom .dropdown-menu{
 	background:rgba(26, 26, 26, .9);

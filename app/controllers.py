@@ -37,10 +37,14 @@ class BaseController(tornado.web.RequestHandler):
     def __before_render_view_or_ajax(self, kwargs):
         if 'recent_articles' not in kwargs:
             kwargs['recent_articles'] = Article.objects.recents(5)
+        if 'all_pages' not in kwargs:
+            kwargs['all_pages'] = Page.objects.order_by('seq').all()
         if 'all_tags' not in kwargs:
             kwargs['all_tags'] = Tag.objects.all()
         if 'all_links' not in kwargs:
             kwargs['all_links'] = Link.objects.order_by('-seq').all()
+        if 'active_css' not in kwargs:
+            kwargs['active_css'] = lambda v: 'active' if self.full_uri == v else ''
         return self
     
     def render_view(self, template_name, **kwargs):
@@ -161,4 +165,35 @@ class ErrorController(BaseController):
         if not p:
             raise tornado.web.HTTPError(404)
         return self.render_view('page_show.html', page=p)
+
+
+class RssController(BaseController):
+
+    def get(self):
+
+        articles = [ Article(**a) for a in Article.objects.order_by('-id').values('id', 'title', 'created_at', 'content') ]
+
+        buff = []
+        buff.append('<?xml version="1.0" encoding="utf-8" ?>')
+        buff.append('<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">')
+        buff.append('    <channel>')
+        buff.append('        <title><![CDATA[彭一的博客]]></title>')
+        buff.append('        <link>http://pengyi.info</link>')
+        buff.append('        <description><![CDATA[彭一的个人网站]]></description>')
+        buff.append('        <atom:link href="http://pengyi.info/rss/" rel="self"/>')
+        buff.append('        <language>zh-cn</language>')
+        if articles:
+            buff.append('    <lastBuildDate>%s</lastBuildDate>' % articles[0].created_at)
+            for a in articles:
+                buff.append('<item>')
+                buff.append('    <title><![CDATA[%s]]></title>' % a.title)
+                buff.append('    <link>http://pengyi.info/blogs/%s</link>' % a.id)
+                buff.append('    <description><![CDATA[%s]]></description>' % a.limit_content(200))
+                buff.append('    <guid>http://pengyi.info/blogs/%s</guid>' % a.id)
+                buff.append('</item>')
+        buff.append('''  </channel>''')
+        buff.append('''</rss>''')
+        self.write('\n'.join(buff))
+        self.set_header("Content-Type", "application/rss+xml")
+        return self.finish()
 
