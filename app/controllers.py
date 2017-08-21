@@ -139,6 +139,9 @@ class ArticleShowController(BaseController):
 
     def get(self, _id):
         article = self.get_object_or_404(Article, id=_id)
+        article.view_number += 1
+        article.save()
+
         return self.render_view('article_show.html', article=article)
 
 
