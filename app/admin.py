@@ -64,7 +64,7 @@ class ArticleAdmin(admin.ModelAdmin):
         'id', 'title_link', 'author', 'keywords', 'view_number', 
         'pretty_tags', 'created_at', 'updated_at'
     ]
-    list_filter = ['tags', 'author', 'show']
+    list_filter = ['show', 'author', 'tags']
     
     def title_link(self, obj):
         return mark_safe("<a href='/blogs/{}' target='_blank'>{}</a>".format(obj.id, obj.title))
