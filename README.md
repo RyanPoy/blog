@@ -35,4 +35,5 @@
     -  --debug                          是否是调试模式，默认：true (default true)
     -  --port                           系统监听端口，默认：8001 (default 8001)
     -  --tmpl                           模板，默认：default (default default)
+
     ```具体参看源代码 blog_app.py```
