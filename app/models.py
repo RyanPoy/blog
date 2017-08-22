@@ -123,7 +123,7 @@ class Article(AbsArticle):
 
     view_number     = models.IntegerField('浏览次数', null=False, default=0)
     tags            = models.ManyToManyField(Tag, verbose_name='标签')
-    series          = models.ManyToManyField('Series', verbose_name='系列')
+    series          = models.ManyToManyField('Series', verbose_name='系列', null=True, blank=True)
 
     @property
     def pretty_tags(self):
