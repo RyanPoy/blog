@@ -2,19 +2,6 @@
 
 {% block title %}{{page.title}}{% end %}
 
-{% block js %}
-<script>
-  $(function() {
-    // build markdown html
-    var $postContentDiv = $("#post-content");
-    var markDownHtml = marked($postContentDiv.html());
-    $postContentDiv.html(markDownHtml);
-
-    resize();
-  })
-</script>
-{% end %}
-
 {% block main %}
 <section class="module">
   <div class="container-fluid container-custom">
@@ -25,7 +12,7 @@
             <h2 class="post-title font-alt">{{ page.title }}</h2>
           </div>
           <div class="markdown-body post-content" id="post-content">
-            {{page.content}}
+            {{page.html_content}}
           </div>
         </article>
       </div>
