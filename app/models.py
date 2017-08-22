@@ -5,6 +5,7 @@ from datetime import datetime, date
 import markdown2 as md
 
 
+
 # Create your models here.
 class BaseModel(models.Model):
 
@@ -51,24 +52,24 @@ class TagManager(models.Manager):
     def reset_article_number(self, *args, **kwargs):
         '''重新统计每个tag对应的文章数，删除空标签'''
         for i in self.filter(*args, **kwargs):
-            i.count_post = i.post_set.count()
-            if i.count_post <= 0:
+            i.article_number = i.post_set.count()
+            if i.article_number <= 0:
                 i.delete()
             else:
                 i.save()
 
     def decr_article_number(self, ids, delete_isolate=True):
         '''文章数减1'''
-        assert all(map(lambda i:isinstance(i, (int, long)), ids))
-        self.extra(where=['id in (%s)' % ','.join(map(str, ids))]).update(count_post=F('count_post') - 1)
+        assert all(map(lambda i:isinstance(i, int), ids))
+        self.extra(where=['id in (%s)' % ','.join(map(str, ids))]).update(article_number=models.F('article_number') - 1)
         if delete_isolate:
             # 删除没有和文章关联的标签
-            self.filter(count_post__lte=0).delete()
+            self.filter(article_number__lte=0).delete()
 
     def incr_article_number(self, ids):
         '''文章数减1'''
-        assert all(map(lambda i:isinstance(i, (int, long)), ids))
-        self.extra(where=['id in (%s)' % ','.join(map(str, ids))]).update(count_post=F('count_post') + 1)
+        assert all(map(lambda i:isinstance(i, int), ids))
+        self.extra(where=['id in (%s)' % ','.join(map(str, ids))]).update(article_number=models.F('article_number') + 1)
 
 
 class Tag(BaseModel):
