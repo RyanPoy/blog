@@ -41,6 +41,8 @@ class BaseController(tornado.web.RequestHandler):
             kwargs['all_pages'] = Page.objects.order_by('seq').all()
         if 'all_tags' not in kwargs:
             kwargs['all_tags'] = Tag.objects.all()
+        if 'all_series' not in kwargs:
+            kwargs['all_series'] = Series.objects.order_by('seq').all()
         if 'all_links' not in kwargs:
             kwargs['all_links'] = Link.objects.order_by('-seq').all()
         if 'active_css' not in kwargs:
@@ -124,7 +126,7 @@ class ArticleIndexController(BaseController):
         return self.render_view('article_list.html', articles=articles)
 
 
-class ArticleListController(BaseController):
+class TagArticleController(BaseController):
 
     def get(self, tagid):
         tag = Tag.objects.filter(id=tagid).first()
@@ -132,7 +134,18 @@ class ArticleListController(BaseController):
             return self.redirect("/blogs")
 
         articles = self.paginator(Article.objects.order_by('-id').filter(tags__id=tagid))
-        return self.render_view('article_list.html', articles=articles)    
+        return self.render_view('article_list.html', articles=articles)
+
+
+class SeriesArticleController(BaseController):
+
+    def get(self, series_id):
+        series = Seires.objects.filter(id=series_id).first()
+        if not series: # series 不存在
+            return self.redirect("/blogs")
+
+        articles = self.paginator(Article.objects.order_by('-id').filter(series__id=series_id))
+        return self.render_view('article_list.html', articles=articles)
 
 
 class ArticleShowController(BaseController):

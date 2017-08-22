@@ -38,8 +38,7 @@
   </div>
 </nav>
 
-<hr class="half">
-
+<hr>
 <div class="panel-custom">
   <!-- Default panel contents -->
   <div class="panel-heading">标签</div>
@@ -51,8 +50,22 @@
   </div>
 </div>
 
+{% if all_series %}
 <hr>
+<div class="panel-custom">
+  <!-- Default panel contents -->
+  <div class="panel-heading">系列连载</div>
+  <!-- List group -->
+  <ul class="list-group">
+    {% for s in all_series %}
+    <li class="list-group-item"><a href="/blogs/series/{{s.id}}" target='_blank'>{{s.name}}</a></li>
+    {% end %}
+  </ul>
+</div>
+{% end %}
 
+{% if recent_articles %}
+<hr>
 <div class="panel-custom">
   <!-- Default panel contents -->
   <div class="panel-heading">最新文章</div>
@@ -63,9 +76,10 @@
     {% end %}
   </ul>
 </div>
+{% end %}
 
+{% if all_links %}
 <hr>
-
 <div class="panel-custom">
   <!-- Default panel contents -->
   <div class="panel-heading">友情链接</div>
@@ -76,3 +90,4 @@
     {% end %}
   </ul>
 </div>
+{% end %}

@@ -6,6 +6,13 @@ from .models import *
 
 # Register your models here.
 
+class SeriesAdmin(admin.ModelAdmin):
+
+    search_fields = ['name']
+    list_display = ['id', 'name', 'seq', 'created_at', 'updated_at']
+    list_filter = ['show']
+
+
 class LinkAdmin(admin.ModelAdmin):
 
     search_fields = ['name']
@@ -117,3 +124,4 @@ admin.site.register(Tag, TagAdmin)
 admin.site.register(Image, ImageAdmin)
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Page, PageAdmin)
+admin.site.register(Series, SeriesAdmin)

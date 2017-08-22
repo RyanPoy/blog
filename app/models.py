@@ -123,7 +123,8 @@ class Article(AbsArticle):
 
     view_number     = models.IntegerField('浏览次数', null=False, default=0)
     tags            = models.ManyToManyField(Tag, verbose_name='标签')
-    
+    series          = models.ManyToManyField('Series', verbose_name='系列')
+
     @property
     def pretty_tags(self):
         return '，'.join([ t.name for t in self.tags.all() ])
@@ -165,3 +166,14 @@ class Link(BaseModel):
     class Meta:
         ordering = ['seq']
         verbose_name_plural = verbose_name = '链接'
+
+
+class Series(BaseModel):
+
+    name = models.CharField('名称', max_length=255)
+    seq = models.IntegerField('排序', default=0, db_index=True)
+
+    class Meta:
+        ordering = ['seq']
+        verbose_name_plural = verbose_name = '系列'
+
