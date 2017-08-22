@@ -30,7 +30,7 @@
           {% if article.series %}
           <div class="markdown-body post-content">
             <ul>同系列
-              {% for a in article.series.first().article_set.all() %}
+              {% for a in article.same_series.all() %}
               <li><a href="/blogs/{{a.id}}">{{a.title}}</a></li>
               {% end %}  
             </ul>
