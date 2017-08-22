@@ -140,7 +140,7 @@ class TagArticleController(BaseController):
 class SeriesArticleController(BaseController):
 
     def get(self, series_id):
-        series = Seires.objects.filter(id=series_id).first()
+        series = Series.objects.filter(id=series_id).first()
         if not series: # series 不存在
             return self.redirect("/blogs")
 
