@@ -68,7 +68,7 @@ class ArticleAdmin(admin.ModelAdmin):
 
     search_fields = ['title', 'keywords', 'content']
     list_display = [
-        'id', 'title_link', 'author', 'keywords', 'pretty_series',
+        'id', 'title_link', 'author', 'keywords', 'series',
         'view_number', 'pretty_tags', 'created_at', 'updated_at'
     ]
     list_filter = ['show', 'author', 'tags']
@@ -80,10 +80,6 @@ class ArticleAdmin(admin.ModelAdmin):
     def pretty_tags(self, obj):
         return obj.pretty_tags
     pretty_tags.short_description = '标签'
-
-    def pretty_series(self, obj):
-        return obj.pretty_series
-    pretty_series.short_description = '系列'
 
     def save_model(self, request, obj, form, change):
         '''新建/编辑 文章'''

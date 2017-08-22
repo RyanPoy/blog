@@ -134,10 +134,6 @@ class Article(AbsArticle):
     def pretty_tags(self):
         return '，'.join([ t.name for t in self.tags.all() ])
 
-    @property
-    def pretty_series(self):
-        return '，'.join([ s.name for s in self.series.all() ])
-
     def limit_content(self, n=64):
         content = self.content.replace('\n', '').replace('\r', '')
         return content[:n] if len(content) < n else content[:n] + '...'
