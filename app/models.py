@@ -160,7 +160,7 @@ class Link(BaseModel):
     url = models.URLField('链接地址', max_length=255)
     seq = models.IntegerField('排序', default=0, db_index=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -172,6 +172,9 @@ class Series(BaseModel):
 
     name = models.CharField('名称', max_length=255)
     seq = models.IntegerField('排序', default=0, db_index=True)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         ordering = ['seq']
