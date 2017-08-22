@@ -17,12 +17,22 @@
 
 
 # 简单说明
-启动的时候，执行 python3 blog_app.py。具体参数有：
 
--  --admin-port                     Admin监听端口，默认：8001 (default 0)
--  --debug                          是否是调试模式，默认：true (default true)
--  --port                           系统监听端口，默认：8001 (default 8001)
--  --tmpl                           模板，默认：default (default default)
 
-具体参看源代码 blog_app.py
 
+# 执行步骤
+
+- 创建数据库
+  - create database blog default charset utf8
+- 执行migration
+  - python3 manage.py makemigrations
+  - python3 manage.py migrate
+- 创建超级管理员
+  - python3 manage.py createsuperuser
+- 启动
+  - 执行 python3 blog_app.py。具体参数有：
+    -  --admin-port                     Admin监听端口，默认：8001 (default 0)
+    -  --debug                          是否是调试模式，默认：true (default true)
+    -  --port                           系统监听端口，默认：8001 (default 8001)
+    -  --tmpl                           模板，默认：default (default default)
+    ····具体参看源代码 blog_app.py····
