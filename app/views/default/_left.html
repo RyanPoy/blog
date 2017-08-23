@@ -14,8 +14,8 @@
 #}
     彭一的博客 
     </a>
-
   </div>
+
   <div class="collapse navbar-collapse" id="custom-collapse">
     <ul class="nav navbar-nav">
 {# 带2级菜单的导航
@@ -35,59 +35,61 @@
         <a href="/rss" target="_blank">RSS订阅<img class="rss-img" src="{{ static_url('images/rss.png') }}" /></a>
       </li>
     </ul>
+
+    <hr>
+    <div class="panel-custom">
+      <!-- Default panel contents -->
+      <div class="panel-heading">标签</div>
+      <!-- List group -->
+      <div class="panel-body">
+        {% for t in all_tags %}
+        <span class="t"><a href="/blogs/tags/{{t.id}}">{{t.name}}({{t.article_number}})</a></span>
+        {% end %}
+      </div>
+    </div>
+
+    {% if all_series %}
+    <hr>
+    <div class="panel-custom">
+      <!-- Default panel contents -->
+      <div class="panel-heading">系列连载</div>
+      <!-- List group -->
+      <ul class="list-group">
+        {% for s in all_series %}
+        <li class="list-group-item"><a href="/blogs/series/{{s.id}}">{{s.name}}</a></li>
+        {% end %}
+      </ul>
+    </div>
+    {% end %}
+
+    {% if recent_articles %}
+    <hr>
+    <div class="panel-custom">
+      <!-- Default panel contents -->
+      <div class="panel-heading">最新文章</div>
+      <!-- List group -->
+      <ul class="list-group">
+        {% for a in recent_articles %}
+        <li class="list-group-item"><a href="/blogs/{{a.id}}">{{a.title}}</a></li>
+        {% end %}
+      </ul>
+    </div>
+    {% end %}
+
+    {% if all_links %}
+    <hr>
+    <div class="panel-custom">
+      <!-- Default panel contents -->
+      <div class="panel-heading">友情链接</div>
+      <!-- List group -->
+      <ul class="list-group">
+        {% for l in all_links %}
+        <li class="list-group-item"><a href="{{l.url}}" target='_blank'>{{l.name}}</a></li>
+        {% end %}
+      </ul>
+    </div>
+    {% end %}
+
   </div>
 </nav>
 
-<hr>
-<div class="panel-custom">
-  <!-- Default panel contents -->
-  <div class="panel-heading">标签</div>
-  <!-- List group -->
-  <div class="panel-body">
-    {% for t in all_tags %}
-    <span class="t"><a href="/blogs/tags/{{t.id}}">{{t.name}}({{t.article_number}})</a></span>
-    {% end %}
-  </div>
-</div>
-
-{% if all_series %}
-<hr>
-<div class="panel-custom">
-  <!-- Default panel contents -->
-  <div class="panel-heading">系列连载</div>
-  <!-- List group -->
-  <ul class="list-group">
-    {% for s in all_series %}
-    <li class="list-group-item"><a href="/blogs/series/{{s.id}}">{{s.name}}</a></li>
-    {% end %}
-  </ul>
-</div>
-{% end %}
-
-{% if recent_articles %}
-<hr>
-<div class="panel-custom">
-  <!-- Default panel contents -->
-  <div class="panel-heading">最新文章</div>
-  <!-- List group -->
-  <ul class="list-group">
-    {% for a in recent_articles %}
-    <li class="list-group-item"><a href="/blogs/{{a.id}}">{{a.title}}</a></li>
-    {% end %}
-  </ul>
-</div>
-{% end %}
-
-{% if all_links %}
-<hr>
-<div class="panel-custom">
-  <!-- Default panel contents -->
-  <div class="panel-heading">友情链接</div>
-  <!-- List group -->
-  <ul class="list-group">
-    {% for l in all_links %}
-    <li class="list-group-item"><a href="{{l.url}}" target='_blank'>{{l.name}}</a></li>
-    {% end %}
-  </ul>
-</div>
-{% end %}

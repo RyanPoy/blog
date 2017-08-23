@@ -80,14 +80,16 @@
     var leftHeight = $('.sidebar').height();
     var rightHeight = $('.wrapper').height();
     
-    console.log(leftHeight, rightHeight)
+    // console.log(leftHeight, rightHeight)
     if (leftHeight < rightHeight) {
       $('.sidebar').height(rightHeight);
     }
   }
   
   $(function() {
-    resize();
+    if (!navigator.userAgent.match(/(iPhone|iPod|Android|Windows Phone|IEMobile|blackberry)/i)) {
+      resize(); // 不是手机访问
+    }
   });
 
   // 百度的url自动推送
