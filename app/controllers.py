@@ -47,6 +47,8 @@ class BaseController(tornado.web.RequestHandler):
             kwargs['all_links'] = Link.objects.order_by('-seq').all()
         if 'active_css' not in kwargs:
             kwargs['active_css'] = lambda v: 'active' if self.full_uri == v else ''
+        if 'chang_yan' not in kwargs:
+            kwargs['chang_yan'] = settings.chang_yan
         return self
     
     def render_view(self, template_name, **kwargs):

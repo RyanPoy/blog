@@ -148,6 +148,12 @@ def builder_tornado_env(views_dir='admin'):
 db_ping_seconds = 30
 
 
+# 畅言评论
+chang_yan = dict(
+    appid = 'cytb7hxQj',
+    conf = 'prod_534c65780000c258a2b0ef2f3632795e'
+)
+
 try:
     from settings_local import *
 except:
