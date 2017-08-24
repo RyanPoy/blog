@@ -6,6 +6,7 @@
 - django
 - tornado
 - Pillow
+- uvloop，因为tornado的异步处理能力远远比不上uvloop，所以用uvloop代替了tornado的ioloop
 - 搜狐畅言，因为本站的评论系统直接用了搜狐畅言
 
 # 作用
