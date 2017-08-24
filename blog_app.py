@@ -1,5 +1,4 @@
 #coding: utf8
-############import django
 import os
 
 from django.core.handlers.wsgi import WSGIHandler
@@ -16,6 +15,9 @@ import tornado.web
 import tornado.escape
 from tornado.util import unicode_type
 import logging
+from tornado.platform.asyncio import AsyncIOMainLoop
+import asyncio
+import uvloop
 
 
 def utf8(value):
@@ -61,7 +63,12 @@ def main():
     tornado_env = builder_tornado_env(tmpl)
     tornado_env['debug'] = debug
 
-    ioloop = tornado.ioloop.IOLoop.instance()
+    asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+    AsyncIOMainLoop().install()
+
+    ioloop = asyncio.get_event_loop()
+
+    # ioloop = tornado.ioloop.IOLoop.instance()
 
     def admin_listen():
         if not admin_port:
@@ -91,9 +98,11 @@ def main():
 
     tornado.ioloop.PeriodicCallback(ping_db, int(db_ping_seconds * 1000)).start()
     try:
-        ioloop.start()
+        # ioloop.start()
+        ioloop.run_forever()
     except KeyboardInterrupt:
         ioloop.stop()
+        ioloop.close()
 
 
 if __name__ == '__main__':
