@@ -7,7 +7,8 @@
 - tornado
 - Pillow
 - uvloop，因为tornado的异步处理能力远远比不上uvloop，所以用uvloop代替了tornado的ioloop
-- 搜狐畅言，因为本站的评论系统直接用了搜狐畅言
+- 搜狐畅言，因为本站的评论系统直接用了搜狐畅言，具体看：https://changyan.kuaizhan.com
+- 百度站内搜索，因为本站的站内搜索采用了百度的站内搜索，具体看：http://http://zn.baidu.com
 
 # 作用
 某天突然发现自己没有了好奇心。感觉世界都没有意思了。我意识到自己要做点什么，用来拜托这个局面。想到之前有一个blog。用了别人的东西。那么不如自己来写一个吧。所以，便有了它。
