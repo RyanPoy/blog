@@ -18,3 +18,5 @@ static/media/
 settings_local.py
 birthday.html
 media.tag.gz
+bottle.py
+mqtt/
