@@ -372,31 +372,24 @@ class ApiSeriesController(BaseController):
             'series': s.to_dict()
         })
 
-    # def put(self):
-    #     d = json.loads(self.request.body)
-    #     _id = d.get('id', '')
-    #     db_link = self.get_object_or_404(Link, id=_id)
+    def put(self):
+        d = json.loads(self.request.body)
+        _id = d.get('id', '')
+        db_series = self.get_object_or_404(Series, id=_id)
         
-    #     name = d.get('name', '')
-    #     if not name:
-    #         return self.end(code=-1, err_str='名称不能为空')
-    #     if Link.objects.filter(name=name).filter(~Q(id=_id)).first():
-    #         return self.end(code=-1, err_str='存在同名友链')
+        name = d.get('name', '')
+        if not name:
+            return self.end(code=-1, err_str='名称不能为空')
+        if Series.objects.filter(name=name).filter(~Q(id=_id)).first():
+            return self.end(code=-1, err_str='存在同名系列')
 
-    #     url = d.get('url', '')
-    #     if not url:
-    #         return self.end(code=-1, err_str='链接地址不能为空')
-    #     if Link.objects.filter(url=url).filter(~Q(id=_id)).first():
-    #         return self.end(code=-1, err_str='存在同名友链')
+        db_series.name = d['name']
+        db_series.seq = toi(d.get('seq', '0'))
 
-    #     db_link.name = d['name']
-    #     db_link.url = d['url']
-    #     db_link.seq = toi(d.get('seq', '0'))
-
-    #     db_link.save()
-    #     return self.end(data={
-    #         'link': db_link.to_dict()
-    #     })
+        db_series.save()
+        return self.end(data={
+            'link': db_series.to_dict()
+        })
 
     def delete(self):
         t = json.loads(self.request.body)
