@@ -11,6 +11,11 @@ from .models import *
 from datetime import datetime
 import json
 
+def toi(v):
+    try:
+        return int(v)
+    except:
+        return 0
 
 class BaseController(tornado.web.RequestHandler):
 
@@ -117,13 +122,13 @@ class BaseController(tornado.web.RequestHandler):
 
     def finish(self, *args, **kwargs):
         self.set_header('Access-Control-Allow-Origin', '*')
-        super(BaseController, self).finish(*args, **kwargs)
+        super().finish(*args, **kwargs)
 
     def write_error(self, status_code, *args, **kwargs):
         if settings.DEBUG:
             # from web.py
             # in debug mode, try to send a traceback
-            return super(BaseController, self).write_error(status_code, *args, **kwargs)
+            return super().write_error(status_code, *args, **kwargs)
         else:
             print (status_code)
             if status_code == 500:
@@ -276,7 +281,6 @@ class ApiTagController(BaseController):
         })
 
     def delete(self):
-        print(self.request.arguments)
         t = json.loads(self.request.body)
         _id = t.get('id', '')
         db_tag = self.get_object_or_404(Tag, id=_id)
@@ -285,3 +289,119 @@ class ApiTagController(BaseController):
             return self.end(data=db_tag.to_dict())
 
             
+class ApiLinkController(BaseController):
+
+    def get(self):
+        return self.end(data={ 
+            'links': [ t.to_dict() for t in Link.objects.all() ]
+        })
+
+    def post(self):
+        d = json.loads(self.request.body)
+        name = d.get('name', '')
+        if not name:
+            return self.end(code=-1, err_str='名称不能为空')
+        if Link.objects.filter(name=name).first():
+            return self.end(code=-1, err_str='存在同名友链')
+
+        url = d.get('url', '')
+        if not url:
+            return self.end(code=-1, err_str='链接地址不能为空')
+        if Link.objects.filter(url=url).first():
+            return self.end(code=-1, err_str='存在同名友链')
+
+        l = Link(name=name, url=url, seq=toi(d.get('seq', '0')))
+        l.save()
+        return self.end(data={
+            'link': l.to_dict()
+        })
+
+    def put(self):
+        d = json.loads(self.request.body)
+        _id = d.get('id', '')
+        db_link = self.get_object_or_404(Link, id=_id)
+        
+        name = d.get('name', '')
+        if not name:
+            return self.end(code=-1, err_str='名称不能为空')
+        if Link.objects.filter(name=name).filter(~Q(id=_id)).first():
+            return self.end(code=-1, err_str='存在同名友链')
+
+        url = d.get('url', '')
+        if not url:
+            return self.end(code=-1, err_str='链接地址不能为空')
+        if Link.objects.filter(url=url).filter(~Q(id=_id)).first():
+            return self.end(code=-1, err_str='存在同名友链')
+
+        db_link.name = d['name']
+        db_link.url = d['url']
+        db_link.seq = toi(d.get('seq', '0'))
+
+        db_link.save()
+        return self.end(data={
+            'link': db_link.to_dict()
+        })
+
+    def delete(self):
+        t = json.loads(self.request.body)
+        _id = t.get('id', '')
+        db_link = self.get_object_or_404(Link, id=_id)
+        if db_link:
+            db_link.delete()
+            return self.end(data=db_link.to_dict())
+
+
+class ApiSeriesController(BaseController):
+
+    def get(self):
+        return self.end(data={ 
+            'series': [ t.to_dict() for t in Series.objects.all() ]
+        })
+
+    def post(self):
+        d = json.loads(self.request.body)
+        name = d.get('name', '')
+        if not name:
+            return self.end(code=-1, err_str='名称不能为空')
+        if Series.objects.filter(name=name).first():
+            return self.end(code=-1, err_str='存在同名系列')
+
+        s = Series(name=name, seq=toi(d.get('seq', '0')))
+        s.save()
+        return self.end(data={
+            'series': s.to_dict()
+        })
+
+    # def put(self):
+    #     d = json.loads(self.request.body)
+    #     _id = d.get('id', '')
+    #     db_link = self.get_object_or_404(Link, id=_id)
+        
+    #     name = d.get('name', '')
+    #     if not name:
+    #         return self.end(code=-1, err_str='名称不能为空')
+    #     if Link.objects.filter(name=name).filter(~Q(id=_id)).first():
+    #         return self.end(code=-1, err_str='存在同名友链')
+
+    #     url = d.get('url', '')
+    #     if not url:
+    #         return self.end(code=-1, err_str='链接地址不能为空')
+    #     if Link.objects.filter(url=url).filter(~Q(id=_id)).first():
+    #         return self.end(code=-1, err_str='存在同名友链')
+
+    #     db_link.name = d['name']
+    #     db_link.url = d['url']
+    #     db_link.seq = toi(d.get('seq', '0'))
+
+    #     db_link.save()
+    #     return self.end(data={
+    #         'link': db_link.to_dict()
+    #     })
+
+    def delete(self):
+        t = json.loads(self.request.body)
+        _id = t.get('id', '')
+        db_series = self.get_object_or_404(Series, id=_id)
+        if db_series:
+            db_series.delete()
+            return self.end(data=db_series.to_dict())

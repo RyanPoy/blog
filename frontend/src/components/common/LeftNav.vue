@@ -8,10 +8,14 @@
           <el-menu-item index="1-2">
             <router-link :to="{'name': 'AdminTag'}">标签</router-link>
           </el-menu-item>
-          <el-menu-item index="1-3">系列</el-menu-item>
+          <el-menu-item index="1-3">
+            <router-link :to="{'name': 'AdminSeries'}">系列</router-link>
+          </el-menu-item>
           <el-menu-item index="1-4">图片</el-menu-item>
           <el-menu-item index="1-5">单页面</el-menu-item>
-          <el-menu-item index="1-6">友链</el-menu-item>
+          <el-menu-item index="1-6">
+            <router-link :to="{'name': 'AdminLink'}">友链</router-link>
+          </el-menu-item>
         </el-menu-item-group>
       </el-submenu>
     </el-menu>
@@ -22,5 +26,7 @@
 </script>
 
 <style scoped>
-  .router-link-exact-active, .router-link-active {text-decoration: none; color: #2C3E50;}
+  .el-menu-item a, .router-link-exact-active, .router-link-active {text-decoration: none; color: #2C3E50;}
+  .el-menu-item {cursor: pointer;}
+  .el-menu-item a { width:100%; display: inline-block;}
 </style>

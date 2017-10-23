@@ -90,7 +90,7 @@ class Tag(BaseModel):
     article_number = models.IntegerField('文章数量', default=0)
     
     def to_dict(self):
-        d = super(Tag, self).to_dict()
+        d = super().to_dict()
         d['name'] = self.name
         d['article_number'] = self.article_number
         return d
@@ -181,6 +181,13 @@ class Link(BaseModel):
     url = models.URLField('链接地址', max_length=255)
     seq = models.IntegerField('排序', default=0, db_index=True)
 
+    def to_dict(self):
+        d = super().to_dict()
+        d['name'] = self.name
+        d['url'] = self.url
+        d['seq'] = self.seq
+        return d
+
     def __str__(self):
         return self.name
 
@@ -192,6 +199,12 @@ class Link(BaseModel):
 class Series(BaseModel):
     name = models.CharField('名称', max_length=255)
     seq = models.IntegerField('排序', default=0, db_index=True)
+
+    def to_dict(self):
+        d = super().to_dict()
+        d['name'] = self.name
+        d['seq'] = self.seq
+        return d
 
     def __str__(self):
         return self.name

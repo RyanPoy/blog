@@ -11,6 +11,8 @@ urls = [
     (r'^/rss[/]?$', RssController),
     
     (r'/api/tags[/]?$', ApiTagController),
+    (r'/api/links[/]?$', ApiLinkController),
+    (r'/api/series[/]?$', ApiSeriesController),
 
     (r'/.*', ErrorController),
 ]

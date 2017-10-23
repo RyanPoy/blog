@@ -2,7 +2,7 @@
   <div>
     <el-form :inline="true">
       <el-form-item label="名称">
-        <el-input v-model="newTagName" placeholder="请填入名称">{{newTagName}}</el-input>
+        <el-input v-model="newTagName" placeholder="请填入名称"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="create">添加</el-button>
