@@ -1,23 +1,37 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <el-container>
+      <el-aside height="100%">
+        <left-nav></left-nav>
+      </el-aside>
+      <el-container>
+        <el-header>头</el-header>
+        <el-main>
+          <router-view/>
+        </el-main>
+        <el-footer>尾</el-footer>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
 <script>
+import LeftNav from '@/components/common/LeftNav'
+
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    LeftNav
+  }
 }
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Microsoft YaHei', 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: #2C3E50;
 }
 </style>

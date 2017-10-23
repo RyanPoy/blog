@@ -1,6 +1,7 @@
 #coding: utf8
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db import transaction, connection
+from django.db.models import Q
 from tornado.util import unicode_type
 from pprint import pprint
 import tornado.web
@@ -8,6 +9,7 @@ import functools
 import settings
 from .models import *
 from datetime import datetime
+import json
 
 
 class BaseController(tornado.web.RequestHandler):
@@ -22,6 +24,7 @@ class BaseController(tornado.web.RequestHandler):
         # if self.request.method.lower() == 'post':
         self.request.method = self.get_argument('_method', '').upper() or self.request.method
         self.has_except = False
+        self.set_default_headers()
 
     def prepare(self):
         pass
@@ -51,6 +54,13 @@ class BaseController(tornado.web.RequestHandler):
             kwargs['chang_yan'] = settings.chang_yan
         return self
     
+    def end(self, code=0, err_str='', data={}):
+        return self.finish(json.dumps({
+            'code': code,
+            'err_str': err_str,
+            'data': data
+        }))
+
     def render_view(self, template_name, **kwargs):
         self.__before_render_view_or_ajax(kwargs)
         return self.render(template_name, **kwargs)
@@ -96,8 +106,18 @@ class BaseController(tornado.web.RequestHandler):
         pagination_objects.count = paginator.count
         return pagination_objects
 
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+        # self.set_header("Access-Control-Allow-Headers", "x-requested-with,authorization")
+        self.set_header('Access-Control-Allow-Methods', 'POST,GET,PUT,DELETE,OPTIONS')
+        self.set_header('Access-Control-Allow-Headers:x-requested-with', 'content-type')
+
     def is_ajax(self):
         return self.request.headers.get('X-Requested-With', '').upper() == 'XMLHTTPREQUEST'
+
+    def finish(self, *args, **kwargs):
+        self.set_header('Access-Control-Allow-Origin', '*')
+        super(BaseController, self).finish(*args, **kwargs)
 
     def write_error(self, status_code, *args, **kwargs):
         if settings.DEBUG:
@@ -215,3 +235,53 @@ class RssController(BaseController):
         self.set_header("Content-Type", "application/rss+xml")
         return self.finish()
 
+
+class ApiTagController(BaseController):
+
+    def get(self):
+        return self.end(data={ 
+            'tags': [ t.to_dict() for t in Tag.objects.all() ]
+        })
+
+    def post(self):
+        d = json.loads(self.request.body)
+        name = d.get('name', '')
+        if not name:
+            return self.end(code=-1, err_str='名称不能为空')
+        if Tag.objects.filter(name=name).first():
+            return self.end(code=-1, err_str='存在同名tag')
+
+        t = Tag(name=name)
+        t.save()
+        return self.end(data={
+            'tag': t.to_dict()
+        })
+
+    def put(self):
+        t = json.loads(self.request.body)
+        _id = t.get('id', '')
+        db_tag = self.get_object_or_404(Tag, id=_id)
+        
+        name = t.get('name', '')
+        
+        if not name:
+            return self.end(code=-1, err_str='名称不能为空')
+        if Tag.objects.filter(name=name).filter(~Q(id=_id)).first():
+            return self.end(code=-1, err_str='存在同名tag')
+        
+        db_tag.name = t['name']
+        db_tag.save()
+        return self.end(data={
+            'tag': db_tag.to_dict()
+        })
+
+    def delete(self):
+        print(self.request.arguments)
+        t = json.loads(self.request.body)
+        _id = t.get('id', '')
+        db_tag = self.get_object_or_404(Tag, id=_id)
+        if db_tag:
+            db_tag.delete()
+            return self.end(data=db_tag.to_dict())
+
+            

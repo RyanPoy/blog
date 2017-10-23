@@ -9,5 +9,8 @@ urls = [
     (r'^/blogs/series/(\d+)[/]?$', SeriesArticleController),
     (r'^/archives[/]?$', ArchiveController),
     (r'^/rss[/]?$', RssController),
+    
+    (r'/api/tags[/]?$', ApiTagController),
+
     (r'/.*', ErrorController),
 ]

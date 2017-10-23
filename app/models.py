@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime, date
 import markdown2 as md
-
+import json
 
 
 # Create your models here.
@@ -15,6 +15,17 @@ class BaseModel(models.Model):
 
     class Meta:
         abstract = True
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'created_at': self.created_at_str(),
+            'updated_at': self.updated_at_str(),
+            'show': self.show
+        }
+
+    def to_json(self):
+        return json.dumps(self.to_dict)
 
     @classmethod
     def get_table_name(cls):
@@ -78,6 +89,11 @@ class Tag(BaseModel):
     name = models.CharField('名字', max_length=255, db_index=True, null=False, unique=True)
     article_number = models.IntegerField('文章数量', default=0)
     
+    def to_dict(self):
+        d = super(Tag, self).to_dict()
+        d['name'] = self.name
+        d['article_number'] = self.article_number
+        return d
 
     def __str__(self):
         return self.name
