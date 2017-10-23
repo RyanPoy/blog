@@ -2,8 +2,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime, date
+from settings import MEDIA_ROOT
 import markdown2 as md
 import json
+import os
 
 
 # Create your models here.
@@ -105,6 +107,45 @@ class Tag(BaseModel):
 class Image(BaseModel):
 
     pic = models.ImageField('图片', null=False)
+
+    @property
+    def abspath(self):
+        return os.path.join(MEDIA_ROOT, self.pic.name)
+
+    @classmethod
+    def my_save(cls, fname, fbody):
+        save_name = fname
+        while True:
+            print(save_name)
+            if Image.objects.filter(pic=save_name).first():
+                save_name = '{}(1)'.format(save_name)
+            else:
+                break
+        save_path = os.path.join(MEDIA_ROOT, save_name)
+        with open(save_path, 'wb') as f:
+            f.write(fbody)
+
+        obj = cls()
+        obj.pic.name = save_name
+        obj.save()
+        return obj
+
+
+    @property
+    def size(self):
+        return '%.2f KB' % (self.pic.size / 1024.0)
+
+    def to_dict(self):
+        d = super().to_dict()
+        if os.path.exists(self.abspath):
+            d['name'] = self.pic.name
+            d['size'] = self.size
+            d['url'] = self.pic.url
+        else:
+            d['name'] = ''
+            d['size'] = 0
+            d['url'] = ''
+        return d
 
     def __str__(self):
         return self.pic.name

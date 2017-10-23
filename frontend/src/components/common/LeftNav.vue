@@ -11,7 +11,9 @@
           <el-menu-item index="1-3">
             <router-link :to="{'name': 'AdminSeries'}">系列</router-link>
           </el-menu-item>
-          <el-menu-item index="1-4">图片</el-menu-item>
+          <el-menu-item index="1-4">
+            <router-link :to="{'name': 'AdminImage'}">图片</router-link>
+          </el-menu-item>
           <el-menu-item index="1-5">单页面</el-menu-item>
           <el-menu-item index="1-6">
             <router-link :to="{'name': 'AdminLink'}">友链</router-link>

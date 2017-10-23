@@ -398,3 +398,41 @@ class ApiSeriesController(BaseController):
         if db_series:
             db_series.delete()
             return self.end(data=db_series.to_dict())
+
+
+class ApiImageController(BaseController):
+
+    SUPPORT_IMAGE_TYPES = ('image/jpg', 'image/png', 'image/gif', 'image/jpeg')
+    SUPPORT_IMAGE_MAX_SIZE = 500<<10
+
+    def get(self):
+        return self.end(data={ 
+            'images': [ t.to_dict() for t in Image.objects.all() ]
+        })
+
+    def post(self):
+        if 'images' not in self.request.files:
+            return self.end(code=-1, err_str='请上传图片')
+
+        for f in self.request.files['images']:
+            fname, content_type, fbody = f['filename'], f['content_type'], f['body']
+            if content_type.lower() not in self.SUPPORT_IMAGE_TYPES:
+                return self.end(code=-1, err_str="只支持JPG、PNG、GIF 图片格式")
+            if len(fbody) > self.SUPPORT_IMAGE_MAX_SIZE:
+                return self.end(code=-1, err_str="最大支持512KB")
+            img = Image.my_save(fname, fbody)
+            return self.end(data={
+                'image': img.to_dict()
+            })
+
+    def delete(self):
+        t = json.loads(self.request.body)
+        _id = t.get('id', '')
+        db_image = self.get_object_or_404(Image, id=_id)
+        if db_image:
+            db_image.delete()
+            try:
+                os.remove(db_image.abspath)
+            except:
+                raise
+            return self.end(data=db_image.to_dict())

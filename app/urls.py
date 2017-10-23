@@ -13,6 +13,7 @@ urls = [
     (r'/api/tags[/]?$', ApiTagController),
     (r'/api/links[/]?$', ApiLinkController),
     (r'/api/series[/]?$', ApiSeriesController),
+    (r'/api/images[/]?$', ApiImageController),
 
     (r'/.*', ErrorController),
 ]
