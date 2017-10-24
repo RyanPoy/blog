@@ -160,14 +160,14 @@ class AbsArticle(BaseModel):
     title           = models.CharField('标题', max_length=255, db_index=True, unique=True)
     keywords        = models.CharField('关键词', max_length=255, null=True, default='', editable=False)
     content         = models.TextField('MarkDown内容', null=False, default='')
-    author          = models.ForeignKey(User, verbose_name='作者', editable=False)
+    author          = models.ForeignKey(User, verbose_name='作者', editable=False, null=True, blank=True)
 
     def to_dict(self):
         d = super().to_dict()
         d['title'] = self.title
         d['keywords'] = self.keywords
         d['content'] = self.content
-        d['author'] = self.author.username
+        d['author'] = self.author.username if self.author else '-'
         return d
 
     @property
@@ -226,7 +226,7 @@ class Page(AbsArticle):
     """ 单页面，直接显示在导航栏上 """
     objects = PageManager()
     seq = models.IntegerField('排序', default=0, db_index=True)
-    uri = models.CharField('跳转地址', db_index=True, null=False, max_length=255, unique=True)
+    uri = models.CharField('跳转地址', null=False, max_length=255, db_index=True)
 
     def to_dict(self):
         d = super().to_dict()

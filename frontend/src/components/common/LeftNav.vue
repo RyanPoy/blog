@@ -30,7 +30,8 @@
 </script>
 
 <style scoped>
-  .el-menu-item a, .router-link-exact-active, .router-link-active {text-decoration: none; color: #2C3E50;}
+  .el-menu-item a {text-decoration: none; color: #2C3E50;}
+  .el-menu-item a.router-link-exact-active, .el-menu-item a.router-link-active {color: #409EFF;}
   .el-menu-item {cursor: pointer;}
   .el-menu-item a { width:100%; display: inline-block;}
 </style>

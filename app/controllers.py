@@ -17,6 +17,7 @@ def toi(v):
     except:
         return 0
 
+
 class BaseController(tornado.web.RequestHandler):
 
     SUPPORTED_METHODS = tornado.web.RequestHandler.SUPPORTED_METHODS \
@@ -445,19 +446,32 @@ class ApiPageController(BaseController):
             'pages': [ p.to_dict() for p in Page.objects.all() ]
         })
 
-    # def post(self):
-    #     d = json.loads(self.request.body)
-    #     name = d.get('name', '')
-    #     if not name:
-    #         return self.end(code=-1, err_str='名称不能为空')
-    #     if Series.objects.filter(name=name).first():
-    #         return self.end(code=-1, err_str='存在同名系列')
+    def post(self):
+        d = json.loads(self.request.body)
+        title = d.get('title', '')
+        if not title:
+            return self.end(code=-1, err_str='名称不能为空')
+        if Page.objects.filter(title=title).first():
+            return self.end(code=-1, err_str='存在同名页面')
 
-    #     s = Series(name=name, seq=toi(d.get('seq', '0')))
-    #     s.save()
-    #     return self.end(data={
-    #         'series': s.to_dict()
-    #     })
+        uri = d.get('uri', '')
+        if not uri:
+            return self.end(code=-1, err_str='链接地址不能为空')
+
+        content = d.get('content', '')
+        if not content:
+            return self.end(code=-1, err_str='内容不能为空')
+        if len(content) < 4:
+            return self.end(code=-1, err_str='正文长度不能少于4个字')
+
+        p = Page(title=title, seq=toi(d.get('seq', '0')), content=content, uri=uri)
+        p.save()
+        print('*'*10)
+        print(p.to_dict())
+        print('*'*10)
+        return self.end(data={
+            'page': p.to_dict()
+        })
 
     def put(self):
         d = json.loads(self.request.body)
@@ -470,6 +484,12 @@ class ApiPageController(BaseController):
         if Page.objects.filter(title=title).filter(~Q(id=_id)).first():
             return self.end(code=-1, err_str='存在同名页面')
 
+        content = d.get('content', '')
+        if not content:
+            return self.end(code=-1, err_str='内容不能为空')
+        if len(content) < 4:
+            return self.end(code=-1, err_str='正文长度不能少于4个字')
+
         uri = d.get('uri', '')
         if not uri:
             return self.end(code=-1, err_str='链接地址不能为空')
@@ -477,16 +497,16 @@ class ApiPageController(BaseController):
         db_page.title = title
         db_page.uri = uri
         db_page.seq = toi(d.get('seq', '0'))
-        db_page.content = d['content']
+        db_page.content = content
         db_page.save()
         return self.end(data={
             'page': db_page.to_dict()
         })
 
-    # def delete(self):
-    #     t = json.loads(self.request.body)
-    #     _id = t.get('id', '')
-    #     db_series = self.get_object_or_404(Series, id=_id)
-    #     if db_series:
-    #         db_series.delete()
-    #         return self.end(data=db_series.to_dict())
+    def delete(self):
+        t = json.loads(self.request.body)
+        _id = t.get('id', '')
+        db_page = self.get_object_or_404(Page, id=_id)
+        if db_page:
+            db_page.delete()
+            return self.end(data=db_page.to_dict())
