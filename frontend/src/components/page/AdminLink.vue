@@ -40,7 +40,7 @@
       <el-table-column prop="updated_at" label="修改时间" align="left"></el-table-column>
       <el-table-column prop="" label="操作" align="left">
         <template slot-scope="scope">
-          <el-button size="small" @click="update(scope.row)">更新</el-button>
+          <el-button size="small" @click="update(scope.$index, scope.row)">更新</el-button>
           <el-button size="small" type="danger" @click="_delete(scope.$index, scope.row)">删除</el-button>
         </template>
       </el-table-column>
@@ -77,17 +77,11 @@
           }
         })
       },
-      update(link) {
+      update(index, link) {
         this.axios.put(utils.apiDomain + '/links/', link).then(response => {
           let r = response.data
           if (r.code == 0) {
-
-            link.name = r.data.link.name
-            link.url = r.data.link.url
-            link.seq = r.data.link.seq
-            link.created_at = r.data.link.created_at
-            link.updated_at = r.data.link.updated_at
-
+            this.$set(this.links, index, r.data.link)
             this.$message({
               message: '更新成功',
               type: 'success'

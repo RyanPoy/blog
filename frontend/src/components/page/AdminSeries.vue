@@ -12,7 +12,7 @@
       </el-form-item>
     </el-form>
 
-    <el-table :data="series" stripe style="width: 100%">
+    <el-table :data="seriesList" stripe style="width: 100%">
       <el-table-column prop="id" label="ID" align="left"></el-table-column>
       
       <el-table-column prop="" label="名称" align="left">
@@ -31,7 +31,7 @@
       <el-table-column prop="updated_at" label="修改时间" align="left"></el-table-column>
       <el-table-column prop="" label="操作" align="left">
         <template slot-scope="scope">
-          <el-button size="small" @click="update(scope.row)">更新</el-button>
+          <el-button size="small" @click="update(scope.$index, scope.row)">更新</el-button>
           <el-button size="small" type="danger" @click="_delete(scope.$index, scope.row)">删除</el-button>
         </template>
       </el-table-column>
@@ -45,7 +45,7 @@
   export default({
     data() {
       return {
-        series: [],
+        seriesList: [],
         newSeries: {name: '', seq: 0}
       }
     },
@@ -55,7 +55,7 @@
           let r = response.data
           if (r.code == 0) {
             this.newSeries = {name: '', seq: 0}
-            this.series.push(r.data.series)
+            this.seriesList.push(r.data.series)
             this.$message({
               message: '添加成功',
               type: 'success'
@@ -68,16 +68,11 @@
           }
         })
       },
-      update(series) {
+      update(index, series) {
         this.axios.put(utils.apiDomain + '/series/', series).then(response => {
           let r = response.data
           if (r.code == 0) {
-
-            series.name = r.data.series.name
-            series.seq = r.data.series.seq
-            series.created_at = r.data.series.created_at
-            series.updated_at = r.data.series.updated_at
-
+            this.$set(this.seriesList, index, series)
             this.$message({
               message: '更新成功',
               type: 'success'
@@ -95,7 +90,7 @@
           this.axios.delete(utils.apiDomain + '/series/', {data: series}).then(response => {
             let r = response.data
             if (r.code == 0) {
-              this.series.splice(index, 1)
+              this.seriesList.splice(index, 1)
               this.$message({
                 message: '删除成功',
                 type: 'success'
@@ -114,7 +109,7 @@
       this.axios.get(utils.apiDomain + '/series').then(response => {
         let r = response.data
         if (r.code == 0) {
-          this.series = r.data.series
+          this.seriesList = r.data.series
         }
       })
     }

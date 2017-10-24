@@ -4,6 +4,7 @@ import AdminTag from '@/components/page/AdminTag'
 import AdminLink from '@/components/page/AdminLink'
 import AdminSeries from '@/components/page/AdminSeries'
 import AdminImage from '@/components/page/AdminImage'
+import AdminPage from '@/components/page/AdminPage'
 
 
 Vue.use(Router)
@@ -13,6 +14,7 @@ export default new Router({
     { path: '/admin/tags', name: 'AdminTag', component: AdminTag },
     { path: '/admin/links', name: 'AdminLink', component: AdminLink },
     { path: '/admin/series', name: 'AdminSeries', component: AdminSeries },
-    { path: '/admin/images', name: 'AdminImage', component: AdminImage }
+    { path: '/admin/images', name: 'AdminImage', component: AdminImage },
+    { path: '/admin/pages', name: 'AdminPage', component: AdminPage }
   ]
 })

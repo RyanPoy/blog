@@ -21,7 +21,7 @@
       <el-table-column prop="updated_at" label="修改时间" align="left"></el-table-column>
       <el-table-column prop="" label="操作" align="left">
         <template slot-scope="scope">
-          <el-button size="small" @click="update(scope.row)">更新</el-button>
+          <el-button size="small" @click="update(scope.$index, scope.row)">更新</el-button>
           <el-button size="small" type="danger" @click="_delete(scope.$index, scope.row)">删除</el-button>
         </template>
       </el-table-column>
@@ -89,12 +89,12 @@ export default {
         })
       }
     },
-    update(tag) {
+    update(index, tag) {
       if (tag.name && tag.name.length > 0) {
         this.axios.put(utils.apiDomain + '/tags/', tag).then(response => {
           let r = response.data
           if (r.code == 0) {
-            tag.name = r.data.tag.name
+            this.$set(this.tags, index, tag)
             this.$message({
               message: '更新成功',
               type: 'success'

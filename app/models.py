@@ -162,6 +162,14 @@ class AbsArticle(BaseModel):
     content         = models.TextField('MarkDown内容', null=False, default='')
     author          = models.ForeignKey(User, verbose_name='作者', editable=False)
 
+    def to_dict(self):
+        d = super().to_dict()
+        d['title'] = self.title
+        d['keywords'] = self.keywords
+        d['content'] = self.content
+        d['author'] = self.author.username
+        return d
+
     @property
     def html_content(self):
         return md.markdown(self.content)
@@ -182,6 +190,13 @@ class Article(AbsArticle):
     view_number     = models.IntegerField('浏览次数', null=False, default=0)
     tags            = models.ManyToManyField(Tag, verbose_name='标签')
     series          = models.ForeignKey('Series', verbose_name='系列', null=True, blank=True, related_name='series_id')
+
+    def to_dict(self):
+        d = super().to_dict()
+        d['view_number'] = self.view_number
+        d['pretty_tags'] = self.pretty_tags
+        d['series'] = self.series.to_dict()
+        return d
 
     @property
     def same_series(self):
@@ -212,6 +227,12 @@ class Page(AbsArticle):
     objects = PageManager()
     seq = models.IntegerField('排序', default=0, db_index=True)
     uri = models.CharField('跳转地址', db_index=True, null=False, max_length=255, unique=True)
+
+    def to_dict(self):
+        d = super().to_dict()
+        d['seq'] = self.seq
+        d['uri'] = self.uri
+        return d
 
     class Meta:
         verbose_name = verbose_name_plural = '单页面'

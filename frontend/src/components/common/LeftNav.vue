@@ -14,7 +14,9 @@
           <el-menu-item index="1-4">
             <router-link :to="{'name': 'AdminImage'}">图片</router-link>
           </el-menu-item>
-          <el-menu-item index="1-5">单页面</el-menu-item>
+          <el-menu-item index="1-5">
+            <router-link :to="{'name': 'AdminPage'}">单页面</router-link>
+          </el-menu-item>
           <el-menu-item index="1-6">
             <router-link :to="{'name': 'AdminLink'}">友链</router-link>
           </el-menu-item>
