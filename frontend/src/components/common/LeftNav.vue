@@ -4,7 +4,9 @@
       <el-submenu index="1">
         <template slot="title">博客管理</template>
         <el-menu-item-group>
-          <el-menu-item index="1-1">文章</el-menu-item>
+          <el-menu-item index="1-1">
+            <router-link :to="{'name': 'AdminArticle'}">文章</router-link>
+          </el-menu-item>
           <el-menu-item index="1-2">
             <router-link :to="{'name': 'AdminTag'}">标签</router-link>
           </el-menu-item>

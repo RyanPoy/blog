@@ -167,7 +167,7 @@ class AbsArticle(BaseModel):
         d['title'] = self.title
         d['keywords'] = self.keywords
         d['content'] = self.content
-        d['author'] = self.author.username if self.author else '-'
+        d['author'] = self.author.username if self.author else {}
         return d
 
     @property
@@ -195,7 +195,7 @@ class Article(AbsArticle):
         d = super().to_dict()
         d['view_number'] = self.view_number
         d['pretty_tags'] = self.pretty_tags
-        d['series'] = self.series.to_dict()
+        d['series'] = self.series.to_dict() if self.series else {}
         return d
 
     @property
@@ -204,7 +204,9 @@ class Article(AbsArticle):
         
     @property
     def pretty_tags(self):
-        return '，'.join([ t.name for t in self.tags.all() ])
+        if self.id:
+            return '，'.join([ t.name for t in self.tags.all() ])
+        return ''
 
     def limit_content(self, n=64):
         content = self.content.replace('\n', '').replace('\r', '')

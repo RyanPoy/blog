@@ -2,21 +2,28 @@
   <div>
     <el-tabs type="card">
       <el-tab-pane label="列表">
-        <el-table :data="pages" stripe style="width: 100%">
+        <el-table :data="articles" stripe style="width: 100%">
           <el-table-column type="expand">
             <template slot-scope="props">
               <el-form label-position="left" inline class="table-expand">
                 <el-form-item label="标题">
-                  <el-input v-model="props.row.title"></el-input></span>
+                  <el-input v-model="props.row.title"></el-input>
                 </el-form-item>
-                <el-form-item label="链接地址">
-                  <el-input v-model="props.row.uri"></el-input></span>
+                <el-form-item label="关键词">
+                  <el-input v-model="props.row.keywords"></el-input>
                 </el-form-item>
-                <el-form-item label="排序">
-                  <el-input v-model="props.row.seq"></el-input></span>
+                <el-form-item label="系列">
+                  <el-select v-model="props.row.series">
+                    <el-option v-for="item in seriesList" :key="item.name" :label="item.name" :value="item.id"></el-option>
+                  </el-select>
                 </el-form-item>
-                <el-form-item label="正文">
-                  <el-input type="textarea" v-model="props.row.content" :rows="15"></el-input>
+                <el-form-item label="浏览次数">
+                  <el-input v-model="props.row.view_number"></el-input></span>
+                </el-form-item>
+                <el-form-item label="标签">
+                  <el-select multiple v-model="props.row.pretty_tags">
+                    <el-option v-for="item in tags" :key="item.name" :label="item.name" :value="item.id"></el-option>
+                  </el-select>
                 </el-form-item>
                 <el-form-item label=" ">
                   <el-button size="small" type="primary" @click="update(props.$index, props.row)">更新</el-button>
@@ -27,8 +34,11 @@
 
           <el-table-column prop="id" label="ID" align="left"></el-table-column>
           <el-table-column prop="title" label="标题" align="left"></el-table-column>
-          <el-table-column prop="uri" label="链接地址" align="left"></el-table-column>
-          <el-table-column prop="seq" label="排序" align="left"></el-table-column>
+          <el-table-column prop="author.username" label="作者" align="left"></el-table-column>
+          <el-table-column prop="keywords" label="关键词" align="left"></el-table-column>
+          <el-table-column prop="series.name" label="系列" align="left"></el-table-column>
+          <el-table-column prop="view_number" label="浏览次数" align="left"></el-table-column>
+          <el-table-column prop="pretty_tags" label="标签" align="left"></el-table-column>
 
           <el-table-column prop="created_at" label="创建时间" align="left"></el-table-column>
           <el-table-column prop="updated_at" label="修改时间" align="left"></el-table-column>
@@ -42,21 +52,21 @@
 
 
       <el-tab-pane label="新建">
-        <el-form :model="newPage" label-position="left" inline class="table-expand">
+        <el-form :model="newArticle" label-position="left" inline class="table-expand">
           <el-form-item label="标题">
-            <el-input v-model="newPage.title"></el-input></span>
+            <el-input v-model="newArticle.title"></el-input></span>
           </el-form-item>
           <el-form-item label="链接地址">
-            <el-input v-model="newPage.uri"></el-input></span>
+            <el-input v-model="newArticle.uri"></el-input></span>
           </el-form-item>
           <el-form-item label="排序">
-            <el-input v-model="newPage.seq"></el-input></span>
+            <el-input v-model="newArticle.seq"></el-input></span>
           </el-form-item>
           <el-form-item label="正文">
-            <el-input type="textarea" v-model="newPage.content" :rows="15"></el-input>
+            <el-input type="textarea" v-model="newArticle.content" :rows="15"></el-input>
           </el-form-item>
           <el-form-item label=" ">
-            <el-button size="small" type="primary" @click="create(newPage)">创建</el-button>
+            <el-button size="small" type="primary" @click="create(newArticle)">创建</el-button>
           </el-form-item>
         </el-form>
       </el-tab-pane>
@@ -70,17 +80,19 @@
   export default({
     data() {
       return {
-        pages: [],
-        newPage: {id: null, uri: '', seq: 0, content: ''},
+        articles: [],
+        seriesList: [],
+        tags: [],
+        newArticle: {},
       }
     },
     methods: {
-      create(newpage) {
-        this.axios.post(utils.apiDomain + '/pages/', newpage).then(response => {
+      create(newarticle) {
+        this.axios.post(utils.apiDomain + '/articles/', newarticle).then(response => {
           let r = response.data
           if (r.code == 0) {
-            this.pages.unshift(r.data.page)
-            this.newPage = {id: null, uri: '', seq: 0, content: ''}
+            this.articles.unshift(r.data.article)
+            this.newArticle = {}
             this.$message({
               message: '添加成功',
               type: 'success'
@@ -93,11 +105,11 @@
           }
         })
       },
-      update(index, page) {
-        this.axios.put(utils.apiDomain + '/pages/', page).then(response => {
+      update(index, article) {
+        this.axios.put(utils.apiDomain + '/articles/', article).then(response => {
           let r = response.data
           if (r.code == 0) {
-            this.$set(this.pages, index, r.data.page)
+            this.$set(this.articles, index, r.data.article)
             this.$message({
               message: '更新成功',
               type: 'success'
@@ -110,12 +122,12 @@
           }
         })
       },
-      _delete(index, page) {
-        if (page.id && page.id > 0) {
-          this.axios.delete(utils.apiDomain + '/pages/', {data: page}).then(response => {
+      _delete(index, article) {
+        if (article.id && article.id > 0) {
+          this.axios.delete(utils.apiDomain + '/articles/', {data: article}).then(response => {
             let r = response.data
             if (r.code == 0) {
-              this.pages.splice(index, 1)
+              this.articles.splice(index, 1)
               this.$message({
                 message: '删除成功',
                 type: 'success'
@@ -131,10 +143,22 @@
       }
     },
     mounted() {
-      this.axios.get(utils.apiDomain + '/pages').then(response => {
+      this.axios.get(utils.apiDomain + '/articles').then(response => {
         let r = response.data
         if (r.code == 0) {
-          this.pages = r.data.pages
+          this.articles = r.data.articles
+        }
+      })
+      this.axios.get(utils.apiDomain + '/series').then(response => {
+        let r = response.data
+        if (r.code == 0) {
+          this.seriesList = r.data.series
+        }
+      })
+      this.axios.get(utils.apiDomain + '/tags').then(response => {
+        let r = response.data
+        if (r.code == 0) {
+          this.tags = r.data.tags
         }
       })
     }

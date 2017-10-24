@@ -15,6 +15,7 @@ urls = [
     (r'/api/series[/]?$', ApiSeriesController),
     (r'/api/images[/]?$', ApiImageController),
     (r'/api/pages[/]?$', ApiPageController),
+    (r'/api/articles[/]?$', ApiArticleController),
 
     (r'/.*', ErrorController),
 ]
