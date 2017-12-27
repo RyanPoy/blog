@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="left-nav">
     <el-menu :default-openeds="['1']">
       <el-submenu index="1">
         <template slot="title">博客管理</template>
@@ -32,6 +32,7 @@
 </script>
 
 <style scoped>
+  #left-nav {position:absolute; bottom:0px; top:0px; width:150px; overflow: hidden;}
   .el-menu-item a {text-decoration: none; color: #2C3E50;}
   .el-menu-item a.router-link-exact-active, .el-menu-item a.router-link-active {color: #409EFF;}
   .el-menu-item {cursor: pointer;}
