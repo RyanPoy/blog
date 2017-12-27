@@ -1,16 +1,21 @@
 <template>
   <div id="app">
     <el-container>
-      <el-aside height="100%" style="width:150px">
+      
+      <el-aside width="150px">
         <left-nav></left-nav>
       </el-aside>
+
       <el-container>
         <el-header>头</el-header>
+
         <el-main>
           <router-view/>
         </el-main>
+
         <el-footer>尾</el-footer>
       </el-container>
+    
     </el-container>
   </div>
 </template>
