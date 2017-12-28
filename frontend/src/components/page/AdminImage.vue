@@ -91,5 +91,6 @@
   })
 </script>
 
-<style>
+<style scoped>
+.upload-demo {text-align: center;}
 </style>
