@@ -224,6 +224,7 @@ class PageManager(models.Manager):
     def sorted(self, *args, **kwargs):
         return self.order_by('seq ASC')
 
+
 class Page(AbsArticle):
     """ 单页面，直接显示在导航栏上 """
     objects = PageManager()

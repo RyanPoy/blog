@@ -205,6 +205,7 @@ class ErrorController(BaseController):
 
     show_post_p = re.compile(r'^/post/(?P<pid>\d+)[/]?')
     list_tag_p = re.compile(r'^/tag/(?P<name>.+)[/]?$')
+    feed_p = re.compile(r'^/feed[/]?$')
 
     def match_old_url_mode(self, uri):
         """ 为了兼容旧版的格式
@@ -220,6 +221,11 @@ class ErrorController(BaseController):
             tag = Tag.objects.filter(name=name).first()
             if tag:
                 return '/blogs/tags/%s' % tag.id
+
+        r = self.feed_p.match(uri)
+        if r:
+            return '/rss'
+
         return None
 
     def get(self):
@@ -263,8 +269,10 @@ class RssController(BaseController):
                 buff.append('</item>')
         buff.append('''  </channel>''')
         buff.append('''</rss>''')
+
+        self.set_header("Content-Type", "application/rss+xml; charset=utf-8")
         self.write('\n'.join(buff))
-        self.set_header("Content-Type", "application/rss+xml")
+
         return self.finish()
 
 
