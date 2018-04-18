@@ -10,6 +10,8 @@ import settings
 from .models import *
 from datetime import datetime
 import json
+import re
+
 
 def toi(v):
     try:
@@ -201,10 +203,34 @@ class ArchiveController(BaseController):
 
 class ErrorController(BaseController):
 
+    show_post_p = re.compile(r'^/post/(?P<pid>\d+)[/]?')
+    list_tag_p = re.compile(r'^/tag/(?P<name>.+)[/]?$')
+
+    def match_old_url_mode(self, uri):
+        """ 为了兼容旧版的格式
+        """
+        r = self.show_post_p.match(uri)
+        if r:
+            pid = r.groupdict().get('pid')
+            return '/blogs/%s' % pid
+
+        r = self.list_tag_p.match(uri)
+        if r:
+            name = r.groupdict().get('name')
+            tag = Tag.objects.filter(name=name).first()
+            if tag:
+                return '/blogs/tags/%s' % tag.id
+        return None
+
     def get(self):
         uri = self.request.uri
         if uri and uri[-1] == '/':
             uri = uri[:-1]
+        
+        r = self.match_old_url_mode(uri)
+        if r:
+            return self.redirect(r)
+
         p = Page.objects.filter(uri=uri).first()
         if not p:
             raise tornado.web.HTTPError(404)

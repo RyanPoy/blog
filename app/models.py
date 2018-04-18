@@ -160,7 +160,7 @@ class AbsArticle(BaseModel):
     title           = models.CharField('标题', max_length=255, db_index=True, unique=True)
     keywords        = models.CharField('关键词', max_length=255, null=True, default='', editable=False)
     content         = models.TextField('MarkDown内容', null=False, default='')
-    author          = models.ForeignKey(User, verbose_name='作者', editable=False, null=True, blank=True)
+    author          = models.ForeignKey(User, verbose_name='作者', editable=False, null=True, blank=True, on_delete=True)
 
     def to_dict(self):
         d = super().to_dict()
@@ -189,7 +189,7 @@ class Article(AbsArticle):
 
     view_number     = models.IntegerField('浏览次数', null=False, default=0)
     tags            = models.ManyToManyField(Tag, verbose_name='标签')
-    series          = models.ForeignKey('Series', verbose_name='系列', null=True, blank=True, related_name='series_id')
+    series          = models.ForeignKey('Series', verbose_name='系列', null=True, blank=True, related_name='series_id', on_delete=False)
 
     def to_dict(self):
         d = super().to_dict()
