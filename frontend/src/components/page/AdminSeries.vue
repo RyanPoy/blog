@@ -40,8 +40,6 @@
 </template>
 
 <script>
-  import { utils } from '@/utils'
-
   export default({
     data() {
       return {
@@ -51,7 +49,7 @@
     },
     methods: {
       create(newSeries) {
-        this.axios.post(utils.apiDomain + '/series/', this.newSeries).then(response => {
+        this.axios.post('/api/series/', this.newSeries).then(response => {
           let r = response.data
           if (r.code == 0) {
             this.newSeries = {name: '', seq: 0}
@@ -69,7 +67,7 @@
         })
       },
       update(index, series) {
-        this.axios.put(utils.apiDomain + '/series/', series).then(response => {
+        this.axios.put('/api/series/', series).then(response => {
           let r = response.data
           if (r.code == 0) {
             this.$set(this.seriesList, index, series)
@@ -87,7 +85,7 @@
       },
       _delete(index, series) {
         if (series.id && series.id > 0) {
-          this.axios.delete(utils.apiDomain + '/series/', {data: series}).then(response => {
+          this.axios.delete('/api/series/', {data: series}).then(response => {
             let r = response.data
             if (r.code == 0) {
               this.seriesList.splice(index, 1)
@@ -106,7 +104,7 @@
       }
     },
     mounted() {
-      this.axios.get(utils.apiDomain + '/series').then(response => {
+      this.axios.get('/api/series').then(response => {
         let r = response.data
         if (r.code == 0) {
           this.seriesList = r.data.series

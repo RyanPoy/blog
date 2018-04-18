@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import { utils } from '@/utils'
 
 export default {
   data() {
@@ -40,7 +39,7 @@ export default {
     }
   },
   mounted() {
-    this.axios.get(utils.apiDomain + '/tags').then(response => {
+    this.axios.get('/api/tags').then(response => {
       let r = response.data
       console.log(r)
       if (r.code == 0) {
@@ -51,7 +50,7 @@ export default {
   methods: {
     create() {
       if (this.newTagName && this.newTagName.length > 0) {
-        this.axios.post(utils.apiDomain + '/tags/', {'name': this.newTagName }).then(response => {
+        this.axios.post('/api/tags/', {'name': this.newTagName }).then(response => {
           let r = response.data
           if (r.code == 0) {
             this.newTagName = ''
@@ -72,7 +71,7 @@ export default {
 
     _delete(index, tag) {
       if (tag.id && tag.id > 0) {
-        this.axios.delete(utils.apiDomain + '/tags/', {data: tag}).then(response => {
+        this.axios.delete('/api/tags/', {data: tag}).then(response => {
           let r = response.data
           if (r.code == 0) {
             this.tags.splice(index, 1)
@@ -91,7 +90,7 @@ export default {
     },
     update(index, tag) {
       if (tag.name && tag.name.length > 0) {
-        this.axios.put(utils.apiDomain + '/tags/', tag).then(response => {
+        this.axios.put('/api/tags/', tag).then(response => {
           let r = response.data
           if (r.code == 0) {
             this.$set(this.tags, index, tag)

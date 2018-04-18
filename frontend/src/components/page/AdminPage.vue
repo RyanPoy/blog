@@ -65,8 +65,6 @@
 </template>
 
 <script>
-  import { utils } from '@/utils'
-
   export default({
     data() {
       return {
@@ -76,7 +74,7 @@
     },
     methods: {
       create(newpage) {
-        this.axios.post(utils.apiDomain + '/pages/', newpage).then(response => {
+        this.axios.post('/api/pages/', newpage).then(response => {
           let r = response.data
           if (r.code == 0) {
             this.pages.unshift(r.data.page)
@@ -94,7 +92,7 @@
         })
       },
       update(index, page) {
-        this.axios.put(utils.apiDomain + '/pages/', page).then(response => {
+        this.axios.put('/api/pages/', page).then(response => {
           let r = response.data
           if (r.code == 0) {
             this.$set(this.pages, index, r.data.page)
@@ -112,7 +110,7 @@
       },
       _delete(index, page) {
         if (page.id && page.id > 0) {
-          this.axios.delete(utils.apiDomain + '/pages/', {data: page}).then(response => {
+          this.axios.delete('/api/pages/', {data: page}).then(response => {
             let r = response.data
             if (r.code == 0) {
               this.pages.splice(index, 1)
@@ -131,7 +129,7 @@
       }
     },
     mounted() {
-      this.axios.get(utils.apiDomain + '/pages').then(response => {
+      this.axios.get('/api/pages').then(response => {
         let r = response.data
         if (r.code == 0) {
           this.pages = r.data.pages

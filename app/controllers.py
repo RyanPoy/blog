@@ -74,8 +74,10 @@ class BaseController(tornado.web.RequestHandler):
         self.__before_render_view_or_ajax(kwargs)
         return self.render(template_name, **kwargs)
 
-    def render_json(self, for_admin=True, **kwargs):
-        return self.write(json.dumps(kwargs))
+    def render_json(self, code=0, err='', data={}):
+        return self.write(json.dumps(
+            dict(code=code, err='', data=data)
+        ))
 
     def get_object_or_404(self, clazz, id, related=False):
         try:

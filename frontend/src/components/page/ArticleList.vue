@@ -19,8 +19,6 @@
 </template>
 
 <script>
-  import { utils } from '@/utils'
-
   export default({
     data() {
       return {
@@ -29,7 +27,7 @@
     },
     methods: {
       create(newLink) {
-        this.axios.post(utils.apiDomain + '/pages/', this.newLink).then(response => {
+        this.axios.post('/api/pages/', this.newLink).then(response => {
           let r = response.data
           if (r.code == 0) {
             this.newLink = {name: '', url: '', seq: 0}
@@ -47,7 +45,7 @@
         })
       },
       update(link) {
-        this.axios.put(utils.apiDomain + '/pages/', link).then(response => {
+        this.axios.put('/api/pages/', link).then(response => {
           let r = response.data
           if (r.code == 0) {
 
@@ -71,7 +69,7 @@
       },
       _delete(index, link) {
         if (link.id && link.id > 0) {
-          this.axios.delete(utils.apiDomain + '/pages/', {data: link}).then(response => {
+          this.axios.delete('/api/pages/', {data: link}).then(response => {
             let r = response.data
             if (r.code == 0) {
               this.pages.splice(index, 1)
@@ -90,7 +88,7 @@
       }
     },
     mounted() {
-      this.axios.get(utils.apiDomain + '/pages').then(response => {
+      this.axios.get('/api/pages').then(response => {
         let r = response.data
         if (r.code == 0) {
           this.pages = r.data.pages

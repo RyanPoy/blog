@@ -30,8 +30,6 @@
 </template>
 
 <script>
-  import { utils } from '@/utils'
-
   export default({
     data() {
       return {
@@ -62,7 +60,7 @@
       },
       _delete(index, image) {
         if (image.id && image.id > 0) {
-          this.axios.delete(utils.apiDomain + '/images/', {data: image}).then(response => {
+          this.axios.delete('/api/images/', {data: image}).then(response => {
             let r = response.data
             if (r.code == 0) {
               this.images.splice(index, 1)
@@ -81,7 +79,7 @@
       }
     },
     mounted() {
-      this.axios.get(utils.apiDomain + '/images').then(response => {
+      this.axios.get('/api/images').then(response => {
         let r = response.data
         if (r.code == 0) {
           this.images = r.data.images

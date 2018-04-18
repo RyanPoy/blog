@@ -75,7 +75,6 @@
 </template>
 
 <script>
-  import { utils } from '@/utils'
 
   export default({
     data() {
@@ -88,7 +87,7 @@
     },
     methods: {
       create(newarticle) {
-        this.axios.post(utils.apiDomain + '/articles/', newarticle).then(response => {
+        this.axios.post('/api/articles/', newarticle).then(response => {
           let r = response.data
           if (r.code == 0) {
             this.articles.unshift(r.data.article)
@@ -106,7 +105,7 @@
         })
       },
       update(index, article) {
-        this.axios.put(utils.apiDomain + '/articles/', article).then(response => {
+        this.axios.put('/api/articles/', article).then(response => {
           let r = response.data
           if (r.code == 0) {
             this.$set(this.articles, index, r.data.article)
@@ -124,7 +123,7 @@
       },
       _delete(index, article) {
         if (article.id && article.id > 0) {
-          this.axios.delete(utils.apiDomain + '/articles/', {data: article}).then(response => {
+          this.axios.delete('/api/articles/', {data: article}).then(response => {
             let r = response.data
             if (r.code == 0) {
               this.articles.splice(index, 1)
@@ -143,19 +142,19 @@
       }
     },
     mounted() {
-      this.axios.get(utils.apiDomain + '/articles').then(response => {
+      this.axios.get('/api/articles').then(response => {
         let r = response.data
         if (r.code == 0) {
           this.articles = r.data.articles
         }
       })
-      this.axios.get(utils.apiDomain + '/series').then(response => {
+      this.axios.get('/api/series').then(response => {
         let r = response.data
         if (r.code == 0) {
           this.seriesList = r.data.series
         }
       })
-      this.axios.get(utils.apiDomain + '/tags').then(response => {
+      this.axios.get('/api/tags').then(response => {
         let r = response.data
         if (r.code == 0) {
           this.tags = r.data.tags
