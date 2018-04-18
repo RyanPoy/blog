@@ -58,6 +58,7 @@ a {text-decoration:none;}
   float:left;
   width:88%;
   margin-left:10%;
+  margin-top:1em;
 }
 
 #left {
