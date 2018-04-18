@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Admin from '@/components/page/Admin'
 import AdminTag from '@/components/page/AdminTag'
 import AdminLink from '@/components/page/AdminLink'
 import AdminSeries from '@/components/page/AdminSeries'
@@ -12,11 +13,16 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    { path: '/admin/tags', name: 'AdminTag', component: AdminTag },
-    { path: '/admin/links', name: 'AdminLink', component: AdminLink },
-    { path: '/admin/series', name: 'AdminSeries', component: AdminSeries },
-    { path: '/admin/images', name: 'AdminImage', component: AdminImage },
-    { path: '/admin/pages', name: 'AdminPage', component: AdminPage },
-    { path: '/admin/articles', name: 'AdminArticle', component: AdminArticle }
+  	{
+      path: '/admin',  name: 'Admin',  component: Admin,
+      children: [
+        { path: '/tags', name: 'AdminTag', component: AdminTag },
+  	    { path: '/links', name: 'AdminLink', component: AdminLink },
+  	    { path: '/series', name: 'AdminSeries', component: AdminSeries },
+  	    { path: '/images', name: 'AdminImage', component: AdminImage },
+  	    { path: '/pages', name: 'AdminPage', component: AdminPage },
+  	    { path: '/articles', name: 'AdminArticle', component: AdminArticle }
+      ]
+    }
   ]
 })

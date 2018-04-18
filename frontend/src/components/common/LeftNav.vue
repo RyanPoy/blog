@@ -1,40 +1,68 @@
 <template>
   <div id="left-nav">
-    <el-menu :default-openeds="['1']">
-      <el-submenu index="1">
-        <template slot="title">博客管理</template>
-        <el-menu-item-group>
-          <el-menu-item index="1-1">
-            <router-link :to="{'name': 'AdminArticle'}">文章</router-link>
-          </el-menu-item>
-          <el-menu-item index="1-2">
-            <router-link :to="{'name': 'AdminTag'}">标签</router-link>
-          </el-menu-item>
-          <el-menu-item index="1-3">
-            <router-link :to="{'name': 'AdminSeries'}">系列</router-link>
-          </el-menu-item>
-          <el-menu-item index="1-4">
-            <router-link :to="{'name': 'AdminImage'}">图片</router-link>
-          </el-menu-item>
-          <el-menu-item index="1-5">
-            <router-link :to="{'name': 'AdminPage'}">单页面</router-link>
-          </el-menu-item>
-          <el-menu-item index="1-6">
-            <router-link :to="{'name': 'AdminLink'}">友链</router-link>
-          </el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
-    </el-menu>
+    <dl :class="{ open: menu.isOpen }" v-for="menu in menus">
+      <dt @click="menu.isOpen = !menu.isOpen">
+        {{menu.name}}
+        <i class="el-icon-arrow-down"></i>
+        <i class="el-icon-arrow-up"></i>
+      </dt>
+      <dd v-for="submenu in menu.submenus" :class="{ active: currentUri.indexOf('#'+menu.uri+submenu.uri)==0}">
+        <a :href="'/#'+menu.uri+submenu.uri">{{submenu.name}}</a>
+      </dd>
+    </dl>
   </div>
 </template>
 
 <script>
+  export default {
+    data() {
+      return {
+        menus: [],
+        currentUri: window.location.hash
+      }
+    },
+    watch: {
+      '$route'(to, from) {
+        this.currentUri = window.location.hash
+      }
+    },
+    mounted() {
+      // 这里定义的menus应该从后端获取（后端返回的是做了权限过滤的了）
+      this.axios.get('/api/left-nav').then(response => {
+        let r = response.data
+        if (r.code == 0) {
+          let menus = r.data.menus
+          for (var i = 0; i < menus.length; i++) {
+            menus[i].isOpen = this.currentUri.indexOf(menus[i].uri) == 1; // 前面有一个 #
+          }
+          this.menus = menus;
+        } else {
+          this.$message({
+            message: r.msg,
+            type: 'error'
+          });
+        }
+      });
+    }
+  }
+
 </script>
 
 <style scoped>
-  #left-nav {position:absolute; bottom:0px; top:0px; width:150px; overflow: hidden;}
-  .el-menu-item a {text-decoration: none; color: #2C3E50;}
-  .el-menu-item a.router-link-exact-active, .el-menu-item a.router-link-active {color: #409EFF;}
-  .el-menu-item {cursor: pointer;}
-  .el-menu-item a { width:100%; display: inline-block;}
+  /*#left-nav {min-height:598px;}*/
+  dl {border-bottom:1px solid #393939; margin-bottom:10px;}
+
+  dl i.el-icon-arrow-up {display:none;}
+  dl i.el-icon-arrow-down {display:inline;}
+
+  dl.open i.el-icon-arrow-up {display:inline;}
+  dl.open i.el-icon-arrow-down {display:none;}
+  dl>dd{display:none;}
+  dl.open>dd{display:block;}
+
+  dt {font-size:12px; color:#999; padding:5px 0 5px 20px; cursor: pointer;}
+  dd {margin:1px 0;}
+  dd>a {font-size:13px;color:#FFF; display: block; width:100%; padding:5px 0 5px 20px;}
+  dd:hover, dd.active {background:#393939;}
+
 </style>

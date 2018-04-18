@@ -1,6 +1,7 @@
 #coding: utf8
 from .controllers import *
 
+
 urls = [
     (r'^/$', IndexController),
     (r'^/blogs[/]?$', ArticleIndexController),
@@ -10,6 +11,8 @@ urls = [
     (r'^/archives[/]?$', ArchiveController),
     (r'^/rss[/]?$', RssController),
     
+
+    (r'/api/left-nav[/]?', ApiLeftNav),
     (r'/api/tags[/]?$', ApiTagController),
     (r'/api/links[/]?$', ApiLinkController),
     (r'/api/series[/]?$', ApiSeriesController),

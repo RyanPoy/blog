@@ -11,6 +11,7 @@ from .models import *
 from datetime import datetime
 import json
 import re
+import app.ui as ui
 
 
 def toi(v):
@@ -72,6 +73,9 @@ class BaseController(tornado.web.RequestHandler):
     def render_view(self, template_name, **kwargs):
         self.__before_render_view_or_ajax(kwargs)
         return self.render(template_name, **kwargs)
+
+    def render_json(self, for_admin=True, **kwargs):
+        return self.write(json.dumps(kwargs))
 
     def get_object_or_404(self, clazz, id, related=False):
         try:
@@ -274,6 +278,17 @@ class RssController(BaseController):
         self.write('\n'.join(buff))
 
         return self.finish()
+
+
+#####################################################
+# API 
+#####################################################
+class ApiLeftNav(BaseController):
+
+    def get(self):
+        # op = self.current_user
+        menus = [ m for m in ui.left_menus() ]
+        return self.render_json(data = { 'menus': menus } )
 
 
 class ApiTagController(BaseController):
