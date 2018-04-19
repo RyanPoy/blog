@@ -23,9 +23,11 @@ def toi(v):
 
 class BaseController(tornado.web.RequestHandler):
 
+    LOGIN_USER_COOKIE_NAME = 'cu'
+
     SUPPORTED_METHODS = tornado.web.RequestHandler.SUPPORTED_METHODS \
                         + ("INDEX", 'LIST', 'SHOW')
-
+    
     def pp(self, obj):
         pprint(obj)
 
@@ -36,7 +38,26 @@ class BaseController(tornado.web.RequestHandler):
         self.set_default_headers()
 
     def prepare(self):
-        pass
+        uri = self.request.uri
+        if uri.startswith('/api/') and uri not in ('/api/signin', '/api/signin/') and not self.current_user:
+            raise tornado.web.HTTPError(401)
+
+    def set_user_to_cookie(self, user):
+        self.set_secure_cookie(self.LOGIN_USER_COOKIE_NAME, user.to_cookie_str(), expires_days=1)
+        return self
+
+    def rm_user_cookie(self):
+        self.clear_cookie(self.LOGIN_USER_COOKIE_NAME)
+        return self
+
+    def get_current_user(self):
+        cookie_str = self.get_secure_cookie(self.LOGIN_USER_COOKIE_NAME)
+        cookie_str = cookie_str.decode("UTF8") if cookie_str else ''
+
+        u = User.from_cookie_str(cookie_str)
+        if u:
+            self.set_user_to_cookie(u)
+        return u
 
     @property
     def nav_uri(self):
@@ -280,7 +301,7 @@ class RssController(BaseController):
 #####################################################
 # API 
 #####################################################
-class ApiLeftNav(BaseController):
+class ApiLeftNavController(BaseController):
 
     def get(self):
         # op = self.current_user
@@ -512,9 +533,6 @@ class ApiPageController(BaseController):
 
         p = Page(title=title, seq=toi(d.get('seq', '0')), content=content, uri=uri)
         p.save()
-        print('*'*10)
-        print(p.to_dict())
-        print('*'*10)
         return self.end(data={
             'page': p.to_dict()
         })
@@ -629,3 +647,28 @@ class ApiArticleController(BaseController):
         if db_article:
             db_article.delete()
             return self.end(data=db_article.to_dict())
+
+
+class ApiSigninController(BaseController):
+
+    def post(self):
+        d = json.loads(self.request.body)
+
+        signinname = d.get('signinname', '').strip()
+        if not signinname:
+            return self.end(code=-1, err_str='请填写登录名')
+
+        password = d.get('password', '')
+        if not password:
+            return self.end(code=-1, err_str='请填写密码')
+
+        u = User.objects.filter(signinname=signinname).filter(password=password).first()
+        if not u:
+            return self.end(code=-1, err_str='用户名或密码错误')
+
+        self.set_user_to_cookie(u)
+        return self.end()
+
+    def delete(self):
+        self.rm_user_cookie()
+        return self.end()

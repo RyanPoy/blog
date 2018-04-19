@@ -19,7 +19,14 @@
     },
     methods: {
       signout() {
-        window.location.href = "/#/signin"
+        this.axios.delete('/api/signin/').then(response => {
+          let r = response.data
+          if (r.code == 0) {
+            window.location.href = "/#/signin"
+          } else {
+            this.loginErr = r.err_str
+          }
+        })
       }
     }
   }

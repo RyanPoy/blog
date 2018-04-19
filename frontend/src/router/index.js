@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Signin from '@/components/page/Signin'
 import Admin from '@/components/page/Admin'
 import AdminTag from '@/components/page/AdminTag'
 import AdminLink from '@/components/page/AdminLink'
@@ -13,6 +14,7 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
+    { path: '/signin', name: 'Signin', component: Signin},
   	{
       path: '/admin',  name: 'Admin',  component: Admin,
       children: [

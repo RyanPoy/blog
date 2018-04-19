@@ -11,8 +11,8 @@ urls = [
     (r'^/archives[/]?$', ArchiveController),
     (r'^/rss[/]?$', RssController),
     
-
-    (r'/api/left-nav[/]?', ApiLeftNav),
+    (r'/api/signin[/]?', ApiSigninController),
+    (r'/api/left-nav[/]?', ApiLeftNavController),
     (r'/api/tags[/]?$', ApiTagController),
     (r'/api/links[/]?$', ApiLinkController),
     (r'/api/series[/]?$', ApiSeriesController),

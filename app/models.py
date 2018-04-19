@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime, date
 from settings import MEDIA_ROOT
+from collections import namedtuple
 import markdown2 as md
 import json
 import os
@@ -278,3 +279,31 @@ class Series(BaseModel):
         ordering = ['seq']
         verbose_name_plural = verbose_name = '系列'
 
+
+class User(BaseModel):
+
+    ROLES = namedtuple('Roles', ['ADMIN', 'NORMAL'])._make([10000, 100])
+
+    signinname = models.CharField('登录名', max_length=255, null=False, db_index=True)
+    username   = models.CharField('用户名', max_length=255, null=False)
+    password   = models.CharField('密码', max_length=255, null=False, db_index=True)
+    role       = models.IntegerField('权限', default=ROLES.NORMAL, null=False, db_index=True)
+
+    def to_cookie_str(self):
+        return '%s|%s|%s' % (self.signinname, self.username, self.id)
+
+    @classmethod
+    def from_cookie_str(cls, cookie_str):
+        if not cookie_str or not cookie_str.strip():
+            return None
+
+        vs = cookie_str.strip().split('|')
+        if len(vs) != 3:
+            return None
+        return cls.objects.filter(id=vs[2]).filter(signinname=vs[0]).filter(username=vs[1]).first()
+
+    def __str__(self):
+        return self.username
+
+    class Meta:
+        verbose_name_plural = verbose_name = '用户'
