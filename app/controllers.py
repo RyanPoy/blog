@@ -316,6 +316,7 @@ class ApiTagController(BaseController):
             'tags': [ t.to_dict() for t in Tag.objects.all() ]
         })
 
+    @transaction.atomic
     def post(self):
         d = json.loads(self.request.body)
         name = d.get('name', '')
@@ -330,6 +331,7 @@ class ApiTagController(BaseController):
             'tag': t.to_dict()
         })
 
+    @transaction.atomic
     def put(self):
         t = json.loads(self.request.body)
         _id = t.get('id', '')
@@ -348,6 +350,7 @@ class ApiTagController(BaseController):
             'tag': db_tag.to_dict()
         })
 
+    @transaction.atomic
     def delete(self):
         t = json.loads(self.request.body)
         _id = t.get('id', '')
@@ -364,6 +367,7 @@ class ApiLinkController(BaseController):
             'links': [ t.to_dict() for t in Link.objects.all() ]
         })
 
+    @transaction.atomic
     def post(self):
         d = json.loads(self.request.body)
         name = d.get('name', '')
@@ -384,6 +388,7 @@ class ApiLinkController(BaseController):
             'link': l.to_dict()
         })
 
+    @transaction.atomic
     def put(self):
         d = json.loads(self.request.body)
         _id = d.get('id', '')
@@ -410,6 +415,7 @@ class ApiLinkController(BaseController):
             'link': db_link.to_dict()
         })
 
+    @transaction.atomic
     def delete(self):
         t = json.loads(self.request.body)
         _id = t.get('id', '')
@@ -426,6 +432,7 @@ class ApiSeriesController(BaseController):
             'series': [ t.to_dict() for t in Series.objects.all() ]
         })
 
+    @transaction.atomic
     def post(self):
         d = json.loads(self.request.body)
         name = d.get('name', '')
@@ -440,6 +447,7 @@ class ApiSeriesController(BaseController):
             'series': s.to_dict()
         })
 
+    @transaction.atomic
     def put(self):
         d = json.loads(self.request.body)
         _id = d.get('id', '')
@@ -459,6 +467,7 @@ class ApiSeriesController(BaseController):
             'link': db_series.to_dict()
         })
 
+    @transaction.atomic
     def delete(self):
         t = json.loads(self.request.body)
         _id = t.get('id', '')
@@ -478,6 +487,7 @@ class ApiImageController(BaseController):
             'images': [ t.to_dict() for t in Image.objects.all() ]
         })
 
+    @transaction.atomic
     def post(self):
         if 'images' not in self.request.files:
             return self.end(code=-1, err_str='请上传图片')
@@ -493,6 +503,7 @@ class ApiImageController(BaseController):
                 'image': img.to_dict()
             })
 
+    @transaction.atomic
     def delete(self):
         t = json.loads(self.request.body)
         _id = t.get('id', '')
@@ -513,6 +524,7 @@ class ApiPageController(BaseController):
             'pages': [ p.to_dict() for p in Page.objects.all() ]
         })
 
+    @transaction.atomic
     def post(self):
         d = json.loads(self.request.body)
         title = d.get('title', '')
@@ -537,6 +549,7 @@ class ApiPageController(BaseController):
             'page': p.to_dict()
         })
 
+    @transaction.atomic
     def put(self):
         d = json.loads(self.request.body)
         _id = d.get('id', '')
@@ -567,6 +580,7 @@ class ApiPageController(BaseController):
             'page': db_page.to_dict()
         })
 
+    @transaction.atomic
     def delete(self):
         t = json.loads(self.request.body)
         _id = t.get('id', '')
@@ -580,66 +594,106 @@ class ApiArticleController(BaseController):
 
     def get(self):
         return self.end(data={ 
-            'articles': [ a.to_dict() for a in Article.objects.all() ]
+            'articles': [ a.to_dict() for a in Article.objects.order_by('-id').all() ]
         })
 
+    @transaction.atomic
     def post(self):
         d = json.loads(self.request.body)
+
         title = d.get('title', '')
         if not title:
             return self.end(code=-1, err_str='请填写标题')
         if Article.objects.filter(title=title).first():
             return self.end(code=-1, err_str='存在同标题文章')
 
-        uri = d.get('uri', '')
-        if not uri:
-            return self.end(code=-1, err_str='链接地址不能为空')
+        pretty_tags = d.get('pretty_tags', [])
+        if pretty_tags: # 去除无效的 tag
+            pretty_tags = [ t for t in Tag.objects.filter(id__in=pretty_tags).all() ]
 
-        content = d.get('content', '')
+        keywords = d.get('keywords', '').strip()
+        series = d.get('series', 0)
+        if series:
+            series = Series.objects.filter(id=series).first()
+        if not series:
+            return self.end(code=-1, err_str='请选择正确的系列')
+
+        content = d.get('content', '').strip()
         if not content:
             return self.end(code=-1, err_str='内容不能为空')
         if len(content) < 4:
             return self.end(code=-1, err_str='正文长度不能少于4个字')
 
-        p = Page(title=title, seq=toi(d.get('seq', '0')), content=content, uri=uri)
-        p.save()
-        print('*'*10)
-        print(p.to_dict())
-        print('*'*10)
+        a = Article(title=title, content=content, keywords=keywords)
+        if series:
+            a.series = series
+        # for t in pretty_tags:
+        a.save()
+        a.tags.add(*pretty_tags)
+        a.save()
+
         return self.end(data={
-            'page': p.to_dict()
+            'article': a.to_dict()
         })
 
-    # def put(self):
-    #     d = json.loads(self.request.body)
-    #     _id = d.get('id', '')
-    #     db_page = self.get_object_or_404(Page, id=_id)
+    @transaction.atomic
+    def put(self):
+        d = json.loads(self.request.body)
+        _id = d.get('id', '')
+
+        db_article = self.get_object_or_404(Page, id=_id)
+
+        title = d.get('title', '')
+        if not title:
+            return self.end(code=-1, err_str='请填写标题')
+        if Article.objects.filter(title=title).fiter(~Q(id=db_article.id)).first():
+            return self.end(code=-1, err_str='存在同标题文章')
+
+        pretty_tags = d.get('pretty_tags', [])
+        if pretty_tags: # 去除无效的 tag
+            pretty_tags = [ t for t in Tag.objects.filter(id__in=pretty_tags).all() ]
+
+        keywords = d.get('keywords', '').strip()
+        series = d.get('series', 0)
+        if series:
+            series = Series.objects.filter(id=series).first()
+        if not series:
+            return self.end(code=-1, err_str='请选择正确的系列')
+
+        content = d.get('content', '').strip()
+        if not content:
+            return self.end(code=-1, err_str='内容不能为空')
+        if len(content) < 4:
+            return self.end(code=-1, err_str='正文长度不能少于4个字')
+
+        db_article.title = title
+        db_article.content = content
+        db_article.keywords = keywords
+        if series:
+            db_article.series = series
+
+        if pretty_tags:
+            pretty_tagid_tags_mapping = { t.id:t for t in pretty_tags }
+
+            db_tags = db_article.tags.all()
+            db_tagid_tags_mapping = { t.id:t for t in db_tags}
+
+            should_add_tags = [ t for t in pretty_tags if t.id not in db_tagid_tags_mapping ]
+            should_delete_tags = [ t for t in db_tags if t.id not in pretty_tagid_tags_mapping ]
+            
+            db_article.tags.add(*should_add_tags)
+            db_article.tags.remove(*should_delete_tags)
+                
+        # for t in pretty_tags:
+        db_article.save()
         
-    #     title = d.get('title', '')
-    #     if not title:
-    #         return self.end(code=-1, err_str='名称不能为空')
-    #     if Page.objects.filter(title=title).filter(~Q(id=_id)).first():
-    #         return self.end(code=-1, err_str='存在同名页面')
+        a.save()
 
-    #     content = d.get('content', '')
-    #     if not content:
-    #         return self.end(code=-1, err_str='内容不能为空')
-    #     if len(content) < 4:
-    #         return self.end(code=-1, err_str='正文长度不能少于4个字')
-
-    #     uri = d.get('uri', '')
-    #     if not uri:
-    #         return self.end(code=-1, err_str='链接地址不能为空')
-
-    #     db_page.title = title
-    #     db_page.uri = uri
-    #     db_page.seq = toi(d.get('seq', '0'))
-    #     db_page.content = content
-    #     db_page.save()
-    #     return self.end(data={
-    #         'page': db_page.to_dict()
-    #     })
-
+        return self.end(data={
+            'article': a.to_dict()
+        })
+    
+    @transaction.atomic
     def delete(self):
         t = json.loads(self.request.body)
         _id = t.get('id', '')

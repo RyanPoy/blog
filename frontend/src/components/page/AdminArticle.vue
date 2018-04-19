@@ -114,7 +114,7 @@
         })
       },
       update(index, article) {
-        this.axios.put('/api/articles/', article).then(response => {
+        this.axios.put('/api/articles', article).then(response => {
           let r = response.data
           if (r.code == 0) {
             this.$set(this.articles, index, r.data.article)
