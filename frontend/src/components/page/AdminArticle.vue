@@ -13,7 +13,7 @@
                   <el-input v-model="props.row.keywords"></el-input>
                 </el-form-item>
                 <el-form-item label="系列">
-                  <el-select v-model="props.row.series">
+                  <el-select v-model="props.row.series" :clearable="true">
                     <el-option v-for="item in seriesList" :key="item.name" :label="item.name" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
@@ -100,11 +100,12 @@
           let r = response.data
           if (r.code == 0) {
             this.articles.unshift(r.data.article)
-            this.newArticle = {}
             this.$message({
               message: '添加成功',
               type: 'success'
             });
+            this.newArticle.pretty_tags = []
+            this.newArticle = {}
           } else {
             this.$message({
               message: r.err_str,

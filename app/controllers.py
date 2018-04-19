@@ -607,6 +607,10 @@ class ApiArticleController(BaseController):
         if Article.objects.filter(title=title).first():
             return self.end(code=-1, err_str='存在同标题文章')
 
+        view_number = toi(d.get('view_number', 0))
+        if view_number < 0:
+            view_number = 0
+
         pretty_tags = d.get('pretty_tags', [])
         if pretty_tags: # 去除无效的 tag
             pretty_tags = [ t for t in Tag.objects.filter(id__in=pretty_tags).all() ]
@@ -615,8 +619,8 @@ class ApiArticleController(BaseController):
         series = d.get('series', 0)
         if series:
             series = Series.objects.filter(id=series).first()
-        if not series:
-            return self.end(code=-1, err_str='请选择正确的系列')
+            if not series:
+                return self.end(code=-1, err_str='请选择正确的系列')
 
         content = d.get('content', '').strip()
         if not content:
@@ -624,7 +628,7 @@ class ApiArticleController(BaseController):
         if len(content) < 4:
             return self.end(code=-1, err_str='正文长度不能少于4个字')
 
-        a = Article(title=title, content=content, keywords=keywords)
+        a = Article(title=title, content=content, keywords=keywords, view_number=view_number)
         if series:
             a.series = series
         # for t in pretty_tags:
@@ -649,6 +653,10 @@ class ApiArticleController(BaseController):
         if Article.objects.filter(title=title).fiter(~Q(id=db_article.id)).first():
             return self.end(code=-1, err_str='存在同标题文章')
 
+        view_number = toi(d.get('view_number', 0))
+        if view_number < 0:
+            view_number = 0
+
         pretty_tags = d.get('pretty_tags', [])
         if pretty_tags: # 去除无效的 tag
             pretty_tags = [ t for t in Tag.objects.filter(id__in=pretty_tags).all() ]
@@ -657,8 +665,8 @@ class ApiArticleController(BaseController):
         series = d.get('series', 0)
         if series:
             series = Series.objects.filter(id=series).first()
-        if not series:
-            return self.end(code=-1, err_str='请选择正确的系列')
+            if not series:
+                return self.end(code=-1, err_str='请选择正确的系列')
 
         content = d.get('content', '').strip()
         if not content:
@@ -669,6 +677,7 @@ class ApiArticleController(BaseController):
         db_article.title = title
         db_article.content = content
         db_article.keywords = keywords
+        db_article.view_number = view_number
         if series:
             db_article.series = series
 
