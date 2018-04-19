@@ -34,7 +34,6 @@
 
           <el-table-column prop="id" label="ID" align="left"></el-table-column>
           <el-table-column prop="title" label="标题" align="left"></el-table-column>
-          <el-table-column prop="author.username" label="作者" align="left"></el-table-column>
           <el-table-column prop="keywords" label="关键词" align="left"></el-table-column>
           <el-table-column prop="series.name" label="系列" align="left"></el-table-column>
           <el-table-column prop="view_number" label="浏览次数" align="left"></el-table-column>
@@ -56,16 +55,26 @@
           <el-form-item label="标题">
             <el-input v-model="newArticle.title"></el-input></span>
           </el-form-item>
-          <el-form-item label="链接地址">
-            <el-input v-model="newArticle.uri"></el-input></span>
+          <el-form-item label="关键词">
+            <el-input v-model="newArticle.keywords"></el-input></span>
           </el-form-item>
-          <el-form-item label="排序">
-            <el-input v-model="newArticle.seq"></el-input></span>
+          <el-form-item label="系列">
+            <el-select v-model="newArticle.series">
+              <el-option v-for="item in seriesList" :key="item.name" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="浏览次数">
+            <el-input v-model="newArticle.view_number"></el-input></span>
+          </el-form-item>
+          <el-form-item label="标签">
+            <el-select multiple v-model="newArticle.pretty_tags">
+              <el-option v-for="item in tags" :key="item.name" :label="item.name" :value="item.id"></el-option>
+            </el-select>
           </el-form-item>
           <el-form-item label="正文">
             <el-input type="textarea" v-model="newArticle.content" :rows="15"></el-input>
           </el-form-item>
-          <el-form-item label=" ">
+          <el-form-item label="">
             <el-button size="small" type="primary" @click="create(newArticle)">创建</el-button>
           </el-form-item>
         </el-form>

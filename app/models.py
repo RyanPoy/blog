@@ -1,6 +1,5 @@
 #coding: utf8
 from django.db import models
-from django.contrib.auth.models import User
 from datetime import datetime, date
 from settings import MEDIA_ROOT
 from collections import namedtuple
@@ -161,14 +160,12 @@ class AbsArticle(BaseModel):
     title           = models.CharField('标题', max_length=255, db_index=True, unique=True)
     keywords        = models.CharField('关键词', max_length=255, null=True, default='', editable=False)
     content         = models.TextField('MarkDown内容', null=False, default='')
-    author          = models.ForeignKey(User, verbose_name='作者', editable=False, null=True, blank=True, on_delete=True)
 
     def to_dict(self):
         d = super().to_dict()
         d['title'] = self.title
         d['keywords'] = self.keywords
         d['content'] = self.content
-        d['author'] = self.author.username if self.author else {}
         return d
 
     @property

@@ -583,32 +583,32 @@ class ApiArticleController(BaseController):
             'articles': [ a.to_dict() for a in Article.objects.all() ]
         })
 
-    # def post(self):
-    #     d = json.loads(self.request.body)
-    #     title = d.get('title', '')
-    #     if not title:
-    #         return self.end(code=-1, err_str='名称不能为空')
-    #     if Page.objects.filter(title=title).first():
-    #         return self.end(code=-1, err_str='存在同名页面')
+    def post(self):
+        d = json.loads(self.request.body)
+        title = d.get('title', '')
+        if not title:
+            return self.end(code=-1, err_str='请填写标题')
+        if Article.objects.filter(title=title).first():
+            return self.end(code=-1, err_str='存在同标题文章')
 
-    #     uri = d.get('uri', '')
-    #     if not uri:
-    #         return self.end(code=-1, err_str='链接地址不能为空')
+        uri = d.get('uri', '')
+        if not uri:
+            return self.end(code=-1, err_str='链接地址不能为空')
 
-    #     content = d.get('content', '')
-    #     if not content:
-    #         return self.end(code=-1, err_str='内容不能为空')
-    #     if len(content) < 4:
-    #         return self.end(code=-1, err_str='正文长度不能少于4个字')
+        content = d.get('content', '')
+        if not content:
+            return self.end(code=-1, err_str='内容不能为空')
+        if len(content) < 4:
+            return self.end(code=-1, err_str='正文长度不能少于4个字')
 
-    #     p = Page(title=title, seq=toi(d.get('seq', '0')), content=content, uri=uri)
-    #     p.save()
-    #     print('*'*10)
-    #     print(p.to_dict())
-    #     print('*'*10)
-    #     return self.end(data={
-    #         'page': p.to_dict()
-    #     })
+        p = Page(title=title, seq=toi(d.get('seq', '0')), content=content, uri=uri)
+        p.save()
+        print('*'*10)
+        print(p.to_dict())
+        print('*'*10)
+        return self.end(data={
+            'page': p.to_dict()
+        })
 
     # def put(self):
     #     d = json.loads(self.request.body)
