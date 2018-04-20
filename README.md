@@ -6,6 +6,7 @@
 - django
 - tornado
 - Pillow
+- vuejs2
 - uvloop，因为tornado的异步处理能力远远比不上uvloop，所以用uvloop代替了tornado的ioloop
 - 搜狐畅言，因为本站的评论系统直接用了搜狐畅言，具体看：https://changyan.kuaizhan.com
 - 百度站内搜索，因为本站的站内搜索采用了百度的站内搜索，具体看：http://http://zn.baidu.com
