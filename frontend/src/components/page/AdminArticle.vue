@@ -13,7 +13,7 @@
                   <el-input v-model="props.row.keywords"></el-input>
                 </el-form-item>
                 <el-form-item label="系列">
-                  <el-select v-model="props.row.series" :clearable="true">
+                  <el-select v-model="props.row.series" clearable>
                     <el-option v-for="item in seriesList" :key="item.name" :label="item.name" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
@@ -21,7 +21,7 @@
                   <el-input v-model="props.row.view_number"></el-input></span>
                 </el-form-item>
                 <el-form-item label="标签">
-                  <el-select multiple v-model="props.row.pretty_tags">
+                  <el-select multiple clearable v-model="props.row.pretty_tags">
                     <el-option v-for="item in tags" :key="item.name" :label="item.name" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
@@ -49,7 +49,6 @@
         </el-table>
       </el-tab-pane>
 
-
       <el-tab-pane label="新建">
         <el-form :model="newArticle" label-position="left" inline class="table-expand">
           <el-form-item label="标题">
@@ -59,7 +58,7 @@
             <el-input v-model="newArticle.keywords"></el-input></span>
           </el-form-item>
           <el-form-item label="系列">
-            <el-select v-model="newArticle.series">
+            <el-select clearable v-model="newArticle.series">
               <el-option v-for="item in seriesList" :key="item.name" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -67,7 +66,7 @@
             <el-input v-model="newArticle.view_number"></el-input></span>
           </el-form-item>
           <el-form-item label="标签">
-            <el-select multiple v-model="newArticle.pretty_tags">
+            <el-select multiple clearable v-model="newArticle.pretty_tags">
               <el-option v-for="item in tags" :key="item.name" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -91,7 +90,7 @@
         articles: [],
         seriesList: [],
         tags: [],
-        newArticle: {},
+        newArticle: { pretty_tags: [] }
       }
     },
     methods: {
@@ -104,8 +103,7 @@
               message: '添加成功',
               type: 'success'
             });
-            this.newArticle.pretty_tags = []
-            this.newArticle = {}
+            this.newArticle = {pretty_tags: []}
           } else {
             this.$message({
               message: r.err_str,
