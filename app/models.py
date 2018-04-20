@@ -169,6 +169,10 @@ class AbsArticle(BaseModel):
         d['limit_content'] = self.limit_content(32)
         return d
 
+    def limit_content(self, n=64):
+        content = self.content.replace('\n', '').replace('\r', '')
+        return content[:n] if len(content) < n else content[:n] + '...'
+
     @property
     def html_content(self):
         return md.markdown(self.content)
@@ -214,10 +218,6 @@ class Article(AbsArticle):
         if self.id:
             return [ t.id for t in self.tags.all() ]
         return []
-
-    def limit_content(self, n=64):
-        content = self.content.replace('\n', '').replace('\r', '')
-        return content[:n] if len(content) < n else content[:n] + '...'
 
     def __str__(self):
         return self.title
