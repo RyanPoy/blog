@@ -154,7 +154,6 @@ class Image(BaseModel):
         verbose_name = verbose_name_plural = '图片'
 
 
-
 class AbsArticle(BaseModel):
 
     title           = models.CharField('标题', max_length=255, db_index=True, unique=True)
