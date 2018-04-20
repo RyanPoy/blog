@@ -27,8 +27,6 @@
 - 执行migration
   - python3 manage.py makemigrations
   - python3 manage.py migrate
-- 创建超级管理员
-  - python3 manage.py createsuperuser
 - 启动
   - 执行 python3 blog_app.py。具体参数有：
     -  --admin-port                     Admin监听端口，默认：8001 (default 0)
