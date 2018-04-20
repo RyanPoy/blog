@@ -10,7 +10,7 @@
                   <el-input v-model="props.row.title"></el-input>
                 </el-form-item>
                 <el-form-item label="系列">
-                  <el-select v-model="props.row.series" clearable>
+                  <el-select v-model="props.row.series_id" clearable>
                     <el-option v-for="item in seriesList" :key="item.name" :label="item.name" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
@@ -58,7 +58,7 @@
             <el-input v-model="newArticle.keywords"></el-input></span>
           </el-form-item>
           <el-form-item label="系列">
-            <el-select clearable v-model="newArticle.series">
+            <el-select clearable v-model="newArticle.series_id">
               <el-option v-for="item in seriesList" :key="item.name" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>

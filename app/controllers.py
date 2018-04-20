@@ -616,7 +616,7 @@ class ApiArticleController(BaseController):
             tag_ids = [ t for t in Tag.objects.filter(id__in=tag_ids).all() ]
 
         keywords = d.get('keywords', '').strip()
-        series = d.get('series', 0)
+        series = d.get('series_id', 0)
         if series:
             series = Series.objects.filter(id=series).first()
             if not series:
@@ -662,7 +662,7 @@ class ApiArticleController(BaseController):
             tag_ids = [ t for t in Tag.objects.filter(id__in=tag_ids).all() ]
 
         keywords = d.get('keywords', '').strip()
-        series = d.get('series', 0)
+        series = d.get('series_id', 0)
         if series:
             series = Series.objects.filter(id=series).first()
             if not series:
