@@ -25,6 +25,9 @@
                     <el-option v-for="item in tags" :key="item.name" :label="item.name" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
+                <el-form-item label="正文">
+                  <el-input type="textarea" v-model="props.row.content" :rows="15"></el-input>
+                </el-form-item>
                 <el-form-item label=" ">
                   <el-button size="small" type="primary" @click="update(props.$index, props.row)">更新</el-button>
                 </el-form-item>
@@ -38,6 +41,7 @@
           <el-table-column prop="series.name" label="系列" align="left"></el-table-column>
           <el-table-column prop="view_number" label="浏览次数" align="left"></el-table-column>
           <el-table-column prop="tag_names_str" label="标签" align="left"></el-table-column>
+          <el-table-column prop="limit_content" label="正文" align="left"></el-table-column>
 
           <el-table-column prop="created_at" label="创建时间" align="left"></el-table-column>
           <el-table-column prop="updated_at" label="修改时间" align="left"></el-table-column>

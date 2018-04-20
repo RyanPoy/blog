@@ -166,6 +166,7 @@ class AbsArticle(BaseModel):
         d['title'] = self.title
         d['keywords'] = self.keywords
         d['content'] = self.content
+        d['limit_content'] = self.limit_content(32)
         return d
 
     @property
