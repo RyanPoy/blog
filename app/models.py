@@ -192,7 +192,8 @@ class Article(AbsArticle):
     def to_dict(self):
         d = super().to_dict()
         d['view_number'] = self.view_number
-        d['tag_names'] = self.tag_names
+        d['tag_names_str'] = self.tag_names_str
+        d['tag_ids'] = self.tag_ids
         d['series'] = self.series.to_dict() if self.series else {}
         return d
 
@@ -201,10 +202,16 @@ class Article(AbsArticle):
         return Article.objects.filter(series=self.series)
         
     @property
-    def tag_names(self):
+    def tag_names_str(self):
         if self.id:
             return '，'.join([ t.name for t in self.tags.all() ])
         return ''
+
+    @property
+    def tag_ids(self):
+        if self.id:
+            return [ t.id for t in self.tags.all() ]
+        return []
 
     def limit_content(self, n=64):
         content = self.content.replace('\n', '').replace('\r', '')

@@ -21,7 +21,7 @@
                   <el-input v-model="props.row.view_number"></el-input>
                 </el-form-item>
                 <el-form-item label="标签">
-                  <el-select multiple clearable v-model="props.row.tag_names">
+                  <el-select multiple clearable v-model="props.row.tag_ids">
                     <el-option v-for="item in tags" :key="item.name" :label="item.name" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
@@ -37,7 +37,7 @@
           <el-table-column prop="keywords" label="关键词" align="left"></el-table-column>
           <el-table-column prop="series.name" label="系列" align="left"></el-table-column>
           <el-table-column prop="view_number" label="浏览次数" align="left"></el-table-column>
-          <el-table-column prop="tag_names" label="标签" align="left"></el-table-column>
+          <el-table-column prop="tag_names_str" label="标签" align="left"></el-table-column>
 
           <el-table-column prop="created_at" label="创建时间" align="left"></el-table-column>
           <el-table-column prop="updated_at" label="修改时间" align="left"></el-table-column>
@@ -66,7 +66,7 @@
             <el-input v-model="newArticle.view_number"></el-input></span>
           </el-form-item>
           <el-form-item label="标签">
-            <el-select multiple clearable v-model="newArticle.tag_names">
+            <el-select multiple clearable v-model="newArticle.tag_ids">
               <el-option v-for="item in tags" :key="item.name" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -90,7 +90,7 @@
         articles: [],
         seriesList: [],
         tags: [],
-        newArticle: { tag_names: [] }
+        newArticle: { tag_ids: [] }
       }
     },
     methods: {
@@ -103,7 +103,7 @@
               message: '添加成功',
               type: 'success'
             });
-            this.newArticle = {tag_names: []}
+            this.newArticle = {tag_ids: []}
           } else {
             this.$message({
               message: r.err_str,

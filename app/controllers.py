@@ -611,9 +611,9 @@ class ApiArticleController(BaseController):
         if view_number < 0:
             view_number = 0
 
-        tag_names = d.get('tag_names', [])
-        if tag_names: # 去除无效的 tag
-            tag_names = [ t for t in Tag.objects.filter(id__in=tag_names).all() ]
+        tag_ids = d.get('tag_ids', [])
+        if tag_ids: # 去除无效的 tag
+            tag_ids = [ t for t in Tag.objects.filter(id__in=tag_ids).all() ]
 
         keywords = d.get('keywords', '').strip()
         series = d.get('series', 0)
@@ -631,9 +631,9 @@ class ApiArticleController(BaseController):
         a = Article(title=title, content=content, keywords=keywords, view_number=view_number)
         if series:
             a.series = series
-        # for t in tag_names:
+        # for t in tag_ids:
         a.save()
-        a.tags.add(*tag_names)
+        a.tags.add(*tag_ids)
         a.save()
 
         return self.end(data={
@@ -650,16 +650,16 @@ class ApiArticleController(BaseController):
         title = d.get('title', '')
         if not title:
             return self.end(code=-1, err_str='请填写标题')
-        if Article.objects.filter(title=title).fiter(~Q(id=db_article.id)).first():
+        if Article.objects.filter(title=title).filter(~Q(id=db_article.id)).first():
             return self.end(code=-1, err_str='存在同标题文章')
 
         view_number = toi(d.get('view_number', 0))
         if view_number < 0:
             view_number = 0
 
-        tag_names = d.get('tag_names', [])
-        if tag_names: # 去除无效的 tag
-            tag_names = [ t for t in Tag.objects.filter(id__in=tag_names).all() ]
+        tag_ids = d.get('tag_ids', [])
+        if tag_ids: # 去除无效的 tag
+            tag_ids = [ t for t in Tag.objects.filter(id__in=tag_ids).all() ]
 
         keywords = d.get('keywords', '').strip()
         series = d.get('series', 0)
@@ -681,13 +681,13 @@ class ApiArticleController(BaseController):
         if series:
             db_article.series = series
 
-        if tag_names:
-            pretty_tagid_tags_mapping = { t.id:t for t in tag_names }
+        if tag_ids:
+            pretty_tagid_tags_mapping = { t.id:t for t in tag_ids }
 
             db_tags = db_article.tags.all()
             db_tagid_tags_mapping = { t.id:t for t in db_tags}
 
-            should_add_tags = [ t for t in tag_names if t.id not in db_tagid_tags_mapping ]
+            should_add_tags = [ t for t in tag_ids if t.id not in db_tagid_tags_mapping ]
             should_delete_tags = [ t for t in db_tags if t.id not in pretty_tagid_tags_mapping ]
             
             db_article.tags.add(*should_add_tags)
