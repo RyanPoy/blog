@@ -192,7 +192,7 @@ class Article(AbsArticle):
     def to_dict(self):
         d = super().to_dict()
         d['view_number'] = self.view_number
-        d['pretty_tags'] = self.pretty_tags
+        d['tag_names'] = self.tag_names
         d['series'] = self.series.to_dict() if self.series else {}
         return d
 
@@ -201,7 +201,7 @@ class Article(AbsArticle):
         return Article.objects.filter(series=self.series)
         
     @property
-    def pretty_tags(self):
+    def tag_names(self):
         if self.id:
             return '，'.join([ t.name for t in self.tags.all() ])
         return ''

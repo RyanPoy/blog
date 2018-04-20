@@ -611,9 +611,9 @@ class ApiArticleController(BaseController):
         if view_number < 0:
             view_number = 0
 
-        pretty_tags = d.get('pretty_tags', [])
-        if pretty_tags: # 去除无效的 tag
-            pretty_tags = [ t for t in Tag.objects.filter(id__in=pretty_tags).all() ]
+        tag_names = d.get('tag_names', [])
+        if tag_names: # 去除无效的 tag
+            tag_names = [ t for t in Tag.objects.filter(id__in=tag_names).all() ]
 
         keywords = d.get('keywords', '').strip()
         series = d.get('series', 0)
@@ -631,9 +631,9 @@ class ApiArticleController(BaseController):
         a = Article(title=title, content=content, keywords=keywords, view_number=view_number)
         if series:
             a.series = series
-        # for t in pretty_tags:
+        # for t in tag_names:
         a.save()
-        a.tags.add(*pretty_tags)
+        a.tags.add(*tag_names)
         a.save()
 
         return self.end(data={
@@ -645,7 +645,7 @@ class ApiArticleController(BaseController):
         d = json.loads(self.request.body)
         _id = d.get('id', '')
 
-        db_article = self.get_object_or_404(Page, id=_id)
+        db_article = self.get_object_or_404(Article, id=_id)
 
         title = d.get('title', '')
         if not title:
@@ -657,9 +657,9 @@ class ApiArticleController(BaseController):
         if view_number < 0:
             view_number = 0
 
-        pretty_tags = d.get('pretty_tags', [])
-        if pretty_tags: # 去除无效的 tag
-            pretty_tags = [ t for t in Tag.objects.filter(id__in=pretty_tags).all() ]
+        tag_names = d.get('tag_names', [])
+        if tag_names: # 去除无效的 tag
+            tag_names = [ t for t in Tag.objects.filter(id__in=tag_names).all() ]
 
         keywords = d.get('keywords', '').strip()
         series = d.get('series', 0)
@@ -681,25 +681,21 @@ class ApiArticleController(BaseController):
         if series:
             db_article.series = series
 
-        if pretty_tags:
-            pretty_tagid_tags_mapping = { t.id:t for t in pretty_tags }
+        if tag_names:
+            pretty_tagid_tags_mapping = { t.id:t for t in tag_names }
 
             db_tags = db_article.tags.all()
             db_tagid_tags_mapping = { t.id:t for t in db_tags}
 
-            should_add_tags = [ t for t in pretty_tags if t.id not in db_tagid_tags_mapping ]
+            should_add_tags = [ t for t in tag_names if t.id not in db_tagid_tags_mapping ]
             should_delete_tags = [ t for t in db_tags if t.id not in pretty_tagid_tags_mapping ]
             
             db_article.tags.add(*should_add_tags)
             db_article.tags.remove(*should_delete_tags)
-                
-        # for t in pretty_tags:
-        db_article.save()
-        
-        a.save()
 
+        db_article.save()
         return self.end(data={
-            'article': a.to_dict()
+            'article': db_article.to_dict()
         })
     
     @transaction.atomic

@@ -9,19 +9,19 @@
                 <el-form-item label="标题">
                   <el-input v-model="props.row.title"></el-input>
                 </el-form-item>
-                <el-form-item label="关键词">
-                  <el-input v-model="props.row.keywords"></el-input>
-                </el-form-item>
                 <el-form-item label="系列">
                   <el-select v-model="props.row.series" clearable>
                     <el-option v-for="item in seriesList" :key="item.name" :label="item.name" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
+                <el-form-item label="关键词">
+                  <el-input v-model="props.row.keywords"></el-input>
+                </el-form-item>
                 <el-form-item label="浏览次数">
-                  <el-input v-model="props.row.view_number"></el-input></span>
+                  <el-input v-model="props.row.view_number"></el-input>
                 </el-form-item>
                 <el-form-item label="标签">
-                  <el-select multiple clearable v-model="props.row.pretty_tags">
+                  <el-select multiple clearable v-model="props.row.tag_names">
                     <el-option v-for="item in tags" :key="item.name" :label="item.name" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
@@ -37,7 +37,7 @@
           <el-table-column prop="keywords" label="关键词" align="left"></el-table-column>
           <el-table-column prop="series.name" label="系列" align="left"></el-table-column>
           <el-table-column prop="view_number" label="浏览次数" align="left"></el-table-column>
-          <el-table-column prop="pretty_tags" label="标签" align="left"></el-table-column>
+          <el-table-column prop="tag_names" label="标签" align="left"></el-table-column>
 
           <el-table-column prop="created_at" label="创建时间" align="left"></el-table-column>
           <el-table-column prop="updated_at" label="修改时间" align="left"></el-table-column>
@@ -66,7 +66,7 @@
             <el-input v-model="newArticle.view_number"></el-input></span>
           </el-form-item>
           <el-form-item label="标签">
-            <el-select multiple clearable v-model="newArticle.pretty_tags">
+            <el-select multiple clearable v-model="newArticle.tag_names">
               <el-option v-for="item in tags" :key="item.name" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -90,7 +90,7 @@
         articles: [],
         seriesList: [],
         tags: [],
-        newArticle: { pretty_tags: [] }
+        newArticle: { tag_names: [] }
       }
     },
     methods: {
@@ -103,7 +103,7 @@
               message: '添加成功',
               type: 'success'
             });
-            this.newArticle = {pretty_tags: []}
+            this.newArticle = {tag_names: []}
           } else {
             this.$message({
               message: r.err_str,
