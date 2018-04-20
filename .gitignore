@@ -7,6 +7,7 @@ __pycache__
 .pydevproject
 .settings
 .DS_Store
+blog.nginx.conf
 func.py
 archive.sh
 static/media/avatars/*
