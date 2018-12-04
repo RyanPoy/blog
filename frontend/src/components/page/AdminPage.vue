@@ -7,13 +7,13 @@
             <template slot-scope="props">
               <el-form label-position="left" inline class="table-expand">
                 <el-form-item label="标题">
-                  <el-input v-model="props.row.title"></el-input></span>
+                  <el-input v-model="props.row.title"></el-input>
                 </el-form-item>
                 <el-form-item label="链接地址">
-                  <el-input v-model="props.row.uri"></el-input></span>
+                  <el-input v-model="props.row.uri"></el-input>
                 </el-form-item>
                 <el-form-item label="排序">
-                  <el-input v-model="props.row.seq"></el-input></span>
+                  <el-input v-model="props.row.seq"></el-input>
                 </el-form-item>
                 <el-form-item label="正文">
                   <el-input type="textarea" v-model="props.row.content" :rows="15"></el-input>

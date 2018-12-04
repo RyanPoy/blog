@@ -722,6 +722,7 @@ class ApiSigninController(BaseController):
             return self.end(code=-1, err_str='请填写密码')
 
         u = User.objects.filter(signinname=signinname).filter(password=password).first()
+        print (signinname, password)
         if not u:
             return self.end(code=-1, err_str='用户名或密码错误')
 
