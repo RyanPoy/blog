@@ -1,5 +1,7 @@
 module.exports = {
+    assetsDir: 'static/admin/',
     runtimeCompiler: true,
+    productionSourceMap: false,
     devServer: {
         port: process.env.PORT || 8080,
         host: 'localhost',
