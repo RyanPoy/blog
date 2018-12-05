@@ -44,13 +44,13 @@
       <el-tab-pane label="新建">
         <el-form :model="newPage" label-position="left" inline class="table-expand">
           <el-form-item label="标题">
-            <el-input v-model="newPage.title"></el-input></span>
+            <el-input v-model="newPage.title"></el-input>
           </el-form-item>
           <el-form-item label="链接地址">
-            <el-input v-model="newPage.uri"></el-input></span>
+            <el-input v-model="newPage.uri"></el-input>
           </el-form-item>
           <el-form-item label="排序">
-            <el-input v-model="newPage.seq"></el-input></span>
+            <el-input v-model="newPage.seq"></el-input>
           </el-form-item>
           <el-form-item label="正文">
             <el-input type="textarea" v-model="newPage.content" :rows="15"></el-input>

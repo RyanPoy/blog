@@ -56,10 +56,10 @@
       <el-tab-pane label="新建">
         <el-form :model="newArticle" label-position="left" inline class="table-expand">
           <el-form-item label="标题">
-            <el-input v-model="newArticle.title"></el-input></span>
+            <el-input v-model="newArticle.title"></el-input>
           </el-form-item>
           <el-form-item label="关键词">
-            <el-input v-model="newArticle.keywords"></el-input></span>
+            <el-input v-model="newArticle.keywords"></el-input>
           </el-form-item>
           <el-form-item label="系列">
             <el-select clearable v-model="newArticle.series_id">
@@ -67,7 +67,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="浏览次数">
-            <el-input v-model="newArticle.view_number"></el-input></span>
+            <el-input v-model="newArticle.view_number"></el-input>
           </el-form-item>
           <el-form-item label="标签">
             <el-select multiple clearable v-model="newArticle.tag_ids">
