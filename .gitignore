@@ -22,3 +22,5 @@ birthday.html
 media.tag.gz
 bottle.py
 mqtt/
+dist
+frontend/node_modules/
