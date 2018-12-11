@@ -3,7 +3,7 @@ from django.db import models
 from datetime import datetime, date
 from settings import MEDIA_ROOT
 from collections import namedtuple
-import markdown2 as md
+import markdown as md
 import json
 import os
 
@@ -174,7 +174,7 @@ class AbsArticle(BaseModel):
 
     @property
     def html_content(self):
-        return md.markdown(self.content)
+        return md.markdown(self.content, extensions=['markdown.extensions.extra'])
 
     class Meta:
         abstract = True
