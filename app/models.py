@@ -1,20 +1,18 @@
 #coding: utf8
-from django.db import models
+import os
+import json
+import settings
 import peewee as pw
+import markdown as md
 from datetime import datetime, date
 from settings import MEDIA_ROOT
 from collections import namedtuple
-import markdown as md
-import json
-import os
-import settings
+
 
 db = pw.MySQLDatabase(**settings.db)
-
 atomic = db.atomic
 
-# Create your models here.
-# class BaseModel(models.Model):
+
 class BaseModel(pw.Model):
 
     created_at  = pw.DateTimeField(verbose_name='创建时间', index=True, default=datetime.now)
@@ -71,37 +69,33 @@ class BaseModel(pw.Model):
         return datetime.strftime(self.created_at, '%d') if self.created_at else ''
 
 
-class TagManager(models.Manager):
-
-    def reset_article_number(self, *args, **kwargs):
-        '''重新统计每个tag对应的文章数，删除空标签'''
-        for i in self.filter(*args, **kwargs):
-            i.article_number = i.post_set.count()
-            if i.article_number <= 0:
-                i.delete()
-            else:
-                i.save()
-
-    def decr_article_number(self, ids, delete_isolate=True):
-        '''文章数减1'''
-        assert all(map(lambda i:isinstance(i, int), ids))
-        self.extra(where=['id in (%s)' % ','.join(map(str, ids))]).update(article_number=models.F('article_number') - 1)
-        if delete_isolate:
-            # 删除没有和文章关联的标签
-            self.filter(article_number__lte=0).delete()
-
-    def incr_article_number(self, ids):
-        '''文章数减1'''
-        assert all(map(lambda i:isinstance(i, int), ids))
-        self.extra(where=['id in (%s)' % ','.join(map(str, ids))]).update(article_number=models.F('article_number') + 1)
-
-
 class Tag(BaseModel):
-    objects = TagManager()
-
     name = pw.CharField(verbose_name='名字', max_length=255, index=True, null=False, unique=True)
     article_number = pw.IntegerField(verbose_name='文章数量', default=0)
     
+    # @clasmethod
+    # def reset_article_number(cls, *args, **kwargs):
+    #     '''重新统计每个tag对应的文章数，删除空标签'''
+    #     for i in cls.select().where(*args, **kwargs):
+    #         i.article_number = i.post_set.count()
+    #         if i.article_number <= 0:
+    #             i.delete()
+    #         else:
+    #             i.save()
+
+    # def decr_article_number(self, ids, delete_isolate=True):
+    #     '''文章数减1'''
+    #     assert all(map(lambda i:isinstance(i, int), ids))
+    #     self.extra(where=['id in (%s)' % ','.join(map(str, ids))]).update(article_number=models.F('article_number') - 1)
+    #     if delete_isolate:
+    #         # 删除没有和文章关联的标签
+    #         self.filter(article_number__lte=0).delete()
+
+    # def incr_article_number(self, ids):
+    #     '''文章数减1'''
+    #     assert all(map(lambda i:isinstance(i, int), ids))
+    #     self.extra(where=['id in (%s)' % ','.join(map(str, ids))]).update(article_number=models.F('article_number') + 1)
+
     def to_dict(self):
         d = super().to_dict()
         d['name'] = self.name
@@ -229,13 +223,13 @@ class Article(AbsArticle):
     @property
     def tag_names_str(self):
         if self.id:
-            return '，'.join([ t.name for t in self.tags.all() ])
+            return '，'.join([ t.name for t in self.tags ])
         return ''
 
     @property
     def tag_ids(self):
         if self.id:
-            return [ t.id for t in self.tags.all() ]
+            return [ t.id for t in self.tags ]
         return []
 
     def __str__(self):
@@ -300,7 +294,10 @@ class User(BaseModel):
         vs = cookie_str.strip().split('|')
         if len(vs) != 3:
             return None
-        return cls.objects.filter(id=vs[2]).filter(signinname=vs[0]).filter(username=vs[1]).first()
+        return cls.get_or_none(
+            (cls.id == vs[2]) & (cls.signinname == vs[0]) & (cls.username == vs[1])
+
+        )
 
     def __str__(self):
         return self.username

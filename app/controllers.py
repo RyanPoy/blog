@@ -276,7 +276,7 @@ class ApiTagController(BaseController):
 
     def get(self):
         return self.end(data={ 
-            'tags': [ t.to_dict() for t in Tag.objects.all() ]
+            'tags': [ t.to_dict() for t in Tag.select() ]
         })
 
     @transaction.atomic
@@ -392,7 +392,7 @@ class ApiSeriesController(BaseController):
 
     def get(self):
         return self.end(data={ 
-            'series': [ t.to_dict() for t in Series.objects.all() ]
+            'series': [ t.to_dict() for t in Series.select() ]
         })
 
     @transaction.atomic
@@ -557,7 +557,7 @@ class ApiArticleController(BaseController):
 
     def get(self):
         return self.end(data={ 
-            'articles': [ a.to_dict() for a in Article.objects.order_by('-id').all() ]
+            'articles': [ a.to_dict() for a in Article.select().order_by(Article.id.desc()) ]
         })
 
     @transaction.atomic
@@ -684,8 +684,9 @@ class ApiSigninController(BaseController):
         if not password:
             return self.end(code=-1, err_str='请填写密码')
 
-        u = User.objects.filter(signinname=signinname).filter(password=password).first()
-        print (signinname, password)
+        u = User.get_or_none(
+            (User.signinname == signinname) & (User.password == password)
+        )
         if not u:
             return self.end(code=-1, err_str='用户名或密码错误')
 
