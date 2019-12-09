@@ -492,7 +492,7 @@ class ApiPageController(BaseController):
 
     def get(self):
         return self.end(data={ 
-            'pages': [ p.to_dict() for p in Page.objects.all() ]
+            'pages': [ p.to_dict() for p in Page.select() ]
         })
 
     @atomic()
@@ -501,7 +501,7 @@ class ApiPageController(BaseController):
         title = d.get('title', '')
         if not title:
             return self.end(code=-1, err_str='名称不能为空')
-        if Page.objects.filter(title=title).first():
+        if Page.get_or_none(Page.title == title):
             return self.end(code=-1, err_str='存在同名页面')
 
         uri = d.get('uri', '')
@@ -529,7 +529,9 @@ class ApiPageController(BaseController):
         title = d.get('title', '')
         if not title:
             return self.end(code=-1, err_str='名称不能为空')
-        if Page.objects.filter(title=title).filter(~Q(id=_id)).first():
+        if Page.get_or_none(
+            (Page.title == title) & (Page.id != _id)
+        ):
             return self.end(code=-1, err_str='存在同名页面')
 
         content = d.get('content', '')
@@ -557,7 +559,7 @@ class ApiPageController(BaseController):
         _id = t.get('id', '')
         db_page = self.get_object_or_404(Page, id=_id)
         if db_page:
-            db_page.delete().execute()
+            Page.delete().where(Page.id == _id).execute()
             return self.end(data=db_page.to_dict())
 
 
