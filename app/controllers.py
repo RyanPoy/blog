@@ -459,7 +459,7 @@ class ApiImageController(BaseController):
 
     def get(self):
         return self.end(data={ 
-            'images': [ t.to_dict() for t in Image.objects.all() ]
+            'images': [ t.to_dict() for t in Image.select() ]
         })
 
     @atomic()
@@ -484,7 +484,7 @@ class ApiImageController(BaseController):
         _id = t.get('id', '')
         db_image = self.get_object_or_404(Image, id=_id)
         if db_image:
-            db_image.delete().execute()
+            Image.delete().where(Image.id == _id).execute()
             try:
                 os.remove(db_image.abspath)
             except:

@@ -5,7 +5,7 @@ import settings
 import peewee as pw
 import markdown as md
 from datetime import datetime, date
-from settings import MEDIA_ROOT
+from settings import MEDIA_ROOT, MEDIA_DIR_NAME
 from collections import namedtuple
 
 
@@ -110,14 +110,17 @@ class Image(BaseModel):
 
     @property
     def abspath(self):
-        return os.path.join(MEDIA_ROOT, self.pic.name)
+        return os.path.join(MEDIA_ROOT, self.pic)
+
+    @property
+    def url(self):
+        return os.path.join('/static', MEDIA_DIR_NAME, self.pic)
 
     @classmethod
     def my_save(cls, fname, fbody):
         save_name = fname
         while True:
-            print(save_name)
-            if Image.objects.filter(pic=save_name).first():
+            if cls.get_or_none(cls.pic == save_name):
                 save_name = '{}(1)'.format(save_name)
             else:
                 break
@@ -126,20 +129,22 @@ class Image(BaseModel):
             f.write(fbody)
 
         obj = cls()
-        obj.pic.name = save_name
+        obj.pic = save_name
         obj.save()
         return obj
 
     @property
     def size(self):
-        return '%.2f KB' % (self.pic.size / 1024.0)
+        if not hasattr(self, '_size'):
+            self._size = os.path.getsize(self.abspath)
+        return '%.2f KB' % (self._size / 1024.0)
 
     def to_dict(self):
         d = super().to_dict()
         if os.path.exists(self.abspath):
-            d['name'] = self.pic.name
+            d['name'] = self.pic
             d['size'] = self.size
-            d['url'] = self.pic.url
+            d['url'] = self.url
         else:
             d['name'] = ''
             d['size'] = 0
@@ -147,7 +152,7 @@ class Image(BaseModel):
         return d
 
     def __str__(self):
-        return self.pic.name
+        return self.pic
 
     class Meta:
         table_name = 'app_image'
