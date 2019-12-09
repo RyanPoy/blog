@@ -332,7 +332,7 @@ class ApiLinkController(BaseController):
 
     def get(self):
         return self.end(data={ 
-            'links': [ t.to_dict() for t in Link.objects.all() ]
+            'links': [ t.to_dict() for t in Link.select() ]
         })
 
     @atomic()
@@ -341,14 +341,14 @@ class ApiLinkController(BaseController):
         name = d.get('name', '')
         if not name:
             return self.end(code=-1, err_str='名称不能为空')
-        if Link.objects.filter(name=name).first():
+        if Link.get_or_none(Link.name == name):
             return self.end(code=-1, err_str='存在同名友链')
 
         url = d.get('url', '')
         if not url:
             return self.end(code=-1, err_str='链接地址不能为空')
-        if Link.objects.filter(url=url).first():
-            return self.end(code=-1, err_str='存在同名友链')
+        if Link.get_or_none(Link.url == url):
+            return self.end(code=-1, err_str='存在同链接地址友链')
 
         l = Link(name=name, url=url, seq=toi(d.get('seq', '0')))
         l.save()
@@ -365,14 +365,18 @@ class ApiLinkController(BaseController):
         name = d.get('name', '')
         if not name:
             return self.end(code=-1, err_str='名称不能为空')
-        if Link.objects.filter(name=name).filter(~Q(id=_id)).first():
+        if Link.get_or_none(
+            (Link.name == name) & (Link.id != _id)
+        ):
             return self.end(code=-1, err_str='存在同名友链')
 
         url = d.get('url', '')
         if not url:
             return self.end(code=-1, err_str='链接地址不能为空')
-        if Link.objects.filter(url=url).filter(~Q(id=_id)).first():
-            return self.end(code=-1, err_str='存在同名友链')
+        if Link.get_or_none(
+            (Link.url == url) & (Link.id != _id)
+        ):
+            return self.end(code=-1, err_str='存在同链接地址友链')
 
         db_link.name = d['name']
         db_link.url = d['url']
@@ -389,7 +393,7 @@ class ApiLinkController(BaseController):
         _id = t.get('id', '')
         db_link = self.get_object_or_404(Link, id=_id)
         if db_link:
-            db_link.delete().execute()
+            Link.delete().where(Link.id == _id).execute()
             return self.end(data=db_link.to_dict())
 
 
