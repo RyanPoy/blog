@@ -38,10 +38,6 @@ class BaseModel(pw.Model):
     def to_json(self):
         return json.dumps(self.to_dict)
 
-    @classmethod
-    def get_table_name(cls):
-        return cls.objects.model._meta.db_table
-
     def created_at_str(self, fmt='%Y-%m-%d %H:%M:%S'):
         return datetime.strftime(self.created_at, fmt) if self.created_at else ''
 
@@ -72,24 +68,6 @@ class BaseModel(pw.Model):
 class Tag(BaseModel):
     name = pw.CharField(verbose_name='名字', max_length=255, index=True, null=False, unique=True)
     article_number = pw.IntegerField(verbose_name='文章数量', default=0)
-    
-    # @clasmethod
-    # def reset_article_number(cls, *args, **kwargs):
-    #     '''重新统计每个tag对应的文章数，删除空标签'''
-    #     for i in cls.select().where(*args, **kwargs):
-    #         i.article_number = i.post_set.count()
-    #         if i.article_number <= 0:
-    #             i.delete().execute()
-    #         else:
-    #             i.save()
-
-    # def decr_article_number(self, ids, delete_isolate=True):
-    #     '''文章数减1'''
-    #     assert all(map(lambda i:isinstance(i, int), ids))
-    #     self.extra(where=['id in (%s)' % ','.join(map(str, ids))]).update(article_number=models.F('article_number') - 1)
-    #     if delete_isolate:
-    #         # 删除没有和文章关联的标签
-    #         self.filter(article_number__lte=0).delete().execute()
 
     def to_dict(self):
         d = super().to_dict()

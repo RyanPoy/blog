@@ -1,18 +1,15 @@
 #coding: utf8
-# from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from .libs import Paginator
-# from django.db import transaction, connection
-# from django.db.models import Q
 from tornado.util import unicode_type
+from datetime import datetime
+from .libs import Paginator
 from pprint import pprint
+from .models import *
+import app.ui as ui
 import tornado.web
 import functools
 import settings
-from .models import *
-from datetime import datetime
 import json
 import re
-import app.ui as ui
 import math
 
 

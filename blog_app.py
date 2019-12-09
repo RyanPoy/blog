@@ -1,6 +1,5 @@
 #coding: utf8
 import os
-
 from tornado import options, httputil, wsgi
 import settings
 from app.urls import urls
