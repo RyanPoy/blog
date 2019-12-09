@@ -1,5 +1,6 @@
 #coding: utf8
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+# from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from .libs import Paginator
 from django.db import transaction, connection
 from django.db.models import Q
 from tornado.util import unicode_type
@@ -12,6 +13,7 @@ from datetime import datetime
 import json
 import re
 import app.ui as ui
+import math
 
 
 def toi(v):
@@ -69,15 +71,15 @@ class BaseController(tornado.web.RequestHandler):
 
     def __before_render_view_or_ajax(self, kwargs):
         if 'recent_articles' not in kwargs:
-            kwargs['recent_articles'] = Article.objects.recents(5)
+            kwargs['recent_articles'] = Article.recents(5)
         if 'all_pages' not in kwargs:
-            kwargs['all_pages'] = Page.objects.order_by('seq').all()
+            kwargs['all_pages'] = Page.select().order_by(Page.seq)
         if 'all_tags' not in kwargs:
-            kwargs['all_tags'] = Tag.objects.all()
+            kwargs['all_tags'] = Tag.select()
         if 'all_series' not in kwargs:
-            kwargs['all_series'] = Series.objects.order_by('seq').all()
+            kwargs['all_series'] = Series.select().order_by(Series.seq)
         if 'all_links' not in kwargs:
-            kwargs['all_links'] = Link.objects.order_by('-seq').all()
+            kwargs['all_links'] = Link.select().order_by(Link.seq.desc())
         if 'active_css' not in kwargs:
             kwargs['active_css'] = lambda v: 'active' if self.full_uri == v else ''
         if 'chang_yan' not in kwargs:
@@ -96,20 +98,17 @@ class BaseController(tornado.web.RequestHandler):
         return self.render(template_name, **kwargs)
 
     def get_object_or_404(self, clazz, id, related=False):
-        try:
-            _id = int(id)
-            return clazz.objects.select_related().get(pk=_id) if related \
-                    else clazz.objects.get(pk=_id)
-        except clazz.DoesNotExist:
-            raise tornado.web.HTTPError(404)
-        except ValueError: # 表示_id不是整形
-            raise tornado.web.HTTPError(404)
+        obj = self.get_object_or_none(clazz, id)
+        if obj:
+            return obj
+        raise tornado.web.HTTPError(404)
 
     def get_object_or_none(self, clazz, id, related=False):
         try:
-            return self.get_object_or_404(clazz, id, related)
-        except tornado.web.HTTPError:
-            return None
+            _id = int(id)
+        except ValueError:
+            _id = 0
+        return clazz.get_or_none(clazz.id == _id)
 
     def int_argument(self, k, default=0):
         v = self.get_argument(k, default)
@@ -118,23 +117,12 @@ class BaseController(tornado.web.RequestHandler):
         except:
             return default
 
-    def paginator(self, object_list, number_per_page=10, page_num=0):
+    def paginator(self, objects_list, number_per_page=10, page_num=0):
         if page_num <= 0:
             page_num = self.int_argument('page')
         if page_num <= 0:
             page_num = 1
-
-        paginator = Paginator(object_list, number_per_page)
-        try:
-            pagination_objects = paginator.page(page_num)
-        except PageNotAnInteger:
-            # If page is not an integer, deliver first page.
-            pagination_objects = paginator.page(1)
-        except EmptyPage:
-            # If page is out of range (e.g. 9999), deliver last page of results.
-            pagination_objects = paginator.page(paginator.num_pages)
-        pagination_objects.count = paginator.count
-        return pagination_objects
+        return Paginator(objects_list, number_per_page).page(page_num)
 
     def set_default_headers(self):
         self.set_header("Access-Control-Allow-Origin", "*")
@@ -174,7 +162,7 @@ class IndexController(BaseController):
 class ArticleIndexController(BaseController):
 
     def get(self):
-        articles = self.paginator(Article.objects.order_by('-id'))
+        articles = self.paginator(Article.select().order_by(Article.id.desc()))
         return self.render_view('article_list.html', articles=articles)
 
 
@@ -684,7 +672,7 @@ class ApiArticleController(BaseController):
         if tag_ids:
             pretty_tagid_tags_mapping = { t.id:t for t in tag_ids }
 
-            db_tags = db_article.tags.all()
+            db_tags = db_article.tags
             db_tagid_tags_mapping = { t.id:t for t in db_tags}
 
             should_add_tags = [ t for t in tag_ids if t.id not in db_tagid_tags_mapping ]

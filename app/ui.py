@@ -32,7 +32,8 @@ class PaginationUI(UIModule):
         </div>
     """    
     def render(self, paginator, uri):
-        if paginator.paginator.num_pages == 1: # 不是只有1页
+
+        if paginator.num_pages == 1: # 不是只有1页
             return self.render_string('_ui_data.html', ui_data='')
 
         r = urlparse(uri)
@@ -56,11 +57,11 @@ class PaginationUI(UIModule):
         left_end = paginator.number
         
         right_nums = display_nums - (left_end - left_begin) - 1
-        if paginator.number == paginator.paginator.num_pages: # 已经是最后1页
+        if paginator.number == paginator.num_pages: # 已经是最后1页
             right_begin = right_end = paginator.number
         else:  
-            right_begin = (paginator.number + 1 if paginator.number + 1 <= paginator.paginator.num_pages else paginator.paginator.num_pages)
-            right_end = (paginator.number + right_nums if paginator.number + right_nums <= paginator.paginator.num_pages else paginator.paginator.num_pages) + 1
+            right_begin = (paginator.number + 1 if paginator.number + 1 <= paginator.num_pages else paginator.num_pages)
+            right_end = (paginator.number + right_nums if paginator.number + right_nums <= paginator.num_pages else paginator.num_pages) + 1
         for x in range(left_begin, left_end):
             buff.append(u'<li><a href="%s%s%s">%s</a></li>' % (uri, page_segment, x, x))
         buff.append(u'<li class="active"><a href="?page=%s">%s</a></li>' % (paginator.number, paginator.number))

@@ -17,7 +17,7 @@
           {% if article.series %}
           <div class="markdown-body post-content">
             <ul>同系列
-              {% for a in article.same_series.all() %}
+              {% for a in article.same_series() %}
               <li><a href="/blogs/{{a.id}}">{{a.title}}</a></li>
               {% end %}  
             </ul>
@@ -31,7 +31,7 @@
 
         <!-- TAGS -->
         <div class="tags font-serif">
-          {% for t in article.tags.all() %}
+          {% for t in article.tags %}
           <a href="/blogs/tags/{{t.id}}">{{t.name}}</a>
           {% end %}
         </div>

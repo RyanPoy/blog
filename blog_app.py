@@ -1,13 +1,8 @@
 #coding: utf8
 import os
 
-from django.core.handlers.wsgi import WSGIHandler
-from django.core.wsgi import get_wsgi_application
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
-get_wsgi_application()
-
 from tornado import options, httputil, wsgi
-from settings import *
+import settings
 from app.urls import urls
 import tornado.httpserver
 import tornado.ioloop
@@ -49,7 +44,7 @@ LOGGER = logging.getLogger(__name__)
 
 def ping_db():
     from app.models import Tag
-    Tag.objects.first()
+    Tag.select().limit(1)
     print('*'*10, 'ping db')
 
 
@@ -60,7 +55,7 @@ def main():
     debug = options.options.debug == 'true'
     tmpl = options.options.tmpl
 
-    tornado_env = builder_tornado_env(tmpl)
+    tornado_env = settings.builder_tornado_env(tmpl)
     tornado_env['debug'] = debug
 
     asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
@@ -70,20 +65,20 @@ def main():
 
     # ioloop = tornado.ioloop.IOLoop.instance()
 
-    def admin_listen():
-        if not admin_port:
-            return
-        wsgi_app = wsgi.WSGIContainer(WSGIHandler())
-        print (tornado_env['static_path'])
-        tornado_app = tornado.web.Application([
-            (r'/static/admin/(.*)', tornado.web.StaticFileHandler, {"path": os.path.join(BASE_DIR, 'admin', 'static', 'admin')}),
-            (r'/static/media/(.*)', tornado.web.StaticFileHandler, {"path": MEDIA_DIR_NAME}),
-            (r'/admin/(.*)', tornado.web.FallbackHandler, dict(fallback=wsgi_app)),
+    # def admin_listen():
+    #     if not admin_port:
+    #         return
+    #     wsgi_app = wsgi.WSGIContainer(WSGIHandler())
+    #     print (tornado_env['static_path'])
+    #     tornado_app = tornado.web.Application([
+    #         (r'/static/admin/(.*)', tornado.web.StaticFileHandler, {"path": os.path.join(BASE_DIR, 'admin', 'static', 'admin')}),
+    #         (r'/static/media/(.*)', tornado.web.StaticFileHandler, {"path": MEDIA_DIR_NAME}),
+    #         (r'/admin/(.*)', tornado.web.FallbackHandler, dict(fallback=wsgi_app)),
 
             
-        ])
-        tornado.httpserver.HTTPServer(tornado_app).listen(admin_port)
-        print('run admin platform on (%s:%s)' % (address, admin_port))
+    #     ])
+    #     tornado.httpserver.HTTPServer(tornado_app).listen(admin_port)
+    #     print('run admin platform on (%s:%s)' % (address, admin_port))
 
 
     def app_listen():
@@ -93,10 +88,10 @@ def main():
         http_server.listen(port, address)
         print('server run on (%s:%s)，tmpl is "%s"' % (address, port, tmpl))
 
-    admin_listen()
+    # admin_listen()
     app_listen()
 
-    tornado.ioloop.PeriodicCallback(ping_db, int(db_ping_seconds * 1000)).start()
+    tornado.ioloop.PeriodicCallback(ping_db, int(settings.db_ping_seconds * 1000)).start()
     try:
         # ioloop.start()
         ioloop.run_forever()

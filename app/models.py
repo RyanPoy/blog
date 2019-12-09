@@ -1,22 +1,28 @@
 #coding: utf8
 from django.db import models
+import peewee as pw
 from datetime import datetime, date
 from settings import MEDIA_ROOT
 from collections import namedtuple
 import markdown as md
 import json
 import os
+import settings
 
+db = pw.MySQLDatabase(**settings.db)
+
+atomic = db.atomic
 
 # Create your models here.
-class BaseModel(models.Model):
+# class BaseModel(models.Model):
+class BaseModel(pw.Model):
 
-    created_at  = models.DateTimeField('创建时间', auto_now_add=True, db_index=True)
-    updated_at  = models.DateTimeField('修改时间', auto_now=True, db_index=True)
-    show        = models.BooleanField('是否发布', default=True, db_index=True)
+    created_at  = pw.DateTimeField(verbose_name='创建时间', index=True, default=datetime.now)
+    updated_at  = pw.DateTimeField(verbose_name='修改时间', index=True, default=datetime.now)
+    show        = pw.BooleanField(verbose_name='是否发布', default=True, index=True)
 
     class Meta:
-        abstract = True
+        database = db
 
     def to_dict(self):
         return {
@@ -25,6 +31,11 @@ class BaseModel(models.Model):
             'updated_at': self.updated_at_str(),
             'show': self.show
         }
+
+    def save(self, *args, **kwargs):
+        if not self.created_at:
+            self.created_at = datetime.now
+        return super().save(*args, **kwargs)
 
     def to_json(self):
         return json.dumps(self.to_dict)
@@ -88,8 +99,8 @@ class TagManager(models.Manager):
 class Tag(BaseModel):
     objects = TagManager()
 
-    name = models.CharField('名字', max_length=255, db_index=True, null=False, unique=True)
-    article_number = models.IntegerField('文章数量', default=0)
+    name = pw.CharField(verbose_name='名字', max_length=255, index=True, null=False, unique=True)
+    article_number = pw.IntegerField(verbose_name='文章数量', default=0)
     
     def to_dict(self):
         d = super().to_dict()
@@ -101,12 +112,12 @@ class Tag(BaseModel):
         return self.name
 
     class Meta:
-        verbose_name = verbose_name_plural = '标签'
+        table_name = 'app_tag'
 
 
 class Image(BaseModel):
 
-    pic = models.ImageField('图片', null=False)
+    pic = pw.CharField(verbose_name='图片', max_length=255, null=False)
 
     @property
     def abspath(self):
@@ -130,7 +141,6 @@ class Image(BaseModel):
         obj.save()
         return obj
 
-
     @property
     def size(self):
         return '%.2f KB' % (self.pic.size / 1024.0)
@@ -151,14 +161,32 @@ class Image(BaseModel):
         return self.pic.name
 
     class Meta:
-        verbose_name = verbose_name_plural = '图片'
+        table_name = 'app_image'
+
+
+class Series(BaseModel):
+    name = pw.CharField(verbose_name='名称', max_length=255)
+    seq = pw.IntegerField(verbose_name='排序', default=0, index=True)
+
+    def to_dict(self):
+        d = super().to_dict()
+        d['name'] = self.name
+        d['seq'] = self.seq
+        return d
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['seq']
+        table_name = 'app_series'
 
 
 class AbsArticle(BaseModel):
 
-    title           = models.CharField('标题', max_length=255, db_index=True, unique=True)
-    keywords        = models.CharField('关键词', max_length=255, null=True, default='', editable=False)
-    content         = models.TextField('MarkDown内容', null=False, default='')
+    title   = pw.CharField(verbose_name='标题', max_length=255, index=True, unique=True)
+    keywords= pw.CharField(verbose_name='关键词', max_length=255, null=True, default='')
+    content = pw.TextField(verbose_name='MarkDown内容', null=False, default='')
 
     def to_dict(self):
         d = super().to_dict()
@@ -176,22 +204,11 @@ class AbsArticle(BaseModel):
     def html_content(self):
         return md.markdown(self.content, extensions=['markdown.extensions.extra'])
 
-    class Meta:
-        abstract = True
-
-
-class ArticleManager(models.Manager):
-
-    def recents(self, n):
-        return self.order_by('-id').all()[:n+1]
-
 
 class Article(AbsArticle):
-    objects         = ArticleManager()
-
-    view_number     = models.IntegerField('浏览次数', null=False, default=0)
-    tags            = models.ManyToManyField(Tag, verbose_name='标签')
-    series          = models.ForeignKey('Series', verbose_name='系列', null=True, blank=True, related_name='series_id', on_delete=False)
+    view_number     = pw.IntegerField(verbose_name='浏览次数', null=False, default=0)
+    tags            = pw.ManyToManyField(Tag, backref='articles') # verbose_name='标签'
+    series          = pw.ForeignKeyField(Series, verbose_name='系列', backref="articles", null=True, related_name='series_id', on_delete=False)
 
     def to_dict(self):
         d = super().to_dict()
@@ -202,10 +219,13 @@ class Article(AbsArticle):
         d['series_id'] = self.series.id if self.series else ''
         return d
 
-    @property
+    @classmethod
+    def recents(cls, num):
+        return cls.select().order_by(cls.id.desc()).limit(5)
+
     def same_series(self):
-        return Article.objects.filter(series=self.series)
-        
+        return Article.select().where(Article.series_id == self.series_id)
+
     @property
     def tag_names_str(self):
         if self.id:
@@ -222,20 +242,13 @@ class Article(AbsArticle):
         return self.title
 
     class Meta:
-        verbose_name = verbose_name_plural = '文章'
-
-
-class PageManager(models.Manager):
-
-    def sorted(self, *args, **kwargs):
-        return self.order_by('seq ASC')
+        table_name = 'app_article'
 
 
 class Page(AbsArticle):
     """ 单页面，直接显示在导航栏上 """
-    objects = PageManager()
-    seq = models.IntegerField('排序', default=0, db_index=True)
-    uri = models.CharField('跳转地址', null=False, max_length=255, db_index=True)
+    seq = pw.IntegerField(verbose_name='排序', default=0, index=True)
+    uri = pw.CharField(verbose_name='跳转地址', null=False, max_length=255, index=True)
 
     def to_dict(self):
         d = super().to_dict()
@@ -244,13 +257,13 @@ class Page(AbsArticle):
         return d
 
     class Meta:
-        verbose_name = verbose_name_plural = '单页面'
+        table_name = 'app_page'
 
 
 class Link(BaseModel):
-    name = models.CharField('名称', max_length=255)
-    url = models.URLField('链接地址', max_length=255)
-    seq = models.IntegerField('排序', default=0, db_index=True)
+    name = pw.CharField(verbose_name='名称', max_length=255)
+    url = pw.CharField(verbose_name='链接地址', max_length=255)
+    seq = pw.IntegerField(verbose_name='排序', default=0, index=True)
 
     def to_dict(self):
         d = super().to_dict()
@@ -264,35 +277,17 @@ class Link(BaseModel):
 
     class Meta:
         ordering = ['seq']
-        verbose_name_plural = verbose_name = '链接'
-
-
-class Series(BaseModel):
-    name = models.CharField('名称', max_length=255)
-    seq = models.IntegerField('排序', default=0, db_index=True)
-
-    def to_dict(self):
-        d = super().to_dict()
-        d['name'] = self.name
-        d['seq'] = self.seq
-        return d
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ['seq']
-        verbose_name_plural = verbose_name = '系列'
+        table_name = 'app_link'
 
 
 class User(BaseModel):
 
     ROLES = namedtuple('Roles', ['ADMIN', 'NORMAL'])._make([10000, 100])
 
-    signinname = models.CharField('登录名', max_length=255, null=False, db_index=True)
-    username   = models.CharField('用户名', max_length=255, null=False)
-    password   = models.CharField('密码', max_length=255, null=False, db_index=True)
-    role       = models.IntegerField('权限', default=ROLES.NORMAL, null=False, db_index=True)
+    signinname = pw.CharField(verbose_name='登录名', max_length=255, null=False, index=True)
+    username   = pw.CharField(verbose_name='用户名', max_length=255, null=False)
+    password   = pw.CharField(verbose_name='密码', max_length=255, null=False, index=True)
+    role       = pw.IntegerField(verbose_name='权限', default=ROLES.NORMAL, null=False, index=True)
 
     def to_cookie_str(self):
         return '%s|%s|%s' % (self.signinname, self.username, self.id)
@@ -311,4 +306,4 @@ class User(BaseModel):
         return self.username
 
     class Meta:
-        verbose_name_plural = verbose_name = '用户'
+        table_name = 'app_user'

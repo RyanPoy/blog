@@ -8,7 +8,7 @@
     <div class="row">
 
       <div class="col-sm-8 col-sm-offset-2">
-        {% for a in articles %}
+        {% for a in articles.objects %}
         <article class="post">
           <div class="post-header">
             <h2 class="post-title font-alt"><a href="/blogs/{{a.id}}">{{a.title}}</a></h2>
