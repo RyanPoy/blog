@@ -169,22 +169,27 @@ class ArticleIndexController(BaseController):
 class TagArticleController(BaseController):
 
     def get(self, tagid):
-        tag = Tag.objects.filter(id=tagid).first()
+        tag = Tag.get_or_none(Tag.id == tagid)
         if not tag: # tag 不存在
             return self.redirect("/blogs")
 
-        articles = self.paginator(Article.objects.order_by('-id').filter(tags__id=tagid))
+        through_table = Article.tags.get_through_model()
+        articles = self.paginator(
+            Article.select().join(through_table).where(through_table.tag_id == tagid).order_by(Article.id.desc())
+        )
         return self.render_view('article_list.html', articles=articles)
 
 
 class SeriesArticleController(BaseController):
 
     def get(self, series_id):
-        series = Series.objects.filter(id=series_id).first()
+        series = Series.get_or_none(Series.id == series_id)
         if not series: # series 不存在
             return self.redirect("/blogs")
 
-        articles = self.paginator(Article.objects.order_by('-id').filter(series__id=series_id))
+        articles = self.paginator(
+            Article.select().join(Series).where(Article.series_id == series_id).order_by(Article.id.desc())
+        )
         return self.render_view('article_list.html', articles=articles)
 
 
