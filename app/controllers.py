@@ -406,7 +406,7 @@ class ApiSeriesController(BaseController):
         name = d.get('name', '')
         if not name:
             return self.end(code=-1, err_str='名称不能为空')
-        if Series.objects.filter(name=name).first():
+        if Series.get_or_none(Series.name == name):
             return self.end(code=-1, err_str='存在同名系列')
 
         s = Series(name=name, seq=toi(d.get('seq', '0')))
@@ -424,7 +424,9 @@ class ApiSeriesController(BaseController):
         name = d.get('name', '')
         if not name:
             return self.end(code=-1, err_str='名称不能为空')
-        if Series.objects.filter(name=name).filter(~Q(id=_id)).first():
+        if Series.get_or_none(
+            (Series.name == name) & (Series.id != _id)
+        ):
             return self.end(code=-1, err_str='存在同名系列')
 
         db_series.name = d['name']
@@ -441,7 +443,8 @@ class ApiSeriesController(BaseController):
         _id = t.get('id', '')
         db_series = self.get_object_or_404(Series, id=_id)
         if db_series:
-            db_series.delete().execute()
+            Article.update(series_id=None).where(Article.series_id == _id).execute()
+            Series.delete().where(Series.id == _id).execute()
             return self.end(data=db_series.to_dict())
 
 
