@@ -1,8 +1,8 @@
 #coding: utf8
 # from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .libs import Paginator
-from django.db import transaction, connection
-from django.db.models import Q
+# from django.db import transaction, connection
+# from django.db.models import Q
 from tornado.util import unicode_type
 from pprint import pprint
 import tornado.web
@@ -279,7 +279,7 @@ class ApiTagController(BaseController):
             'tags': [ t.to_dict() for t in Tag.select() ]
         })
 
-    @transaction.atomic
+    @atomic()
     def post(self):
         d = json.loads(self.request.body)
         name = d.get('name', '')
@@ -294,7 +294,7 @@ class ApiTagController(BaseController):
             'tag': t.to_dict()
         })
 
-    @transaction.atomic
+    @atomic()
     def put(self):
         t = json.loads(self.request.body)
         _id = t.get('id', '')
@@ -313,7 +313,7 @@ class ApiTagController(BaseController):
             'tag': db_tag.to_dict()
         })
 
-    @transaction.atomic
+    @atomic()
     def delete(self):
         t = json.loads(self.request.body)
         _id = t.get('id', '')
@@ -330,7 +330,7 @@ class ApiLinkController(BaseController):
             'links': [ t.to_dict() for t in Link.objects.all() ]
         })
 
-    @transaction.atomic
+    @atomic()
     def post(self):
         d = json.loads(self.request.body)
         name = d.get('name', '')
@@ -351,7 +351,7 @@ class ApiLinkController(BaseController):
             'link': l.to_dict()
         })
 
-    @transaction.atomic
+    @atomic()
     def put(self):
         d = json.loads(self.request.body)
         _id = d.get('id', '')
@@ -378,7 +378,7 @@ class ApiLinkController(BaseController):
             'link': db_link.to_dict()
         })
 
-    @transaction.atomic
+    @atomic()
     def delete(self):
         t = json.loads(self.request.body)
         _id = t.get('id', '')
@@ -395,7 +395,7 @@ class ApiSeriesController(BaseController):
             'series': [ t.to_dict() for t in Series.select() ]
         })
 
-    @transaction.atomic
+    @atomic()
     def post(self):
         d = json.loads(self.request.body)
         name = d.get('name', '')
@@ -410,7 +410,7 @@ class ApiSeriesController(BaseController):
             'series': s.to_dict()
         })
 
-    @transaction.atomic
+    @atomic()
     def put(self):
         d = json.loads(self.request.body)
         _id = d.get('id', '')
@@ -430,7 +430,7 @@ class ApiSeriesController(BaseController):
             'link': db_series.to_dict()
         })
 
-    @transaction.atomic
+    @atomic()
     def delete(self):
         t = json.loads(self.request.body)
         _id = t.get('id', '')
@@ -450,7 +450,7 @@ class ApiImageController(BaseController):
             'images': [ t.to_dict() for t in Image.objects.all() ]
         })
 
-    @transaction.atomic
+    @atomic()
     def post(self):
         if 'images' not in self.request.files:
             return self.end(code=-1, err_str='请上传图片')
@@ -466,7 +466,7 @@ class ApiImageController(BaseController):
                 'image': img.to_dict()
             })
 
-    @transaction.atomic
+    @atomic()
     def delete(self):
         t = json.loads(self.request.body)
         _id = t.get('id', '')
@@ -487,7 +487,7 @@ class ApiPageController(BaseController):
             'pages': [ p.to_dict() for p in Page.objects.all() ]
         })
 
-    @transaction.atomic
+    @atomic()
     def post(self):
         d = json.loads(self.request.body)
         title = d.get('title', '')
@@ -512,7 +512,7 @@ class ApiPageController(BaseController):
             'page': p.to_dict()
         })
 
-    @transaction.atomic
+    @atomic()
     def put(self):
         d = json.loads(self.request.body)
         _id = d.get('id', '')
@@ -543,7 +543,7 @@ class ApiPageController(BaseController):
             'page': db_page.to_dict()
         })
 
-    @transaction.atomic
+    @atomic()
     def delete(self):
         t = json.loads(self.request.body)
         _id = t.get('id', '')
@@ -560,28 +560,29 @@ class ApiArticleController(BaseController):
             'articles': [ a.to_dict() for a in Article.select().order_by(Article.id.desc()) ]
         })
 
-    @transaction.atomic
+    @atomic()
     def post(self):
         d = json.loads(self.request.body)
 
         title = d.get('title', '')
         if not title:
             return self.end(code=-1, err_str='请填写标题')
-        if Article.objects.filter(title=title).first():
+        if Article.get_or_none(Article.title == title):
             return self.end(code=-1, err_str='存在同标题文章')
 
         view_number = toi(d.get('view_number', 0))
         if view_number < 0:
             view_number = 0
 
+        tags = []
         tag_ids = d.get('tag_ids', [])
         if tag_ids: # 去除无效的 tag
-            tag_ids = [ t for t in Tag.objects.filter(id__in=tag_ids).all() ]
+            tags = Tag.select().where(Tag.id.in_(tag_ids))
 
         keywords = d.get('keywords', '').strip()
         series = d.get('series_id', 0)
         if series:
-            series = Series.objects.filter(id=series).first()
+            series = Series.get_or_none(Series.id == series)
             if not series:
                 return self.end(code=-1, err_str='请选择正确的系列')
 
@@ -594,16 +595,20 @@ class ApiArticleController(BaseController):
         a = Article(title=title, content=content, keywords=keywords, view_number=view_number)
         if series:
             a.series = series
-        # for t in tag_ids:
         a.save()
-        a.tags.add(*tag_ids)
+
+        if tags:
+            a.tags.add(tags)
+        for t in tags:
+            t.article_number += 1
+            t.save()
         a.save()
 
         return self.end(data={
             'article': a.to_dict()
         })
 
-    @transaction.atomic
+    @atomic()
     def put(self):
         d = json.loads(self.request.body)
         _id = d.get('id', '')
@@ -661,7 +666,7 @@ class ApiArticleController(BaseController):
             'article': db_article.to_dict()
         })
     
-    @transaction.atomic
+    @atomic()
     def delete(self):
         t = json.loads(self.request.body)
         _id = t.get('id', '')

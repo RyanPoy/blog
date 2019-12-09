@@ -91,11 +91,6 @@ class Tag(BaseModel):
     #         # 删除没有和文章关联的标签
     #         self.filter(article_number__lte=0).delete()
 
-    # def incr_article_number(self, ids):
-    #     '''文章数减1'''
-    #     assert all(map(lambda i:isinstance(i, int), ids))
-    #     self.extra(where=['id in (%s)' % ','.join(map(str, ids))]).update(article_number=models.F('article_number') + 1)
-
     def to_dict(self):
         d = super().to_dict()
         d['name'] = self.name
