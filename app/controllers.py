@@ -618,21 +618,24 @@ class ApiArticleController(BaseController):
         title = d.get('title', '')
         if not title:
             return self.end(code=-1, err_str='请填写标题')
-        if Article.objects.filter(title=title).filter(~Q(id=db_article.id)).first():
+        if Article.get_or_none(
+            (Article.title == title) & (Article.id != db_article.id)
+        ):
             return self.end(code=-1, err_str='存在同标题文章')
 
         view_number = toi(d.get('view_number', 0))
         if view_number < 0:
             view_number = 0
 
+        tags = []
         tag_ids = d.get('tag_ids', [])
         if tag_ids: # 去除无效的 tag
-            tag_ids = [ t for t in Tag.objects.filter(id__in=tag_ids).all() ]
+            tags = Tag.select().where(Tag.id.in_(tag_ids))
 
         keywords = d.get('keywords', '').strip()
         series = d.get('series_id', 0)
         if series:
-            series = Series.objects.filter(id=series).first()
+            series = Series.get_or_none(Series.id == series)
             if not series:
                 return self.end(code=-1, err_str='请选择正确的系列')
 
@@ -649,17 +652,25 @@ class ApiArticleController(BaseController):
         if series:
             db_article.series = series
 
-        if tag_ids:
-            pretty_tagid_tags_mapping = { t.id:t for t in tag_ids }
+        if tags:
+            pretty_tagid_tags_mapping = { t.id:t for t in tags }
 
             db_tags = db_article.tags
             db_tagid_tags_mapping = { t.id:t for t in db_tags}
 
-            should_add_tags = [ t for t in tag_ids if t.id not in db_tagid_tags_mapping ]
+            should_add_tags = [ t for t in tags if t.id not in db_tagid_tags_mapping ]
             should_delete_tags = [ t for t in db_tags if t.id not in pretty_tagid_tags_mapping ]
             
-            db_article.tags.add(*should_add_tags)
-            db_article.tags.remove(*should_delete_tags)
+            db_article.tags.add(should_add_tags)
+            db_article.tags.remove(should_delete_tags)
+
+            for t in should_add_tags:
+                t.article_number += 1
+                t.save()
+
+            for t in should_delete_tags:
+                t.article_number -= 1
+                t.save()
 
         db_article.save()
         return self.end(data={
@@ -672,6 +683,10 @@ class ApiArticleController(BaseController):
         _id = t.get('id', '')
         db_article = self.get_object_or_404(Article, id=_id)
         if db_article:
+            db_tags = db_article.tags
+            for t in db_tags:
+                t.article_number -= 1
+                t.save()
             db_article.delete()
             return self.end(data=db_article.to_dict())
 
