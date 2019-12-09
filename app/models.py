@@ -79,7 +79,7 @@ class Tag(BaseModel):
     #     for i in cls.select().where(*args, **kwargs):
     #         i.article_number = i.post_set.count()
     #         if i.article_number <= 0:
-    #             i.delete()
+    #             i.delete().execute()
     #         else:
     #             i.save()
 
@@ -89,7 +89,7 @@ class Tag(BaseModel):
     #     self.extra(where=['id in (%s)' % ','.join(map(str, ids))]).update(article_number=models.F('article_number') - 1)
     #     if delete_isolate:
     #         # 删除没有和文章关联的标签
-    #         self.filter(article_number__lte=0).delete()
+    #         self.filter(article_number__lte=0).delete().execute()
 
     def to_dict(self):
         d = super().to_dict()

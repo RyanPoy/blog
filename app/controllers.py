@@ -285,7 +285,7 @@ class ApiTagController(BaseController):
         name = d.get('name', '')
         if not name:
             return self.end(code=-1, err_str='名称不能为空')
-        if Tag.objects.filter(name=name).first():
+        if Tag.get_or_none(Tag.name == name):
             return self.end(code=-1, err_str='存在同名tag')
 
         t = Tag(name=name)
@@ -304,7 +304,9 @@ class ApiTagController(BaseController):
         
         if not name:
             return self.end(code=-1, err_str='名称不能为空')
-        if Tag.objects.filter(name=name).filter(~Q(id=_id)).first():
+        if Tag.get_or_none(
+            (Tag.name == name) & (Tag.id != _id)
+        ):
             return self.end(code=-1, err_str='存在同名tag')
         
         db_tag.name = t['name']
@@ -318,9 +320,12 @@ class ApiTagController(BaseController):
         t = json.loads(self.request.body)
         _id = t.get('id', '')
         db_tag = self.get_object_or_404(Tag, id=_id)
+
+        data = db_tag.to_dict()
         if db_tag:
-            db_tag.delete()
-            return self.end(data=db_tag.to_dict())
+            db_tag.articles.clear()
+            Tag.delete().where(Tag.id == _id).execute()
+        return self.end(data=db_tag.to_dict())
 
             
 class ApiLinkController(BaseController):
@@ -384,7 +389,7 @@ class ApiLinkController(BaseController):
         _id = t.get('id', '')
         db_link = self.get_object_or_404(Link, id=_id)
         if db_link:
-            db_link.delete()
+            db_link.delete().execute()
             return self.end(data=db_link.to_dict())
 
 
@@ -436,7 +441,7 @@ class ApiSeriesController(BaseController):
         _id = t.get('id', '')
         db_series = self.get_object_or_404(Series, id=_id)
         if db_series:
-            db_series.delete()
+            db_series.delete().execute()
             return self.end(data=db_series.to_dict())
 
 
@@ -472,7 +477,7 @@ class ApiImageController(BaseController):
         _id = t.get('id', '')
         db_image = self.get_object_or_404(Image, id=_id)
         if db_image:
-            db_image.delete()
+            db_image.delete().execute()
             try:
                 os.remove(db_image.abspath)
             except:
@@ -549,7 +554,7 @@ class ApiPageController(BaseController):
         _id = t.get('id', '')
         db_page = self.get_object_or_404(Page, id=_id)
         if db_page:
-            db_page.delete()
+            db_page.delete().execute()
             return self.end(data=db_page.to_dict())
 
 
@@ -670,6 +675,8 @@ class ApiArticleController(BaseController):
 
             for t in should_delete_tags:
                 t.article_number -= 1
+                if t.article_number < 0:
+                    t.article_number == 0
                 t.save()
 
         db_article.save()
@@ -686,8 +693,11 @@ class ApiArticleController(BaseController):
             db_tags = db_article.tags
             for t in db_tags:
                 t.article_number -= 1
+                if t.article_number < 0:
+                    t.article_number == 0
                 t.save()
-            db_article.delete()
+            db_article.tags.clear()
+            Article.delete().where(Article.id == _id).execute()
             return self.end(data=db_article.to_dict())
 
 
