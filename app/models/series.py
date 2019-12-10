@@ -1,4 +1,5 @@
 #coding: utf8
+import peewee as pw
 from .base import *
 
 

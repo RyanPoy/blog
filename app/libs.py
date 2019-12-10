@@ -2,6 +2,14 @@
 import math
 
 
+
+def toi(v):
+    try:
+        return int(v)
+    except:
+        return 0
+
+
 class Paginator(object):
 
     def __init__(self, objects, number_per_page):
