@@ -15,7 +15,7 @@ urls = [
     (r'^/archives[/]?$', web_controller.Archive),
     (r'^/rss[/]?$', web_controller.Rss),
 
-    (r'/api/signin[/]?', admin_controller.SigninController),
+    (r'/api/signin[/]?', admin.SessionController),
     (r'/api/left-nav[/]?', admin_controller.LeftNavController),
     (r'/api/tags[/]?$', admin.TagController),
     (r'/api/links[/]?$', admin.LinkController),
