@@ -22,5 +22,17 @@ class Tag(BaseModel):
         self.articles.clear()
         return super().remove()
 
+    def add_article_number_and_save(self):
+        self.article_number += 1
+        self.save()
+        return self
+
+    def sub_article_number_and_save(self):
+        self.article_number -= 1
+        if self.article_number <= 0:
+            self.article_number = 0
+        self.save()
+        return self
+
     class Meta:
         table_name = 'app_tag'

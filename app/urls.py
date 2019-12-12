@@ -22,7 +22,7 @@ urls = [
     (r'/api/series[/]?$', admin.SeriesController),
     (r'/api/images[/]?$', admin.ImageController),
     (r'/api/pages[/]?$', admin.PageController),
-    (r'/api/articles[/]?$', admin_controller.ArticleController),
+    (r'/api/articles[/]?$', admin.ArticleController),
 
     (r'/.*', web_controller.Error),
 ]

@@ -143,6 +143,7 @@ class BaseModel(pw.Model):
         cls.delete().where(cls.id == self.id).execute()
         return self
 
+
 class AbsArticle(BaseModel):
 
     title   = pw.CharField(verbose_name='标题', max_length=255, index=True, unique=True)

@@ -9,6 +9,11 @@ def toi(v):
         return 0
 
 
+def toi_gte0(v):
+    n = toi(v)
+    return 0 if n == 0 else n
+
+
 class Paginator(object):
 
     def __init__(self, objects, number_per_page):

@@ -28,9 +28,6 @@ class User(BaseModel):
 
         )
 
-    def __str__(self):
-        return self.username
-
     class Meta:
         table_name = 'app_user'
 
