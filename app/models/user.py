@@ -29,5 +29,5 @@ class User(BaseModel):
         )
 
     class Meta:
-        table_name = 'app_user'
+        table_name = 'users'
 

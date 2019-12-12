@@ -26,5 +26,5 @@ class Link(BaseModel):
                 self.add_err('name', '存在同链接地址友链')
 
     class Meta:
-        table_name = 'app_link'
+        table_name = 'links'
 

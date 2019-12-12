@@ -23,5 +23,5 @@ class Series(BaseModel):
         super().remove()
 
     class Meta:
-        table_name = 'app_series'
+        table_name = 'series'
 

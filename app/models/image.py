@@ -59,5 +59,5 @@ class Image(BaseModel):
         return r
 
     class Meta:
-        table_name = 'app_image'
+        table_name = 'images'
 

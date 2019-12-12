@@ -35,4 +35,4 @@ class Tag(BaseModel):
         return self
 
     class Meta:
-        table_name = 'app_tag'
+        table_name = 'tags'

@@ -29,4 +29,4 @@ class Page(AbsArticle):
                 self.add_err('uri', '存在同链接地址的页面')
 
     class Meta:
-        table_name = 'app_page'
+        table_name = 'pages'

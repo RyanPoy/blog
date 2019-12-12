@@ -110,4 +110,4 @@ class Article(AbsArticle):
         super().remove()
 
     class Meta:
-        table_name = 'app_article'
+        table_name = 'articles'
