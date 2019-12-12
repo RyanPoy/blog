@@ -46,11 +46,7 @@ class TagController(BaseController):
         t = json.loads(self.request.body)
         _id = t.get('id', '')
         db_tag = self.get_object_or_404(Tag, id=_id)
-
-        data = db_tag.to_dict()
-        if db_tag:
-            db_tag.articles.clear()
-            Tag.delete().where(Tag.id == _id).execute()
+        db_tag.remove()
         return self.end(data=db_tag.to_dict())
 
             

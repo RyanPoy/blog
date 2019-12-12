@@ -18,5 +18,10 @@ class Tag(BaseModel):
             if Tag.get_or_none(Tag.name == self.name):
                 self.add_err('name', '存在同名tag')
 
+    def remove(self):
+        self.articles.clear()
+        Tag.delete().where(Tag.id == self.id).execute()
+        return self
+
     class Meta:
         table_name = 'app_tag'
