@@ -6,3 +6,4 @@ from .image_controller import ImageController
 from .page_controller import PageController
 from .article_controller import ArticleController
 from .session_controller import SessionController
+from .ui_partial_controller import LeftNavController

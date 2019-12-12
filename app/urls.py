@@ -1,9 +1,6 @@
 #coding: utf8
-# from .controllers import web_controller, admin_controller
-from app.controllers import web_controller
-from app.controllers import admin_controller
-
 from app.controllers import admin
+from app.controllers import web_controller
 
 
 urls = [
@@ -15,8 +12,8 @@ urls = [
     (r'^/archives[/]?$', web_controller.Archive),
     (r'^/rss[/]?$', web_controller.Rss),
 
+    (r'/api/left-nav[/]?', admin.LeftNavController),
     (r'/api/signin[/]?', admin.SessionController),
-    (r'/api/left-nav[/]?', admin_controller.LeftNavController),
     (r'/api/tags[/]?$', admin.TagController),
     (r'/api/links[/]?$', admin.LinkController),
     (r'/api/series[/]?$', admin.SeriesController),
