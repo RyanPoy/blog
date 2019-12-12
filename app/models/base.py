@@ -5,10 +5,34 @@ import settings
 import peewee as pw
 import markdown as md
 from datetime import datetime
+from collections import OrderedDict as odict
 
 
 db = pw.MySQLDatabase(**settings.db)
 atomic = db.atomic
+
+
+class Errs(object):
+
+    def __init__(self):
+        self.errs = odict()
+
+    def add(self, key, value):
+        self.errs.setdefault(key, []).append(value)
+
+    def get(self, key):
+        return self.errs.get(key, [])
+
+    def is_empty(self):
+        return False if len(self.errs) else True
+
+    def first_err(self, key=None):
+        if self.is_empty():
+            return None
+        if key is not None:
+            return self.errs(key, None)
+        k = list(self.errs.keys())[0]
+        return self.errs[k][0]
 
 
 class BaseModel(pw.Model):
@@ -19,14 +43,6 @@ class BaseModel(pw.Model):
 
     class Meta:
         database = db
-
-    def to_dict(self):
-        return {
-            'id': self.id,
-            'created_at': self.created_at_str(),
-            'updated_at': self.updated_at_str(),
-            'show': self.show
-        }
 
     def save(self, *args, **kwargs):
         if not self.created_at:
@@ -62,6 +78,63 @@ class BaseModel(pw.Model):
     def created_day_for_view(self):
         return datetime.strftime(self.created_at, '%d') if self.created_at else ''
 
+    def is_persistent(self):
+        _id = self.id
+        try:
+            _id = int(_id)
+            if _id <= 0:
+                return False
+        except ValueError:
+            if not _id:
+                return False
+        return True
+
+    @property
+    def errs(self):
+        if not hasattr(self, '_errs'):
+            self._errs = Errs()
+        return self._errs
+
+    def add_err(self, field, msg):
+        self.errs.add(field, msg)
+        return self
+
+    def first_err(self, key=None):
+        return self.errs.first_err(key)
+
+    def is_valid(self):
+        self.validate()
+        return self.errs.is_empty()
+
+    def validate(self):
+        pass
+
+    @classmethod
+    def new(cls, **kwargs):
+        obj = cls(**kwargs)
+        n = datetime.now()
+        if 'created_at' not in kwargs:
+            obj.created_at = n
+        if 'updated_at' not in kwargs:
+            obj.updated_at = n
+        return obj
+
+    def __to_dict__(self):
+        return self.__dict__['__data__']
+
+    def to_dict(self, **out_attrs):
+        d = self.__to_dict__()
+        for key in ('created_at', 'updated_at', 'created_on', 'updated_on'):
+            if key in d:
+                d.pop(key)
+
+        d['created_at_str'] = self.created_at_str()
+        d['created_on_str'] = self.created_on_str()
+        d['updated_at_str'] = self.updated_at_str()
+        d['updated_on_str'] = self.updated_on_str()
+        if out_attrs:
+            d.update(out_attrs)
+        return d
 
 
 class AbsArticle(BaseModel):

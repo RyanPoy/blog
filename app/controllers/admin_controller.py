@@ -1,6 +1,7 @@
 #coding: utf8
 from .base_controller import BaseController
 from app.models import *
+import app.ui as ui
 
 
 class LeftNavController(BaseController):
@@ -22,37 +23,23 @@ class TagController(BaseController):
     def post(self):
         d = json.loads(self.request.body)
         name = d.get('name', '')
-        if not name:
-            return self.end(code=-1, err_str='名称不能为空')
-        if Tag.get_or_none(Tag.name == name):
-            return self.end(code=-1, err_str='存在同名tag')
-
-        t = Tag(name=name)
+        t = Tag.new(name=name)
+        if not t.is_valid():
+            return self.end(code=-1, err_str=t.first_err())
         t.save()
-        return self.end(data={
-            'tag': t.to_dict()
-        })
+        return self.end(data={ 'tag': t.to_dict() })
 
     @atomic()
     def put(self):
-        t = json.loads(self.request.body)
-        _id = t.get('id', '')
-        db_tag = self.get_object_or_404(Tag, id=_id)
-        
-        name = t.get('name', '')
-        
-        if not name:
-            return self.end(code=-1, err_str='名称不能为空')
-        if Tag.get_or_none(
-            (Tag.name == name) & (Tag.id != _id)
-        ):
-            return self.end(code=-1, err_str='存在同名tag')
-        
-        db_tag.name = t['name']
-        db_tag.save()
+        d = json.loads(self.request.body)
+        t = self.get_object_or_404(Tag, id=d.get('id', ''))
+        t.name = d.get('name', '')
+        if not t.is_valid():
+            return self.end(code=-1, err_str=t.first_err())
+        t.save()
         return self.end(data={
-            'tag': db_tag.to_dict()
-        })
+            'tag': t.to_dict()
+        })        
 
     @atomic()
     def delete(self):

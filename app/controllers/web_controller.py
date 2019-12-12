@@ -6,9 +6,6 @@ from app.models import *
 class Index(BaseController):
 
     def get(self):
-        print ('*'*20)
-        print (Tag, type(Tag))
-        print ('*'*20)
         return self.redirect('/blogs')
 
 

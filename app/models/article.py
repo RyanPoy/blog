@@ -15,7 +15,7 @@ class Article(AbsArticle):
         d['tag_names_str'] = self.tag_names_str
         d['tag_ids'] = self.tag_ids
         d['series'] = self.series.to_dict() if self.series else {}
-        d['series_id'] = self.series.id if self.series else ''
+        d['series_id'] = self.series_id if self.series_id else ''
         return d
 
     @classmethod
