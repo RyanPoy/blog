@@ -20,7 +20,7 @@ urls = [
     (r'/api/tags[/]?$', admin.TagController),
     (r'/api/links[/]?$', admin.LinkController),
     (r'/api/series[/]?$', admin.SeriesController),
-    (r'/api/images[/]?$', admin_controller.ImageController),
+    (r'/api/images[/]?$', admin.ImageController),
     (r'/api/pages[/]?$', admin_controller.PageController),
     (r'/api/articles[/]?$', admin_controller.ArticleController),
 

@@ -50,8 +50,13 @@ class Image(BaseModel):
             d['url'] = ''
         return d
 
-    def __str__(self):
-        return self.pic
+    def remove(self):
+        r = super().remove()
+        try:
+            os.remove(self.abspath)
+        except:
+            raise
+        return r
 
     class Meta:
         table_name = 'app_image'
