@@ -21,7 +21,7 @@ urls = [
     (r'/api/links[/]?$', admin.LinkController),
     (r'/api/series[/]?$', admin.SeriesController),
     (r'/api/images[/]?$', admin.ImageController),
-    (r'/api/pages[/]?$', admin_controller.PageController),
+    (r'/api/pages[/]?$', admin.PageController),
     (r'/api/articles[/]?$', admin_controller.ArticleController),
 
     (r'/.*', web_controller.Error),
