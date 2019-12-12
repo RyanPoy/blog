@@ -20,8 +20,7 @@ class Tag(BaseModel):
 
     def remove(self):
         self.articles.clear()
-        Tag.delete().where(Tag.id == self.id).execute()
-        return self
+        return super().remove()
 
     class Meta:
         table_name = 'app_tag'

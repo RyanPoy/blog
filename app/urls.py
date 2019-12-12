@@ -3,8 +3,7 @@
 from app.controllers import web_controller
 from app.controllers import admin_controller
 
-from app.controllers.admin import TagController
-from app.controllers.admin import LinkController
+from app.controllers import admin
 
 
 urls = [
@@ -18,9 +17,9 @@ urls = [
 
     (r'/api/signin[/]?', admin_controller.SigninController),
     (r'/api/left-nav[/]?', admin_controller.LeftNavController),
-    (r'/api/tags[/]?$', TagController),
-    (r'/api/links[/]?$', LinkController),
-    (r'/api/series[/]?$', admin_controller.SeriesController),
+    (r'/api/tags[/]?$', admin.TagController),
+    (r'/api/links[/]?$', admin.LinkController),
+    (r'/api/series[/]?$', admin.SeriesController),
     (r'/api/images[/]?$', admin_controller.ImageController),
     (r'/api/pages[/]?$', admin_controller.PageController),
     (r'/api/articles[/]?$', admin_controller.ArticleController),

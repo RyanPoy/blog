@@ -5,7 +5,6 @@ from app.libs import *
 import app.ui as ui
 
 
-
 class LeftNavController(BaseController):
 
     def get(self):
@@ -13,60 +12,6 @@ class LeftNavController(BaseController):
         menus = [ m for m in ui.left_menus() ]
         return self.end(data={ 'menus': menus } )
 
-
-class SeriesController(BaseController):
-
-    def get(self):
-        return self.end(data={ 
-            'series': [ t.to_dict() for t in Series.select() ]
-        })
-
-    @atomic()
-    def post(self):
-        d = json.loads(self.request.body)
-        name = d.get('name', '')
-        if not name:
-            return self.end(code=-1, err_str='名称不能为空')
-        if Series.get_or_none(Series.name == name):
-            return self.end(code=-1, err_str='存在同名系列')
-
-        s = Series(name=name, seq=toi(d.get('seq', '0')))
-        s.save()
-        return self.end(data={
-            'series': s.to_dict()
-        })
-
-    @atomic()
-    def put(self):
-        d = json.loads(self.request.body)
-        _id = d.get('id', '')
-        db_series = self.get_object_or_404(Series, id=_id)
-        
-        name = d.get('name', '')
-        if not name:
-            return self.end(code=-1, err_str='名称不能为空')
-        if Series.get_or_none(
-            (Series.name == name) & (Series.id != _id)
-        ):
-            return self.end(code=-1, err_str='存在同名系列')
-
-        db_series.name = d['name']
-        db_series.seq = toi(d.get('seq', '0'))
-
-        db_series.save()
-        return self.end(data={
-            'link': db_series.to_dict()
-        })
-
-    @atomic()
-    def delete(self):
-        t = json.loads(self.request.body)
-        _id = t.get('id', '')
-        db_series = self.get_object_or_404(Series, id=_id)
-        if db_series:
-            Article.update(series_id=None).where(Article.series_id == _id).execute()
-            Series.delete().where(Series.id == _id).execute()
-            return self.end(data=db_series.to_dict())
 
 
 class ImageController(BaseController):
