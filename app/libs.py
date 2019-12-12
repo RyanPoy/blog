@@ -2,7 +2,6 @@
 import math
 
 
-
 def toi(v):
     try:
         return int(v)

@@ -80,11 +80,13 @@ class BaseModel(pw.Model):
 
     def is_persistent(self):
         _id = self.id
+        if not _id:
+            return False
         try:
             _id = int(_id)
             if _id <= 0:
                 return False
-        except ValueError:
+        except (ValueError, TypeError) as err:
             if not _id:
                 return False
         return True
@@ -136,6 +138,10 @@ class BaseModel(pw.Model):
             d.update(out_attrs)
         return d
 
+    def remove(self):
+        cls = self.__class__
+        cls.delete().where(cls.id == self.id).execute()
+        return self
 
 class AbsArticle(BaseModel):
 

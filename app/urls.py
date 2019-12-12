@@ -1,7 +1,10 @@
 #coding: utf8
 # from .controllers import web_controller, admin_controller
-import app.controllers.web_controller as web_controller
-import app.controllers.admin_controller as admin_controller
+from app.controllers import web_controller
+from app.controllers import admin_controller
+
+from app.controllers.admin import TagController
+from app.controllers.admin import LinkController
 
 
 urls = [
@@ -15,8 +18,8 @@ urls = [
 
     (r'/api/signin[/]?', admin_controller.SigninController),
     (r'/api/left-nav[/]?', admin_controller.LeftNavController),
-    (r'/api/tags[/]?$', admin_controller.TagController),
-    (r'/api/links[/]?$', admin_controller.LinkController),
+    (r'/api/tags[/]?$', TagController),
+    (r'/api/links[/]?$', LinkController),
     (r'/api/series[/]?$', admin_controller.SeriesController),
     (r'/api/images[/]?$', admin_controller.ImageController),
     (r'/api/pages[/]?$', admin_controller.PageController),

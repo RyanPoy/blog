@@ -1,5 +1,5 @@
 #coding: utf8
-from .base_controller import BaseController
+from . import BaseController
 from app.models import *
 
 

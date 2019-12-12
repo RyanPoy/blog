@@ -1,7 +1,9 @@
 #coding: utf8
-from .base_controller import BaseController
+from . import BaseController
 from app.models import *
+from app.libs import *
 import app.ui as ui
+
 
 
 class LeftNavController(BaseController):
@@ -10,113 +12,6 @@ class LeftNavController(BaseController):
         # op = self.current_user
         menus = [ m for m in ui.left_menus() ]
         return self.end(data={ 'menus': menus } )
-
-
-class TagController(BaseController):
-
-    def get(self):
-        return self.end(data={
-            'tags': [ t.to_dict() for t in Tag.select() ]
-        })
-
-    @atomic()
-    def post(self):
-        d = json.loads(self.request.body)
-        name = d.get('name', '')
-        t = Tag.new(name=name)
-        if not t.is_valid():
-            return self.end(code=-1, err_str=t.first_err())
-        t.save()
-        return self.end(data={ 'tag': t.to_dict() })
-
-    @atomic()
-    def put(self):
-        d = json.loads(self.request.body)
-        t = self.get_object_or_404(Tag, id=d.get('id', ''))
-        t.name = d.get('name', '')
-        if not t.is_valid():
-            return self.end(code=-1, err_str=t.first_err())
-        t.save()
-        return self.end(data={
-            'tag': t.to_dict()
-        })        
-
-    @atomic()
-    def delete(self):
-        t = json.loads(self.request.body)
-        _id = t.get('id', '')
-        db_tag = self.get_object_or_404(Tag, id=_id)
-        db_tag.remove()
-        return self.end(data=db_tag.to_dict())
-
-            
-class LinkController(BaseController):
-
-    def get(self):
-        return self.end(data={ 
-            'links': [ t.to_dict() for t in Link.select() ]
-        })
-
-    @atomic()
-    def post(self):
-        d = json.loads(self.request.body)
-        name = d.get('name', '')
-        if not name:
-            return self.end(code=-1, err_str='名称不能为空')
-        if Link.get_or_none(Link.name == name):
-            return self.end(code=-1, err_str='存在同名友链')
-
-        url = d.get('url', '')
-        if not url:
-            return self.end(code=-1, err_str='链接地址不能为空')
-        if Link.get_or_none(Link.url == url):
-            return self.end(code=-1, err_str='存在同链接地址友链')
-
-        l = Link(name=name, url=url, seq=toi(d.get('seq', '0')))
-        l.save()
-        return self.end(data={
-            'link': l.to_dict()
-        })
-
-    @atomic()
-    def put(self):
-        d = json.loads(self.request.body)
-        _id = d.get('id', '')
-        db_link = self.get_object_or_404(Link, id=_id)
-        
-        name = d.get('name', '')
-        if not name:
-            return self.end(code=-1, err_str='名称不能为空')
-        if Link.get_or_none(
-            (Link.name == name) & (Link.id != _id)
-        ):
-            return self.end(code=-1, err_str='存在同名友链')
-
-        url = d.get('url', '')
-        if not url:
-            return self.end(code=-1, err_str='链接地址不能为空')
-        if Link.get_or_none(
-            (Link.url == url) & (Link.id != _id)
-        ):
-            return self.end(code=-1, err_str='存在同链接地址友链')
-
-        db_link.name = d['name']
-        db_link.url = d['url']
-        db_link.seq = toi(d.get('seq', '0'))
-
-        db_link.save()
-        return self.end(data={
-            'link': db_link.to_dict()
-        })
-
-    @atomic()
-    def delete(self):
-        t = json.loads(self.request.body)
-        _id = t.get('id', '')
-        db_link = self.get_object_or_404(Link, id=_id)
-        if db_link:
-            Link.delete().where(Link.id == _id).execute()
-            return self.end(data=db_link.to_dict())
 
 
 class SeriesController(BaseController):
