@@ -4,7 +4,7 @@ from urllib.parse import urlparse
 
 
 class PaginationUI(UIModule):
-    """ <div class="pagination font-alt">
+    """ <div class="pagination-wrapper">
           <ul class="pagination">
             <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
             <li><a href="#">1</a></li>
@@ -28,7 +28,7 @@ class PaginationUI(UIModule):
 
 
         buff = []
-        buff.append(u'<div class="pagination font-alt">')
+        buff.append(u'<div class="pagination-wrapper">')
         # buff.append(u'  <ul class="pagination"><span class="record-count">共<span class="number">%s</span>条记录</span>' % paginator.count)
         buff.append(u'  <ul class="pagination">')
         if paginator.has_previous():
@@ -46,11 +46,24 @@ class PaginationUI(UIModule):
         else:  
             right_begin = (paginator.number + 1 if paginator.number + 1 <= paginator.num_pages else paginator.num_pages)
             right_end = (paginator.number + right_nums if paginator.number + right_nums <= paginator.num_pages else paginator.num_pages) + 1
+        
+        if left_begin >= 2:
+            buff.append(u'<li><a href="%s%s%s">%s</a></li>' % (uri, page_segment, 1, 1))
+        if left_begin > 2:
+            buff.append(u'<li>... </li>')
+        
         for x in range(left_begin, left_end):
             buff.append(u'<li><a href="%s%s%s">%s</a></li>' % (uri, page_segment, x, x))
         buff.append(u'<li class="active"><a href="?page=%s">%s</a></li>' % (paginator.number, paginator.number))
         for x in range(right_begin, right_end):
             buff.append(u'<li><a href="%s%s%s">%s</a></li>' % (uri, page_segment, x, x))
+
+        if right_end <= paginator.num_pages:
+            if right_end + 1 <= paginator.num_pages:
+                buff.append(u'<li>... </li>')
+                buff.append(u'<li><a href="%s%s%s">%s</a></li>' % (uri, page_segment, paginator.num_pages, paginator.num_pages))
+            if right_end == paginator.num_pages and paginator.number < paginator.num_pages:
+                buff.append(u'<li><a href="%s%s%s">%s</a></li>' % (uri, page_segment, paginator.num_pages, paginator.num_pages))
 
         if paginator.has_next():
             buff.append(u'<li>')
