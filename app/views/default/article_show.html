@@ -8,6 +8,11 @@
       <div class="title"><a href="/blogs/{{article.id}}">{{ article.title }}</a></div>
       <div class="meta">
         By <span>彭一</span> on {{ article.created_on_str() }}
+        <span class="tags">
+          {% for t in article.tags %}
+          <a href="/blogs/tags/{{t.id}}">{{t.name}}</a>
+          {% end %}
+        </span>
       </div>
       <div class="markdown-body">{{ article.html_content }}</div>
     </div>
