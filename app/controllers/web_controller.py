@@ -1,4 +1,5 @@
 #coding: utf8
+import tornado.web
 from . import BaseController
 from app.models import *
 

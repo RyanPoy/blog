@@ -1,0 +1,190 @@
+body {
+  font-size: 12px;
+  font-family: 'Noto Sans SC', sans-serif;
+}
+#left-wrapper {
+  position: fixed;
+  width: 12%;
+  top:0;
+  bottom:0;
+  left:0;
+  background: #000;
+  text-align: center;
+  padding-top: 2em;
+  color: #fff;
+  letter-spacing: 0.2em;
+}
+
+#right-wrapper {
+  position: fixed;
+  width: 15%;
+  top:0;
+  bottom:0;
+  right:0;
+  background: #000;
+}
+
+#main-wrapper {
+  display: block;
+  height: 100%;
+  padding: 0 25% 0 18%;
+}
+
+#footer-wrapper {
+  margin-top:5em;
+  width: 100%;
+  padding: 5em 0;
+  text-align: center;
+  border-top: 1px solid rgba(200,200,200,0.2);
+}
+
+.author {
+  padding-bottom: 2em;
+}
+.author>.avatar {
+  border-radius: 50% 50%;
+  width: 30%;
+  height: 30%;
+  margin-bottom: 1em;
+}
+.author>.name {
+  font-size: 20px;
+}
+.author a {
+  color: #FFF;
+}
+
+ul.menu {
+  width: 100%;
+  padding: 0 0;
+  margin: 0 0;
+}
+ul.menu > li {
+  width: 100%;
+  padding: 0.8em 0;
+}
+
+ul.menu > li > a {
+  color: rgba(255,255,255,0.5);
+}
+ul.menu > li.active > a {
+  color: rgba(255,255,255, 0.8);
+}
+
+.pagination-wrapper {
+  text-align: center; 
+}
+.pagination > li {
+  list-style: none;
+  width: 100%;
+  display: inline;
+}
+.pagination > li > a, 
+.pagination > li > span{
+  background:#f5f5f5;
+  border:0;
+  color:#111;
+  padding:9px 14px;
+  margin:0 5px 0 0;
+}
+
+.pagination > li > a,
+.pagination > li > span,
+.pagination > li:first-child > a,
+.pagination > li:first-child > span,
+.pagination > li:last-child > a,
+.pagination > li:last-child > span {
+  -webkit-border-radius:2px;
+  -moz-border-radius:2px;
+  -o-border-radius:2px;
+  border-radius:2px;
+  -webkit-transition:all 0.125s cubic-bezier( 0.3, 0.1, 0.58, 1 );
+  -moz-transition:all 0.125s cubic-bezier( 0.3, 0.1, 0.58, 1 );
+  -o-transition:all 0.125s cubic-bezier( 0.3, 0.1, 0.58, 1 );
+  transition:all 0.125s cubic-bezier( 0.3, 0.1, 0.58, 1 );
+}
+
+.pagination > li > a:hover, 
+.pagination > li > a:focus, 
+.pagination > li > span:hover, 
+.pagination > li > span:focus, 
+.pagination > .active > a, 
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus{
+  background-color:#111;
+  color:#fff;
+}
+
+.contact-info,
+.copyright {
+  margin-bottom: 2em;
+  color: rgba(0, 0, 0, 0.6);
+}
+.contact-info a,
+.copyright a {
+  color: rgba(0, 0, 0, 0.6); 
+}
+.copyright a {
+  display: inline-block;
+  padding-left:1em;
+}
+.contact-info > li {
+  list-style: none;
+  display: inline-block;
+  padding: 0 1em;
+}
+
+/*************** article list page ****************/ 
+.article-list,
+.article-detail {
+  padding-left: 10%;
+  padding-right: 15%;
+  margin-bottom: 3em;
+}
+
+.article-list > .article, 
+.article-detail > .article {
+  margin: 1.5em 0;
+  color: rgba(0, 0, 0, 0.6);
+  border-bottom: 1px solid rgba(200,200,200,0.2);
+  padding: 1.5em 0 2.5em 0;
+}
+.article-list > .article:last-child {
+  border-bottom: none;
+  margin-bottom: 5em;
+}
+
+.article-list > .article > .title,
+.article-detail > .article > .title {
+  margin-bottom: 0.8em;
+  font: 16px bold;
+}
+
+.article-list > .article > .title a,
+.article-detail > .article > .title a {
+  color: #000;
+}
+
+.article-list > .article > .meta,
+.article-detail > .article > .meta {
+  margin-bottom: 2.5em;
+}
+
+.article-list > .article > .meta > span,
+.article-detail > .article > .meta > span {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.article-list > .article > .content {
+  line-height: 1.6em;
+  margin-bottom: 2em;
+}
+.article-list > .article a.read-more {
+  color: rgba(0, 0, 0, 0.9);
+}
+.article-list > .article a.read-more:hover {
+  color: rgba(0, 0, 0, 0.6);
+}

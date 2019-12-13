@@ -1,98 +1,14 @@
-<!-- SIDEBAR -->
-<nav class="navbar navbar-custom font-alt">
-  <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#custom-collapse">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
+<div class="author">
+  <img class="avatar" src="{{ static_url('images/avatar.jpeg') }}" />
+  <div class="name"><a href="/">彭一</a></div>
+</div>
 
-    <a class="navbar-brand" href="/">
-{#
-      <img class="light-logo" src="{{ static_url('images/logo-light.png') }}" width="95" alt="">
-#}
-   彭一的博客
-    </a>
-  </div>
-
-  <div class="collapse navbar-collapse" id="custom-collapse">
-    <ul class="nav navbar-nav">
-{# 带2级菜单的导航
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">博客</a>
-        <ul class="dropdown-menu" role="menu">
-          <li><a href="index.html">Image</a></li>
-        </ul>
-      </li>
-#}
-      <li class="{{active_css('/blogs')}}"><a href="/blogs">博客</a></li>
-      <li class="{{active_css('/archives')}}"><a href="/archives">归档</a></li>
-      {% for p in all_pages %}
-      <li class="{{active_css(p.uri)}}"><a href="{{p.uri}}">{{p.title}}</a></li>
-      {% end %}
-      <li>
-        <a href="/rss" target="_blank">RSS订阅<img class="rss-img" src="{{ static_url('images/rss.png') }}" /></a>
-      </li>
-      <li>
-        <script type="text/javascript">(function(){document.write(unescape('%3Cdiv style="margin-left:16px;" id="bdcs"%3E%3C/div%3E'));var bdcs = document.createElement('script');bdcs.type = 'text/javascript';bdcs.async = true;bdcs.src = 'http://znsv.baidu.com/customer_search/api/js?sid=8136619368371972144' + '&plate_url=' + encodeURIComponent(window.location.href) + '&t=' + Math.ceil(new Date()/3600000);var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(bdcs, s);})();</script>
-      </li>
-    </ul>
-
-    <hr>
-    <div class="panel-custom">
-      <!-- Default panel contents -->
-      <div class="panel-heading">标签</div>
-      <!-- List group -->
-      <div class="panel-body">
-        {% for t in all_tags %}
-        <span class="t"><a href="/blogs/tags/{{t.id}}">{{t.name}}({{t.article_number}})</a></span>
-        {% end %}
-      </div>
-    </div>
-
-    {% if all_series %}
-    <hr>
-    <div class="panel-custom">
-      <!-- Default panel contents -->
-      <div class="panel-heading">系列连载</div>
-      <!-- List group -->
-      <ul class="list-group">
-        {% for s in all_series %}
-        <li class="list-group-item"><a href="/blogs/series/{{s.id}}">{{s.name}}</a></li>
-        {% end %}
-      </ul>
-    </div>
-    {% end %}
-
-    {% if recent_articles %}
-    <hr>
-    <div class="panel-custom">
-      <!-- Default panel contents -->
-      <div class="panel-heading">最新文章</div>
-      <!-- List group -->
-      <ul class="list-group">
-        {% for a in recent_articles %}
-        <li class="list-group-item"><a href="/blogs/{{a.id}}">{{a.title}}</a></li>
-        {% end %}
-      </ul>
-    </div>
-    {% end %}
-
-    {% if all_links %}
-    <hr>
-    <div class="panel-custom">
-      <!-- Default panel contents -->
-      <div class="panel-heading">友情链接</div>
-      <!-- List group -->
-      <ul class="list-group">
-        {% for l in all_links %}
-        <li class="list-group-item"><a href="{{l.url}}" target='_blank'>{{l.name}}</a></li>
-        {% end %}
-      </ul>
-    </div>
-    {% end %}
-
-  </div>
-</nav>
-
+<ul class="menu">
+  <li class="active"><a href="/blogs">博客</a></li>
+  <li><a href="/archives">归档</a></li>
+  <li><a href="/projects">标签</a></li>
+  {% for p in all_pages %}
+  <li class="{{active_css(p.uri)}}"><a href="{{p.uri}}">{{p.title}}</a></li>
+  {% end %}
+  <li><a href="/rss">订阅</a></li>
+</ul>

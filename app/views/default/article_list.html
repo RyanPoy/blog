@@ -1,39 +1,21 @@
 {% extends base.html %}
+
 {% block title %}博客列表{% end %}
 
 {% block main %}
-<section class="module">
-  <div class="container-fluid container-custom">
-
-    <div class="row">
-
-      <div class="col-sm-8 col-sm-offset-2">
-        {% for a in articles.objects %}
-        <article class="post">
-          <div class="post-header">
-            <h2 class="post-title font-alt"><a href="/blogs/{{a.id}}">{{a.title}}</a></h2>
-            <div class="post-meta">
-              By <a href="/">彭一</a> on {{a.created_on_str()}}
-            </div>
-          </div>
-          <div class="post-content">
-            {{ a.limit_content(200) }}
-            <p style="margin-top:20px;">
-              <a class="post-more" href="/blogs/{{a.id}}">阅读全文 →</a>
-            </p>
-          </div>
-        </article>
-        <hr class="divider">
-        {% end %}
-
-        <!-- PAGINATION -->
-        {% module PaginationUI(articles, request.uri) %}
-        <!-- /PAGINATION -->
-
-      </div><!-- .col-* -->
-
-    </div><!-- .row -->
-
+  <div class="article-list">
+    {% for a in articles.objects %}
+    <div class="article">
+      <div class="title"><a href="/blogs/{{a.id}}">{{ a.title }}</a></div>
+      <div class="meta">
+        By <span>彭一</span> on {{ a.created_on_str() }}
+      </div>
+      <div class="content">{{ a.limit_content(300) }}</div>
+      <div><a class="read-more">阅读全文 →</a></div>
+    </div>
+    {% end %}
   </div>
-</section>
+  
+  {% module PaginationUI(articles, request.uri) %}
+
 {% end %}
