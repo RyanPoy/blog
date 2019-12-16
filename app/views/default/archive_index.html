@@ -2,6 +2,13 @@
 
 {% block title %}归档{% end %}
 
+{% block description %}彭一的blog-归档{% end %}
+
+{% block keywords %}
+  {% for t in all_tags %}{{t.name}},{% end %}
+{% end %}
+
+
 {% block css %}
 <style>
   .archive {
