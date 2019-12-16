@@ -42,11 +42,13 @@ ul.menu > li {
 }
 
 ul.menu > li > a {
-  color: rgba(255,255,255,0.5);
+  color: rgba(255,255,255,0.7);
 }
-ul.menu > li > a:hover,
+ul.menu > li > a:hover {
+  color: rgba(255,255,255,1);
+}
 ul.menu > li.active > a {
-  color: rgba(255,255,255, 1);
+  color: rgba(255,255,255,0.4);
 }
 
 div.box {
