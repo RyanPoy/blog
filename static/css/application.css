@@ -252,7 +252,8 @@ div.sticker >span.sticker-item > a:hover {
   border-bottom: 1px solid rgba(200,200,200,0.2);
   padding: 1.5em 0 2.5em 0;
 }
-.article-list > .article:last-child {
+.article-list > .article:last-child,
+.article-detail > .article:last-child {
   border-bottom: none;
   margin-bottom: 5em;
 }
