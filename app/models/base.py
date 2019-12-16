@@ -68,11 +68,11 @@ class BaseModel(pw.Model):
 
     @property
     def created_year_for_view(self):
-        return datetime.strftime(self.created_at, '%Y年') if self.created_at else ''
+        return datetime.strftime(self.created_at, '%Y') if self.created_at else ''
 
     @property
     def created_month_for_view(self):
-        return datetime.strftime(self.created_at, '%m月') if self.created_at else ''
+        return datetime.strftime(self.created_at, '%m') if self.created_at else ''
 
     @property
     def created_day_for_view(self):

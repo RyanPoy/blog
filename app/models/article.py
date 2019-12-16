@@ -20,7 +20,8 @@ class Article(AbsArticle):
 
     @classmethod
     def recents(cls, num):
-        return cls.select().order_by(cls.id.desc()).limit(5)
+        if num < 5: num = 5
+        return cls.select().order_by(cls.id.desc()).limit(num)
 
     def same_series(self):
         return Article.select().where(Article.series_id == self.series_id)

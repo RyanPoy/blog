@@ -15,9 +15,11 @@
     <link href="{{ static_url('css/github-markdown.css') }}" rel="stylesheet">
     <link href="{{ static_url('css/application.css') }}" rel="stylesheet">
 
+    {% block css %}{% end %}
 {#
     <script src="{{ static_url('js/marked.min.js') }}"></script>
 #}
+    {% block js %}{% end %}
 
   </head>
   <body>
@@ -26,12 +28,13 @@
         {% include _left.html %}
       </div>
       <div id="main-wrapper">
-        {% block main %} {% end %}
-
-        {% include _footer.html %}
-      </div>
-      <div id="right-wrapper">
-        {% include _right.html %}
+        <div id="main-body">
+          {% block main %} {% end %}
+          {% include _footer.html %}
+        </div>
+        <div id="right-wrapper">
+          {% include _right.html %}
+        </div>
       </div>
     </div>
     <!-- /WRAPPER -->

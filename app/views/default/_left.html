@@ -1,14 +1,23 @@
-<div class="author">
-  <img class="avatar" src="{{ static_url('images/avatar.jpeg') }}" />
-  <div class="name"><a href="/">彭一</a></div>
-</div>
+<div style="padding-left: 2em">
+  <div class="author">
+    <!-- <img class="avatar" src="{{ static_url('images/avatar.jpeg') }}" /> -->
+    <div class="name"><a href="/">彭一的博客</a></div>
+  </div>
 
-<ul class="menu">
-  <li class="active"><a href="/blogs">博客</a></li>
-  <li><a href="/archives">归档</a></li>
-  <li><a href="/projects">标签</a></li>
-  {% for p in all_pages %}
-  <li class="{{active_css(p.uri)}}"><a href="{{p.uri}}">{{p.title}}</a></li>
-  {% end %}
-  <li><a href="/rss">订阅</a></li>
-</ul>
+  <ul class="menu">
+    <li class="{{active_css('/blogs')}}"><a href="/blogs">博客</a></li>
+    <li class="{{active_css('/archives')}}"><a href="/archives">归档</a></li>
+    {% for p in all_pages %}
+    <li class="{{active_css(p.uri)}}"><a href="{{p.uri}}">{{p.title}}</a></li>
+    {% end %}
+    <li><a href="/rss">RSS订阅</a></li>
+  </ul>
+
+  <div class="box">
+    <div class="name">友链</div>
+    {% for l in all_links %}
+    <div class="box-item"><a href="{{l.url}}">{{l.name}}</a></div>
+    {% end %}
+  </div>
+
+</div>

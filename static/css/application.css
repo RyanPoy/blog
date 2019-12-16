@@ -2,42 +2,18 @@ body {
   font-size: 12px;
   font-family: 'Noto Sans SC', sans-serif;
 }
+/*******  left *******/
 #left-wrapper {
   position: fixed;
-  width: 12%;
+  width: 13%;
   top:0;
   bottom:0;
   left:0;
   background: #000;
-  text-align: center;
+  text-align: left;
   padding-top: 2em;
   color: #fff;
-  letter-spacing: 0.2em;
 }
-
-#right-wrapper {
-  position: fixed;
-  width: 15%;
-  top:0;
-  bottom:0;
-  right:0;
-  background: #000;
-}
-
-#main-wrapper {
-  display: block;
-  height: 100%;
-  padding: 0 25% 0 18%;
-}
-
-#footer-wrapper {
-  margin-top:5em;
-  width: 100%;
-  padding: 5em 0;
-  text-align: center;
-  border-top: 1px solid rgba(200,200,200,0.2);
-}
-
 .author {
   padding-bottom: 2em;
 }
@@ -48,7 +24,7 @@ body {
   margin-bottom: 1em;
 }
 .author>.name {
-  font-size: 20px;
+  font-size: 22px;
 }
 .author a {
   color: #FFF;
@@ -58,6 +34,7 @@ ul.menu {
   width: 100%;
   padding: 0 0;
   margin: 0 0;
+  font-size: 14px;
 }
 ul.menu > li {
   width: 100%;
@@ -67,8 +44,92 @@ ul.menu > li {
 ul.menu > li > a {
   color: rgba(255,255,255,0.5);
 }
+ul.menu > li > a:hover,
 ul.menu > li.active > a {
-  color: rgba(255,255,255, 0.8);
+  color: rgba(255,255,255, 1);
+}
+
+div.box {
+  width: 98%;
+  border-top: 1px solid rgba(255,255,255, 0.3);
+  margin-top: 1em;
+  padding-top: 1em;
+}
+div.box >div.name {
+  font-size: 14px;
+  margin-bottom: 1em;
+  color: rgba(255,255,255,0.3);
+}
+div.box >div.box-item > a {
+  display: inline-block;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  color: rgba(255,255,255,0.5);
+}
+div.box >div.box-item > a:hover {
+  color: rgba(255,255,255,1); 
+}
+
+/************* main *************/
+#main-wrapper {
+  display: block;
+  height: 100%;
+  padding-left: 15%;
+  padding-right: 5%;
+  clear: both;
+  overflow: hidden;
+}
+
+#main-body {
+  float: left;
+  width: 75%;
+}
+
+#footer-wrapper {
+  margin-top:5em;
+  width: 100%;
+  padding: 5em 0;
+  text-align: center;
+  border-top: 1px solid rgba(200,200,200,0.2);
+}
+
+/************** right ***********/
+#right-wrapper {
+  float: right;
+  width: 20%;
+}
+
+div.sticker {
+  width: 98%;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 0.3em 0.3em;
+  margin: 1em 0 2em 0;
+  padding: 2em 2em;
+  box-shadow: 0.2em 0.2em 0.1em #EEE;
+}
+
+div.sticker >div.name {
+  font-size: 14px;
+  margin-bottom: 1em;
+  color: rgba(0,0,0,0.9);
+}
+
+div.sticker >span.sticker-item { 
+  display: inline-block; 
+  margin-right: 0.6em;
+}
+
+div.sticker >div.sticker-item > a,
+div.sticker >span.sticker-item > a {
+  display: inline-block;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  color: rgba(0,0,0,0.6);
+}
+
+div.sticker >div.sticker-item > a:hover,
+div.sticker >span.sticker-item > a:hover {
+  color: rgba(0,0,0,0.9);
 }
 
 /************** pagination *****************/
@@ -185,7 +246,6 @@ ul.menu > li.active > a {
 .article-list,
 .article-detail {
   padding-left: 10%;
-  padding-right: 15%;
   margin-bottom: 3em;
 }
 
@@ -232,3 +292,4 @@ ul.menu > li.active > a {
 .article-list > .article a.read-more:hover {
   color: rgba(0, 0, 0, 0.6);
 }
+

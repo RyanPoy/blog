@@ -1,7 +1,8 @@
 #coding: utf8
 import tornado.web
-from . import BaseController
 from app.models import *
+from . import BaseController
+from collections import OrderedDict as odict
 
 
 class Index(BaseController):
@@ -15,6 +16,16 @@ class ArticleIndex(BaseController):
     def get(self):
         articles = self.paginator(Article.select().order_by(Article.id.desc()))
         return self.render_view('article_list.html', articles=articles)
+
+
+class ArticleShow(BaseController):
+
+    def get(self, _id):
+        article = self.get_object_or_404(Article, id=_id)
+        article.view_number += 1
+        article.save()
+
+        return self.render_view('article_show.html', article=article)
 
 
 class TagArticle(BaseController):
@@ -44,26 +55,17 @@ class SeriesArticle(BaseController):
         return self.render_view('article_list.html', articles=articles)
 
 
-class ArticleShow(BaseController):
-
-    def get(self, _id):
-        article = self.get_object_or_404(Article, id=_id)
-        article.view_number += 1
-        article.save()
-
-        return self.render_view('article_show.html', article=article)
-
-
 class Archive(BaseController):
 
     def get(self):
-        article_dict = {}
-        for a in Article.select():
+        article_dict = odict()
+        articles = Article.select().order_by(Article.created_at.desc())
+        for a in articles:
             year = datetime.strftime(a.created_at, '%Y')
-            article_dict.setdefault(year, []).append(a)
+            month = datetime.strftime(a.created_at, '%m')
+            article_dict.setdefault(year, odict()).setdefault(month, []).append(a)
 
-        article_groups = [ (y, article_dict.get(y)) for y in sorted(article_dict.keys(), reverse=True) ]
-        return self.render_view('archive_index.html', article_groups=article_groups)
+        return self.render_view('archive_index.html', article_groups=article_dict, articles_number=len(articles))
 
 
 class Error(BaseController):

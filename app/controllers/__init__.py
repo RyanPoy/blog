@@ -53,7 +53,7 @@ class BaseController(tornado.web.RequestHandler):
 
     def __before_render_view_or_ajax(self, kwargs):
         if 'recent_articles' not in kwargs:
-            kwargs['recent_articles'] = Article.recents(5)
+            kwargs['recent_articles'] = Article.recents(10)
         if 'all_pages' not in kwargs:
             kwargs['all_pages'] = Page.select().order_by(Page.seq)
         if 'all_tags' not in kwargs:

@@ -1,0 +1,84 @@
+{% extends base.html %}
+
+{% block title %}归档{% end %}
+
+{% block css %}
+<style>
+  .archive {
+    padding-top: 2em;
+    padding-left: 10%;
+    font-size: 20px;
+  }
+  .archive>.content {
+    text-indent: 2em;
+    padding: 2em 0;
+    color: rgba(0,0,0,0.5);
+  }
+  ul.times { /*做时间轴的线*/
+    margin-left:10%;
+    border-left:2px solid #FA2373;
+  }
+  ul.times li { /*圆点定位的父层*/
+    position:relative;
+  }
+  ul.times li span { /*时间*/
+    margin-left:1em;
+    line-height:2em;
+    color: #888;
+  }
+  ul.times li.year span {
+    margin-left:-5em;
+    line-height: 2em;
+    color: rgba(0,0,0,0.6);
+  }
+  ul.times li.month span {
+    color: rgba(0,0,0,0.6);
+    font-size: 18px; 
+  }
+
+  ul.times li:after { /*圆点*/
+    content:'';
+    position:absolute;
+    top:12px;
+    left:-7px;
+    width:8px;
+    height:8px;
+    border:2px solid #FA2373;
+    border-radius:50%;
+    box-sizing:content-box;
+    display: block;
+    z-index: 100;
+    background: #FFF;
+  }
+  ul.times li.year:after { /*圆点*/
+    top: 15px;
+  }
+  ul.times li p { /*时间的描述*/
+    margin-left:1.5em;
+    line-height:2em;
+  }
+  ul.times li p a {
+    color:#000;
+    font-size: 16px;
+  }
+</style>
+{% end %}
+
+{% block main %}
+<div class="archive">
+  <div class="content">到目前为之，已经有<span style="color:#FA2373">{{articles_number}}</span>博客了。</div>
+  <ul class="times">
+  {% for year, month_articles in article_groups.items() %}
+    <li class="year"><span>{{year}}年</span></li>
+    {% for month, articles in month_articles.items() %}
+    <li class="month">
+      <span>{{ month }}月</span>
+      {% for a in articles %}
+      <p><a href="/blogs/{{a.id}}">{{a.title}}</a></p>
+      {% end %}
+    </li>
+    {% end %}
+  {% end %}
+  </ul>
+</div>
+{% end %}
