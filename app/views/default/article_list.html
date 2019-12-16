@@ -2,6 +2,12 @@
 
 {% block title %}博客列表{% end %}
 
+{% block description %}彭一的blog {% end %}
+
+{% block keywords %} 
+  {% for t in all_tags %} {{t.name}}, {% end %}
+{% end %}
+
 {% block main %}
   <div class="article-list">
     {% for article in articles.objects %}

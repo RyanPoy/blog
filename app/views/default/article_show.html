@@ -2,6 +2,10 @@
 
 {% block title %}{{article.title}}{% end %}
 
+{% block description %}彭一的blog-{{article.title}}{% end %}
+
+{% block keywords %} {{article.keywords}} {% end %}
+
 {% block main %}
 <div class="article-detail">
   <div class="article">
