@@ -39,12 +39,6 @@ logger.setLevel(logging.INFO)
 logger.addHandler(logging.StreamHandler())
 
 
-# 畅言评论
-chang_yan = dict(
-    appid = 'cytb7hxQj',
-    conf = 'prod_534c65780000c258a2b0ef2f3632795e'
-)
-
 try:
     from settings_local import *
 except:
