@@ -8,7 +8,7 @@ class LinkController(BaseController):
 
     def get(self):
         return self.end(data={ 
-            'links': [ t.to_dict() for t in Link.select() ]
+            'links': [ t.to_dict() for t in Link.select().order_by(Link.seq.desc()) ]
         })
 
     @atomic()
