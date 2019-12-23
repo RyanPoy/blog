@@ -9,6 +9,7 @@ from pprint import pprint
 class BaseController(tornado.web.RequestHandler):
 
     LOGIN_USER_COOKIE_NAME = 'cu'
+    COMMEND_USER_COOKIE_NAME = 'ru'
 
     SUPPORTED_METHODS = tornado.web.RequestHandler.SUPPORTED_METHODS \
                         + ("INDEX", 'LIST', 'SHOW')
@@ -26,6 +27,18 @@ class BaseController(tornado.web.RequestHandler):
         if uri.startswith('/api/') and uri not in ('/api/signin', '/api/signin/') and not self.current_user:
             raise tornado.web.HTTPError(401)
 
+    def set_commend_user_to_cookie(self, user):
+        self.set_secure_cookie(self.COMMEND_USER_COOKIE_NAME, user.to_cookie_str(), expires_days=100)
+        return self
+
+    def get_commend_user(self):
+        cookie_str = self.get_secure_cookie(self.COMMEND_USER_COOKIE_NAME)
+
+        u = User.from_cookie_str(cookie_str)
+        if u:
+            self.set_commend_user_to_cookie(u)
+        return u
+
     def set_user_to_cookie(self, user):
         self.set_secure_cookie(self.LOGIN_USER_COOKIE_NAME, user.to_cookie_str(), expires_days=1)
         return self
@@ -36,12 +49,15 @@ class BaseController(tornado.web.RequestHandler):
 
     def get_current_user(self):
         cookie_str = self.get_secure_cookie(self.LOGIN_USER_COOKIE_NAME)
-        cookie_str = cookie_str.decode("UTF8") if cookie_str else ''
 
         u = User.from_cookie_str(cookie_str)
         if u:
             self.set_user_to_cookie(u)
         return u
+
+    def get_secure_cookie(self, key):
+        v = super().get_secure_cookie(key)
+        return v.decode('UTF8') if v else ''
 
     @property
     def nav_uri(self):
@@ -64,6 +80,8 @@ class BaseController(tornado.web.RequestHandler):
             kwargs['all_links'] = Link.select().order_by(Link.seq.desc())
         if 'active_css' not in kwargs:
             kwargs['active_css'] = lambda v: 'active' if self.full_uri == v else ''
+        if 'commend_user' not in kwargs:
+            kwargs['commend_user'] = self.get_commend_user()
         return self
     
     def end(self, code=0, err_str='', data={}):

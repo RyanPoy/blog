@@ -1,7 +1,10 @@
 #coding: utf8
+import uuid
 import tornado.web
+from uuid import uuid4
 from app.models import *
 from . import BaseController
+from app.libs import weibo_signer
 from collections import OrderedDict as odict
 
 
@@ -92,18 +95,18 @@ class Rss(BaseController):
         buff.append('<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">')
         buff.append('    <channel>')
         buff.append('        <title><![CDATA[彭一的博客]]></title>')
-        buff.append('        <link>http://ryanpoy.com</link>')
+        buff.append('        <link>http://www.ryanpoy.com</link>')
         buff.append('        <description><![CDATA[彭一的个人网站]]></description>')
-        buff.append('        <atom:link href="http://ryanpoy.com/rss/" rel="self"/>')
+        buff.append('        <atom:link href="http://www.ryanpoy.com/rss/" rel="self"/>')
         buff.append('        <language>zh-cn</language>')
         if articles:
             buff.append('    <lastBuildDate>%s</lastBuildDate>' % articles[0].created_at)
             for a in articles:
                 buff.append('<item>')
                 buff.append('    <title><![CDATA[%s]]></title>' % a.title)
-                buff.append('    <link>http://ryanpoy.com/blogs/%s</link>' % a.id)
+                buff.append('    <link>http://www.ryanpoy.com/blogs/%s</link>' % a.id)
                 buff.append('    <description><![CDATA[%s]]></description>' % a.limit_content(200))
-                buff.append('    <guid>http://ryanpoy.com/blogs/%s</guid>' % a.id)
+                buff.append('    <guid>http://www.ryanpoy.com/blogs/%s</guid>' % a.id)
                 buff.append('</item>')
         buff.append('''  </channel>''')
         buff.append('''</rss>''')
@@ -112,3 +115,58 @@ class Rss(BaseController):
         self.write('\n'.join(buff))
 
         return self.finish()
+
+
+class WeiboSignController(BaseController):
+
+    def get(self):
+        state = self.get_argument('state')
+        seq = uuid4().hex
+        state = '{}|{}'.format(state, seq)
+        self.set_secure_cookie("signin_weibo", state)
+        oauth2_url = weibo_signer.get_oauth2_url(state=state)
+        return self.redirect(oauth2_url)
+
+
+class WeiboSignCallbackController(BaseController):
+
+    def get(self):
+        """ http://www.ryanpoy.com/signin/callback?state=94c614b585174a23bd2a592ba9eb0597&code=fd330454b9e47243dfa3d003e69d059f
+        """
+        state = self.get_argument('state')
+        _xsrf = self.get_secure_cookie('signin_weibo')
+        print ('state: {}'.format(state))
+        print ('signin_weibo: {}'.format(_xsrf))
+
+        if state != _xsrf:
+            return self.redirect('/')
+        self.clear_cookie('signin_weibo')
+        
+        vs = state.split('|')
+        if len(vs) != 2 or not vs[0]:
+            return self.redirect('/')
+
+        uri = '/' + vs[0].replace('-', '/')
+        print ('要返回的页面是：{}'.format(uri))
+
+        code = self.get_argument('code')
+        uid, access_token = weibo_signer.get_userid_and_accesstoken(code)
+        user = weibo_signer.get_user_detail(uid, access_token)
+        
+        u = User.get_or_none(User.weibo_openid == uid)
+        if not u:
+            u = User.new(
+                signinname = user['name'],
+                username   = user['screen_name'],
+                password   = 'xxx',
+                avatar_url = user['profile_image_url'],
+                weibo_openid = uid,
+                role       = User.ROLES.NORMAL
+            )    
+        else:
+            u.signinname = user['name']
+            u.username   = user['screen_name']
+            u.avatar_url = user['profile_image_url']
+        u.save()
+        self.set_commend_user_to_cookie(u)
+        return self.redirect(uri)

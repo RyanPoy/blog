@@ -20,5 +20,13 @@
     </div>
     <div class="markdown-body">{{ article.html_content }}</div>
   </div>
+  <div id="commend">
+    {% if commend_user %}
+      {{commend_user.weibo_openid}} - {{commend_user.username}}
+      <img src="{{commend_user.avatar_url}}" />
+    {% else %}
+      <a href="/signin?state=blogs-{{article.id}}-#commend">微博登录</a>
+    {% end %}
+  </div>
 </div>
 {% end %}

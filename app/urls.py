@@ -11,6 +11,8 @@ urls = [
     (r'^/blogs/series/(\d+)[/]?$', web_controller.SeriesArticle),
     (r'^/archives[/]?$', web_controller.Archive),
     (r'^/rss[/]?$', web_controller.Rss),
+    (r'^/signin[/]?$', web_controller.WeiboSignController),
+    (r'^/signin/callback[/]?$', web_controller.WeiboSignCallbackController),
 
     (r'/api/left-nav[/]?', admin.LeftNavController),
     (r'/api/signin[/]?', admin.SessionController),

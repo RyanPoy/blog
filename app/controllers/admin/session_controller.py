@@ -23,7 +23,9 @@ class SessionController(BaseController):
         if not u:
             return self.end(code=-1, err_str='用户名或密码错误')
 
-        self.set_user_to_cookie(u)
+        if u.is_admin():
+            self.set_user_to_cookie(u)
+        
         return self.end()
 
     def delete(self):
