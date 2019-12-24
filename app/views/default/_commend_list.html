@@ -1,0 +1,46 @@
+<div id="commend">
+  <div class="num">
+    <b>评论</b>(全部100条)
+  </div>
+  <div class="commend-input">
+    {% if not commend_user %}
+      <img class="commend-avatar" src="{{ static_url('images/default-avatar.jpg') }}" />
+      <a class="sign" href="/signin?state=blogs-{{article.id}}-#commend">微博登录后，发表评论</a>
+    {% else %}
+      <img class="commend-avatar" src="{{commend_user.avatar_url}}" />
+      <textarea class="sign" cols="200" rows="3" placeholder="发表评论"></textarea>
+    {% end %}
+  </div>
+
+  <div class="commend-list">
+    {% for x in range(10) %}
+    <div class="commend-item">
+      <img class="commend-avatar" src="{{commend_user.avatar_url}}" />
+      <div class="commend-right">
+        <div class="username">{{commend_user.username}}</div>
+        <div class="created-at">3天前</div>
+        <div class="commend-content">
+          请问大家是怎样用java实现评论盖楼功能的,我在做一个论坛,在评论表中有评论的id,评论人的id,对应主贴的id,还有个上级对应评论id,这个id用来表示指向父
+          请问大家是怎样用java实现评论盖楼功能的,我在做一个论坛,在评论表中有评论的id,评论人的id,对应主贴的id,还有个上级对应评论id,这个id用来表示指向父
+          请问大家是怎样用java实现评论盖楼功能的,我在做一个论坛,在评论表中有评论的id,评论人的id,对应主贴的id,还有个上级对应评论id,这个id用来表示指向父
+        </div>
+        <div class="children">
+          {% for y in range(3) %}
+          <div class="child">
+            <div class="username">
+              <img class="children-avatar" src="{{commend_user.avatar_url}}" />
+              <span>{{commend_user.username}}  3天前</span>
+            </div>
+            <div class="commend-content">
+              请问大家是怎样用java实现评论盖楼功能的,我在做一个论坛,在评论表中有评论的id,评论人的id,对应主贴的id,还有个上级对应评论id,这个id用来表示指向父
+              请问大家是怎样用java实现评论盖楼功能的,我在做一个论坛,在评论表中有评论的id,评论人的id,对应主贴的id,还有个上级对应评论id,这个id用来表示指向父
+              请问大家是怎样用java实现评论盖楼功能的,我在做一个论坛,在评论表中有评论的id,评论人的id,对应主贴的id,还有个上级对应评论id,这个id用来表示指向父
+            </div>
+          </div>
+          {% end %}
+        </div>
+      </div>
+    </div>
+    {% end %}
+  </div>
+</div>
