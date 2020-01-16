@@ -1,5 +1,6 @@
 #coding: utf8
 import os
+from copy import copy
 import json
 import settings
 import peewee as pw
@@ -122,13 +123,18 @@ class BaseModel(pw.Model):
         return obj
 
     def __to_dict__(self):
-        return self.__dict__['__data__']
+        return copy(self.__dict__['__data__'])
 
     def to_dict(self, **out_attrs):
         d = self.__to_dict__()
         for key in ('created_at', 'updated_at', 'created_on', 'updated_on'):
             if key in d:
                 d.pop(key)
+
+        d['created_at'] = self.created_at_str()
+        d['created_on'] = self.created_on_str()
+        d['updated_at'] = self.updated_at_str()
+        d['updated_on'] = self.updated_on_str()
 
         d['created_at_str'] = self.created_at_str()
         d['created_on_str'] = self.created_on_str()

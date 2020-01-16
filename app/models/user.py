@@ -10,8 +10,6 @@ class User(BaseModel):
     signinname = pw.CharField(verbose_name='登录名', max_length=255, null=False, index=True)
     username   = pw.CharField(verbose_name='用户名', max_length=255, null=False)
     password   = pw.CharField(verbose_name='密码', max_length=255, null=False, index=True)
-    avatar_url = pw.CharField(verbose_name='头像', max_length=255, null=False)
-    weibo_openid = pw.CharField(verbose_name="微博id", max_length=64, null=True, index=True)
     role       = pw.IntegerField(verbose_name='权限', default=ROLES.NORMAL, null=False, index=True)
 
     def to_cookie_str(self):

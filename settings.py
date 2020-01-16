@@ -39,11 +39,6 @@ logger.setLevel(logging.INFO)
 logger.addHandler(logging.StreamHandler())
 
 
-weibo_app_key = 'xxxxxxx'
-weibo_app_secret = 'xxxxxxxxxxxxxxxxxx'
-weibo_login_callback = 'xxxxxxxxxxxxxxxxxxx'
-
-
 try:
     from settings_local import *
 except:
