@@ -2,7 +2,7 @@
 base_url = "https://pengyi.me"
 title = "一哥黑板报"
 description = "A clean, responsive theme"
-theme = "event"
+theme = "even"
 #default_language = "zh"
 
 # Whether to automatically compile all Sass files in the sass directory
@@ -36,4 +36,3 @@ even_menu = [
 ]
 
 even_title = "Even"
-
