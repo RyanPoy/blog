@@ -1,6 +1,5 @@
 # The URL the site will be built for
 base_url = "https://pengyi.me"
-title = "一哥黑板报"
 description = "A clean, responsive theme"
 theme = "even"
 #default_language = "zh"
@@ -14,8 +13,8 @@ build_search_index = true
 #generate_feed = true
 
 taxonomies = [
-    {name = "categories", feed = true},
-    {name = "tags", feed = true},
+    { name = "categories", feed = true },
+    { name = "tags", feed = true },
 ]
 
 [markdown]
@@ -29,10 +28,12 @@ highlight_theme = "css"
 
 author = "彭一"
 even_menu = [
-    {url = "$BASE_URL", name = "Home"},
-    {url = "$BASE_URL/categories", name = "Categories"},
-    {url = "$BASE_URL/tags", name = "Tags"},
-    {url = "$BASE_URL/about", name = "About"},
+    { url = "$BASE_URL", name = "Home" },
+    { url = "$BASE_URL/categories", name = "Categories" },
+    { url = "$BASE_URL/tags", name = "Tags" },
+    { url = "$BASE_URL/about", name = "About" },
 ]
+katex_enable = true
+katex_auto_render = true
 
-even_title = "Even"
+even_title = "一哥黑板报"
