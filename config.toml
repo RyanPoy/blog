@@ -2,7 +2,6 @@
 base_url = "https://pengyi.me"
 description = "A clean, responsive theme"
 theme = "even"
-#default_language = "zh"
 
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = true
@@ -23,6 +22,9 @@ taxonomies = [
 highlight_code = true
 highlight_theme = "css"
 
+[markdown.protected_blocks]
+jinja = ["{%", "%}"]
+
 [extra]
 # Put all your custom variables here
 
@@ -31,6 +33,7 @@ even_menu = [
     { url = "$BASE_URL", name = "Home" },
     { url = "$BASE_URL/categories", name = "Categories" },
     { url = "$BASE_URL/tags", name = "Tags" },
+    { url = "$BASE_URL/techs/", name = "技术" },             # 新增技术菜单
     { url = "$BASE_URL/about", name = "About" },
 ]
 katex_enable = true
