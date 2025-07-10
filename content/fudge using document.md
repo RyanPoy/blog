@@ -3,7 +3,7 @@ title = "fudge使用文档"
 date = 2012-10-20
 
 [taxonomies]
-categories = ["Docs"]
+categories = ["Tutorials"]
 tags = ["Python", "Fudge"]
 +++
 
