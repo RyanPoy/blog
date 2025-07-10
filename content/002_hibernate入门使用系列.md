@@ -1,6 +1,8 @@
 +++
 title = "hibernate入门使用系列"
 date = 2008-07-24
+
+[taxonomies]
 categories = ["Tech"]
 tags = ["Hibernate"]
 +++

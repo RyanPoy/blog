@@ -1,6 +1,8 @@
 +++
 title = "HomeBrew修改国内源"
 date = 2020-12-19
+
+[taxonomies]
 categories = ["Tech"]
 tags = ["配置"]
 +++

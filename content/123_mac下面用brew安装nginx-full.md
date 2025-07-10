@@ -1,6 +1,8 @@
 +++
 title = "mac下面用brew安装nginx-full"
 date = 2018-12-05
+
+[taxonomies]
 categories = ["Tech"]
 tags = ["环境安装"]
 +++

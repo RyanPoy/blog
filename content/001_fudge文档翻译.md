@@ -1,6 +1,8 @@
 +++
 title = "fudge文档翻译"
 date = 2012-10-20
+
+[taxonomies]
 categories = ["Tech"]
 tags = ["Python", "测试", "翻译"]
 +++

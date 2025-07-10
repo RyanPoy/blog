@@ -1,6 +1,8 @@
 +++
 title = "第一次hackathon"
 date = 2012-07-23
+
+[taxonomies]
 categories = ["Tech"]
 tags = ["面试&工作"]
 +++

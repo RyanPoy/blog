@@ -1,6 +1,8 @@
 +++
 title = "python 的 with statement"
 date = 2009-09-29
+
+[taxonomies]
 categories = ["Tech"]
 tags = ["Python"]
 +++

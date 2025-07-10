@@ -1,6 +1,8 @@
 +++
 title = "SOHU邮箱在Python中的经验"
 date = 2013-04-26
+
+[taxonomies]
 categories = ["Tech"]
 tags = ["Python", "QCon"]
 +++

@@ -1,5 +1,4 @@
 +++
-paginate_by = 10
+paginate_by = 5
 sort_by = "date"
-paginate_reversed = true
 +++

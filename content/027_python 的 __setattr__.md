@@ -1,6 +1,8 @@
 +++
 title = "python 的 __setattr__"
 date = 2009-09-13
+
+[taxonomies]
 categories = ["Tech"]
 tags = ["Python"]
 +++

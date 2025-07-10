@@ -1,6 +1,8 @@
 +++
 title = "java常用工具"
 date = 2008-10-17
+
+[taxonomies]
 categories = ["Tech"]
 tags = ["Java"]
 +++

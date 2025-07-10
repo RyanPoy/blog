@@ -1,6 +1,8 @@
 +++
 title = "终于搞定adium了"
 date = 2013-05-24
+
+[taxonomies]
 categories = ["Tech"]
 tags = ["随笔"]
 +++

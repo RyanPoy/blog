@@ -1,6 +1,8 @@
 +++
 title = "java常用工具-PorterStemmer"
 date = 2009-03-28
+
+[taxonomies]
 categories = ["Tech"]
 tags = ["Java"]
 +++

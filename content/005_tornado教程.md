@@ -1,6 +1,8 @@
 +++
 title = "tornado教程"
 date = 2011-11-05
+
+[taxonomies]
 categories = ["Tech"]
 tags = ["Python", "Tornado"]
 +++

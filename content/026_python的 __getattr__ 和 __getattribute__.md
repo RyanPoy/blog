@@ -1,6 +1,8 @@
 +++
 title = "python的 __getattr__ 和 __getattribute__"
 date = 2009-09-11
+
+[taxonomies]
 categories = ["Tech"]
 tags = ["Python"]
 +++

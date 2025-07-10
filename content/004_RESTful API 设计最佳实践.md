@@ -1,6 +1,8 @@
 +++
 title = "RESTful API 设计最佳实践"
 date = 2013-06-12
+
+[taxonomies]
 categories = ["Tech"]
 tags = ["Architecture", "转载"]
 +++

@@ -1,6 +1,8 @@
 +++
 title = "Python Socket Programming"
 date = 2010-06-13
+
+[taxonomies]
 categories = ["Tech"]
 tags = ["Python"]
 +++

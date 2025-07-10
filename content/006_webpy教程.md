@@ -1,6 +1,8 @@
 +++
 title = "webpy教程"
 date = 2011-08-18
+
+[taxonomies]
 categories = ["Tech"]
 tags = ["Python", "Webpy"]
 +++

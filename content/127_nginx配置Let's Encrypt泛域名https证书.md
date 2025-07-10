@@ -1,6 +1,8 @@
 +++
 title = "nginx配置Let's Encrypt泛域名https证书"
 date = 2019-12-05
+
+[taxonomies]
 categories = ["Tech"]
 tags = ["环境安装", "https", "http"]
 +++

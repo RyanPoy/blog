@@ -1,6 +1,8 @@
 +++
 title = "python validation"
 date = 2010-11-13
+
+[taxonomies]
 categories = ["Tech"]
 tags = ["Python"]
 +++

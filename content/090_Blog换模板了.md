@@ -1,6 +1,8 @@
 +++
 title = "Blog换模板了"
 date = 2012-12-22
+
+[taxonomies]
 categories = ["Tech"]
 tags = ["Blog相关"]
 +++

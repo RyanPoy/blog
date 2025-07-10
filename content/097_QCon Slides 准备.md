@@ -1,6 +1,8 @@
 +++
 title = "QCon Slides 准备"
 date = 2013-03-27
+
+[taxonomies]
 categories = ["Tech"]
 tags = ["QCon"]
 +++

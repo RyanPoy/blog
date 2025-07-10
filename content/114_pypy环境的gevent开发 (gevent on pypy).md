@@ -1,6 +1,8 @@
 +++
 title = "pypy环境的gevent开发 (gevent on pypy)"
 date = 2014-08-20
+
+[taxonomies]
 categories = ["Tech"]
 tags = ["Python", "Gevent", "Pypy"]
 +++

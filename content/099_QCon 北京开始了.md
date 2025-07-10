@@ -1,6 +1,8 @@
 +++
 title = "QCon 北京开始了"
 date = 2013-04-25
+
+[taxonomies]
 categories = ["Tech"]
 tags = ["Architecture", "思考", "QCon"]
 +++

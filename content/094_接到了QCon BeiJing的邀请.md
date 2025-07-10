@@ -1,6 +1,8 @@
 +++
 title = "接到了QCon BeiJing的邀请"
 date = 2013-01-25
+
+[taxonomies]
 categories = ["Tech"]
 tags = ["QCon"]
 +++

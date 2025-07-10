@@ -1,6 +1,8 @@
 +++
 title = "QCon 的演讲培训"
 date = 2013-04-11
+
+[taxonomies]
 categories = ["Tech"]
 tags = ["QCon"]
 +++

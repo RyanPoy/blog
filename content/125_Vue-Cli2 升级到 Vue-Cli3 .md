@@ -1,6 +1,8 @@
 +++
 title = "Vue-Cli2 升级到 Vue-Cli3 "
 date = 2018-12-05
+
+[taxonomies]
 categories = ["Tech"]
 tags = ["Vuejs"]
 +++
