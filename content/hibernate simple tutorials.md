@@ -117,11 +117,6 @@ public class QuickStartTest extends TestCase {
         factory = conf.buildSessionFactory();
     }
 
-    /**
-     * 测试添加
-     *
-     * @throws Exception
-     */
     public void testSave() throws Exception {
         System.out.println("\n=== test save ===");
         User u = new User();
@@ -153,11 +148,6 @@ public class QuickStartTest extends TestCase {
         }
     }
 
-    /**
-     * 测试查询
-     *
-     * @throws Exception
-     */
     public void testFind() throws Exception {
         System.out.println("=== test find ===");
         Session session = null;
@@ -183,11 +173,6 @@ public class QuickStartTest extends TestCase {
         }
     }
 
-    /**
-     * 测试修改
-     *
-     * @throws Exception
-     */
     public void testModify() throws Exception {
         System.out.println("\n=== test modify ===");
         Session session = null;
@@ -240,11 +225,6 @@ public class QuickStartTest extends TestCase {
         }
     }
 
-    /**
-     * 测试删除
-     *
-     * @throws Exception
-     */
     public void testDelete() throws Exception {
         System.out.println("\n=== test delete ===");
         Session session = null;
@@ -297,9 +277,6 @@ public class QuickStartTest extends TestCase {
         }
     }
 
-    /**
-     *
-     */
     @After
     public void tearDown() throws Exception {
         factory.close();
@@ -366,9 +343,6 @@ java代码如下：
 Person类
 
 ```java
-/**
- * Person entity.
- */
 
 @SuppressWarnings("serial")
 public class Person implements java.io.Serializable {
@@ -391,10 +365,6 @@ public class Person implements java.io.Serializable {
 
 Card类：
 ```java
-/**
- * Card entity.
- */
-
 @SuppressWarnings("serial")
 public class Card implements java.io.Serializable
 {
@@ -486,10 +456,6 @@ public class One2OneTest extends TestCase {
 		factory = conf.buildSessionFactory();
 	}
 
-	/**
-	 * 测试添加
-	 * @throws Exception
-	 */
 	public void testSave() throws Exception {
 		System.out.println("\n=== test save ===");
 
@@ -528,11 +494,7 @@ public class One2OneTest extends TestCase {
 		}
 	}
 
-	/**
-	 * 测试查询
-	 * @throws Exception
-	 */
-	 {
+    public void testFind() throws Exception {
 		System.out.println("\n=== test find ===");
 		Session session = null;
 		try {
@@ -561,11 +523,7 @@ public class One2OneTest extends TestCase {
 		}
 	}
 
-	/**
-	 * 测试修改
-	 * @throws Exception
-	 */
-	 {
+    public void testModify() throws Exception {
 		System.out.println("\n=== test modify ===");
 		Session session = null;
 		Transaction tran = null;
@@ -592,10 +550,7 @@ public class One2OneTest extends TestCase {
 				}
 			}
 		}
-
-		/*
-			* 修改后再查询
-			*/
+   
 		System.out.println("\n=== test find after modify ===");
 		try {
 			session = factory.openSession();
@@ -623,11 +578,8 @@ public class One2OneTest extends TestCase {
 		}
 	}
 
-	/**
-	 * 测试删除
-	 * @throws Exception
-	 */
-	 {
+	
+    public void testDelete() throws Exception {
 		System.out.println("\n=== test delete ===");
 		Session session = null;
 		Transaction tran = null;
@@ -684,7 +636,6 @@ public class One2OneTest extends TestCase {
 
 	@After
 	public void tearDown() throws Exception {
-	{
 		factory.close();
 	}
 
@@ -733,10 +684,6 @@ Father.java：
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Father entity.
- */
-
 @SuppressWarnings("serial")
 public class Father implements java.io.Serializable
 {
@@ -757,10 +704,6 @@ public class Father implements java.io.Serializable
 
 Child.java：
 ```java
-/**
- * Child entity.
- * @author MyEclipse Persistence Tools
- */
 
 @SuppressWarnings("serial")
 public class Child implements java.io.Serializable
@@ -873,11 +816,7 @@ public class One2ManyTest extends TestCase {
         factory = conf.buildSessionFactory();
     }
 
-    /**
-     * 测试添加
-     *
-     * @throws Exception
-     */
+
     public void testSave() throws Exception {
         System.out.println("\n=== test save ===");
 
@@ -951,11 +890,6 @@ public class One2ManyTest extends TestCase {
         return false;
     }
 
-    /**
-     * 测试查询
-     *
-     * @throws Exception
-     */
     public void testFind() throws Exception {
         System.out.println("\n=== test find ===");
         Session session = null;
@@ -990,11 +924,6 @@ public class One2ManyTest extends TestCase {
         }
     }
 
-    /**
-     * 测试修改
-     *
-     * @throws Exception
-     */
     public void testModify() throws Exception {
         System.out.println("\n=== test modify ===");
         Session session = null;
@@ -1066,11 +995,6 @@ public class One2ManyTest extends TestCase {
         }
     }
 
-    /**
-     * 测试删除
-     *
-     * @throws Exception
-     */
     public void testDelete() throws Exception {
         System.out.println("\n=== test delete ===");
         Session session = null;
@@ -1127,9 +1051,6 @@ public class One2ManyTest extends TestCase {
         }
     }
 
-    /**
-     *
-     */
     @After
     public void tearDown() throws Exception {
         factory.close();
@@ -1314,10 +1235,6 @@ Student.java
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Student entity.
- */
-
 @SuppressWarnings("serial")
 public class Student implements java.io.Serializable {
 	private String id;
@@ -1342,10 +1259,6 @@ Teacher.java:
 ```java
 import java.util.HashSet;
 import java.util.Set;
-
-/**
-	* Teacher entity.
-	*/
 
 @SuppressWarnings("serial")
 public class Teacher implements java.io.Serializable {
@@ -1455,11 +1368,6 @@ public class Many2ManyTest extends TestCase {
         factory = conf.buildSessionFactory();
     }
 
-    /**
-     * 测试添加
-     *
-     * @throws Exception
-     */
     public void testSave() throws Exception {
         System.out.println("\n=== test save ===");
 
@@ -1514,11 +1422,6 @@ public class Many2ManyTest extends TestCase {
         }
     }
 
-    /**
-     * 测试从Teacher查询
-     *
-     * @throws Exception
-     */
     @SuppressWarnings("unchecked")
     public void testFindFromTeacher() throws Exception {
         System.out.println("\n=== test find from Teacher ===");
@@ -1567,11 +1470,6 @@ public class Many2ManyTest extends TestCase {
         }
     }
 
-    /**
-     * 测试从Student查询
-     *
-     * @throws Exception
-     */
     @SuppressWarnings("unchecked")
     public void testFindFromStudent() throws Exception {
         System.out.println("\n=== test find from Student ===");
@@ -1619,11 +1517,6 @@ public class Many2ManyTest extends TestCase {
         }
     }
 
-    /**
-     * 测试修改
-     *
-     * @throws Exception
-     */
     public void testModify() throws Exception {
         System.out.println("\n=== test modify ===");
         Session session = null;
@@ -1708,11 +1601,6 @@ public class Many2ManyTest extends TestCase {
         }
     }
 
-    /**
-     * 测试删除
-     *
-     * @throws Exception
-     */
     public void testDelete() throws Exception {
         System.out.println("\n=== test delete ===");
         Session session = null;
@@ -1835,7 +1723,6 @@ public class Husband implements java.io.Serializable {
 	private Wife wife;
 	private Set paramours = new HashSet();
 
-	/** default constructor */
 	public Husband(){}
 
 	public String getId() { return id;}
@@ -1860,7 +1747,6 @@ public class Wife implements java.io.Serializable {
 	private String id;
 	private String name;
 
-	/** default constructor */
 	public Wife() { }
 
 	public String getId() { return id; }
@@ -1879,7 +1765,6 @@ public class Paramour implements java.io.Serializable {
 	private String name;
 	private Husband husband;
 
-	/** default constructor */
 	public Paramour(){ }
 
 	public String getId() { return id; }
@@ -1976,7 +1861,7 @@ import org.junit.Before;
 
 /**
  * 这个测试忽略了hibernate的异常
- */
+ **/
 public class ComplexTest extends TestCase {
 	private SessionFactory factory;
 
