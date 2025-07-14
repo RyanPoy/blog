@@ -1,39 +1,22 @@
 # The URL the site will be built for
 base_url = "https://pengyi.me"
-description = "A clean, responsive theme"
-theme = "even"
+defaultContentLanguage = "zh"
+languageCode = "zh-CN"
+title = "一哥黑板报"
 
-# Whether to automatically compile all Sass files in the sass directory
-compile_sass = true
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.parser]
+      autoHeadingID = true
+      autoHeadingIDType = "github"  # 保留中文锚点
+      
+[params]
+  themeColor = "#3C91E6"
+  homeInfoMode = "PostList"
 
-# Whether to build a search index to be used later on by a JavaScript library
-build_search_index = true
+# 启用中文拼音排序（如果需要）
+[languages.zh]
+  weight = 1
+  languageName = "中文"
+  contentDir = "content/zh"
 
-# generate_feed = true
-
-taxonomies = [
-    { name = "categories", feed = true },
-    { name = "tags", feed = true },
-]
-
-[markdown]
-# Whether to do syntax highlighting
-# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
-highlight_code = true
-highlight_theme = "css"
-slugify_anchors = "safe" # 禁止将非ASCII字符转为拼音
-
-[extra]
-# Put all your custom variables here
-
-author = "彭一"
-even_menu = [
-    { url = "$BASE_URL", name = "Home" },
-    { url = "$BASE_URL/categories", name = "Categories" },
-    { url = "$BASE_URL/tags", name = "Tags" },             # 新增技术菜单
-    { url = "$BASE_URL/about", name = "About" },
-]
-katex_enable = true
-katex_auto_render = true
-
-even_title = "一哥黑板报"

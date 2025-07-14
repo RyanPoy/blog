@@ -25,3 +25,7 @@ mqtt/
 dist
 frontend/node_modules/
 public/
+exampleSite/public/
+.DS_Store
+.hugo_build.lock
+resources/
