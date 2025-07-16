@@ -1,8 +1,7 @@
 +++
 title = "Hibernate入门使用"
-date = 2008-07-24
+date = "2008-07-24"
 
-[taxonomies]
 categories = ["Tutorials"]
 tags = ["Java", "Hibernate"]
 +++
