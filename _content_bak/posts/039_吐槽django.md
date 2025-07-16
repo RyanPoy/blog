@@ -2,7 +2,6 @@
 title = "吐槽django"
 date = 2010-09-06
 
-[taxonomies]
 categories = ["Tech"]
 tags = ["Django"]
 +++

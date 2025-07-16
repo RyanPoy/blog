@@ -2,7 +2,6 @@
 title = "Share Nothing Architecture"
 date = 2010-07-26
 
-[taxonomies]
 categories = ["Tech"]
 tags = ["Architecture"]
 +++

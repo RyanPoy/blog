@@ -2,7 +2,6 @@
 title = "谈 CSRF"
 date = 2012-12-10
 
-[taxonomies]
 categories = ["Tech"]
 tags = ["安全"]
 +++

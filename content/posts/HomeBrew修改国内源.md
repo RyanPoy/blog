@@ -2,10 +2,13 @@
 title = "HomeBrew修改国内源"
 date = 2020-12-19
 
-[taxonomies]
 categories = ["Tech"]
 tags = ["配置"]
 +++
+
+因为众所周知的原因，正常访问homebrew是很难的。所以，我们需要修改它的源，让其指向国内。
+
+<!--more-->
 
 # 对于 homebrew，需要替换的是4个模块的镜像：
 

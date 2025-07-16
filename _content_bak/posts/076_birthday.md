@@ -2,7 +2,6 @@
 title = "birthday"
 date = 2012-06-17
 
-[taxonomies]
 categories = ["Tech"]
 tags = ["随笔"]
 +++

@@ -2,7 +2,6 @@
 title = "mysql的loaddata加载数据的方式"
 date = 2008-09-21
 
-[taxonomies]
 categories = ["Tech"]
 tags = ["MySQL"]
 +++

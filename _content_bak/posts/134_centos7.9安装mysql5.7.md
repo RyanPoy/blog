@@ -2,7 +2,6 @@
 title = "centos7.9安装mysql5.7"
 date = 2021-12-30
 
-[taxonomies]
 categories = ["Tech"]
 tags = ["MySQL", "环境安装"]
 +++

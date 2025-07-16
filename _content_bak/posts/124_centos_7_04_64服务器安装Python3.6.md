@@ -2,7 +2,6 @@
 title = "centos_7_04_64服务器安装Python3.6"
 date = 2018-12-05
 
-[taxonomies]
 categories = ["Tech"]
 tags = ["Python", "环境安装"]
 +++

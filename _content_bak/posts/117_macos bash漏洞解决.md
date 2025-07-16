@@ -2,7 +2,6 @@
 title = "macos bash漏洞解决"
 date = 2014-09-29
 
-[taxonomies]
 categories = ["Tech"]
 tags = ["安全"]
 +++

@@ -2,7 +2,6 @@
 title = "python奇技淫巧"
 date = 2013-01-05
 
-[taxonomies]
 categories = ["Tech"]
 tags = ["Python"]
 +++

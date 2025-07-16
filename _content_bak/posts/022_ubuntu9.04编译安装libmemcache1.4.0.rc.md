@@ -2,7 +2,6 @@
 title = "ubuntu9.04编译安装libmemcache1.4.0.rc"
 date = 2009-06-15
 
-[taxonomies]
 categories = ["Tech"]
 tags = ["Ubuntu"]
 +++
