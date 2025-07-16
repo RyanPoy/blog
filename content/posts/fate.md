@@ -3,7 +3,7 @@ title = "善·缘"
 date = 2012-10-13
 
 categories = ["Tech"]
-tags = ["随笔"]
+tags = ["Essay"]
 +++
 
 不信一见钟情，只因为我不是一个极端的人。

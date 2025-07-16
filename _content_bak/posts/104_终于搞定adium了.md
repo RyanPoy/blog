@@ -3,7 +3,7 @@ title = "终于搞定adium了"
 date = 2013-05-24
 
 categories = ["Tech"]
-tags = ["随笔"]
+tags = ["Audim"]
 +++
 
 终于可以用adium了。
