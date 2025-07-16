@@ -9,6 +9,8 @@ menu = "main"
 
 fudge是一个python的mock框架，我非常喜欢它。决定把使用文档翻译出来。
 
+<!--more-->
+
 ## Fudging a Web Service
 当测试一个使用web服务的代码时，你可能想快速的设置一个不依赖于真实的在互联网上的web服务。这是一个使用mock对象的好的方式。假设你又一个Twitter的机器人，看起来像这样：
 

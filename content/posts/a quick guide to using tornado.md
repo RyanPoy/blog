@@ -2,12 +2,13 @@
 title = "tornado教程"
 date = 2011-11-05
 
-[taxonomies]
 categories = ["Tutorials"]
 tags = ["Python", "Tornado"]
 +++
 
 最近要做一个新的系统：一个披着邮件系统外衣的消息系统。性能肯定是一方面，所以Webpy就不打算用了。Django本来是我的第一选择，但是觉得Django可能也会出现性能问题。我还是考虑其它的吧。选来选去，最后选择了Torando。因为它：**简单**；**传说性能好**；**成熟案例** （ [知乎](https://www.zhihu.com), [FriendFeed](http://friendfeed.com/) )
+
+<!--more-->
 
 ## 简单尝试
 - 安装
@@ -102,7 +103,8 @@ Percentage of the requests served within a certain time (ms)
     99%     17
     100%     19 (longest request)
 ```
-每秒将近是1443，接近webpy的10倍
+每秒将近是1443，接近webpy的10倍。
+
 
 - 压测-100并发，2000请求：ab -c 100 -n 2000 http://192.168.95.222:4322/
 ```shell
@@ -1089,54 +1091,52 @@ ioloop.IOLoop.instance().start()
 这样就好像你在写同步代码一样。而不需要想之前那样处理回调了。如果要你实现一个gen.engine 和 Task 你会怎么实现呢？根据我们之前谈的[yield 和 generator](yield和generator)，我们可以这样写代码：
 
 ```python
-    # -*- coding:utf-8 -*-
-    from tornado import ioloop, httpclient
-    import functools
-    
-    
-    class MyTask(object):
-        
-        def __init__(self, func, *args, **kwargs):
-            self.func = func
-            self.args = args
-            self.kwargs = kwargs
-    
-        def callback(self, response):
-            try:
-                self.gen.send(response)
-            except StopIteration:
-                pass
-        
-        def run(self, gen):
-            self.gen = gen
-            partail_func = functools.partial(self.func, *self.args, **self.kwargs)
-            partail_func(callback = self.callback)
-    
-            
-    def myengine(func):
-        def _(*args, **kwargs):
-            task_generator = func(*args, **kwargs)
-            task = task_generator.next()
-            task.run(task_generator)
-        return _
-    
-    
-    @myengine
-    def download(url):
-        http_client = httpclient.AsyncHTTPClient()
-        response = yield MyTask(http_client.fetch, url)
-        print 'response.length =', len(response.body)
-        ioloop.IOLoop.instance().stop()
-    
+# -*- coding:utf-8 -*-
+from tornado import ioloop, httpclient
+import functools
 
-    download("http://www.baidu.com/")
-    ioloop.IOLoop.instance().start()
+
+class MyTask(object):
+    
+    def __init__(self, func, *args, **kwargs):
+        self.func = func
+        self.args = args
+        self.kwargs = kwargs
+
+    def callback(self, response):
+        try:
+            self.gen.send(response)
+        except StopIteration:
+            pass
+    
+    def run(self, gen):
+        self.gen = gen
+        partail_func = functools.partial(self.func, *self.args, **self.kwargs)
+        partail_func(callback = self.callback)
+
+        
+def myengine(func):
+    def _(*args, **kwargs):
+        task_generator = func(*args, **kwargs)
+        task = task_generator.next()
+        task.run(task_generator)
+    return _
+
+
+@myengine
+def download(url):
+    http_client = httpclient.AsyncHTTPClient()
+    response = yield MyTask(http_client.fetch, url)
+    print 'response.length =', len(response.body)
+    ioloop.IOLoop.instance().stop()
+
+
+download("http://www.baidu.com/")
+ioloop.IOLoop.instance().start()
 
 这个时候，结果是：
-
-    response.length = 10233
-
+```python
+response.length = 10233
+```
 这样，属于我们自己的engine和task就出来了。
 
-
-  [1]: /blogs/75
