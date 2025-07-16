@@ -47,7 +47,17 @@ slides 信息应该具备三个层次：
 
 利用“演讲者视图”，在切换到下一页ppt之前，先通过演讲者试图中的内容，讲述下一页ppt的内容，然后再自然切换，凸显熟练与从容。此手法再电影中的学名：shock cutting。
 
-## Erlang开发实践
+## 作为讲师
+4月，QCon终于开始了。26号上午的企业级第2场是我的slides。感觉不错，有可以提高的地方。
+- 但是讲的时候过于来回走动了
+- 没有在停在一个地方让焦点都集中过来
+- 超时7分钟，预期40分钟，讲了47分钟
+
+[这个是我infoq演讲的内容](http://www.infoq.com/cn/presentations/sohu-mailbox-python-experience)
+[这个是slides](http://vdisk.weibo.com/s/zpOR0)
+
+
+## 作为听众
 QCon北京，我除了是讲师，也听了几场不错的演讲。尤其是对于[淘宝 余锋 的 《erlang开发实践》](http://www.qconbeijing.com/speaker.php?id=144)映像还是蛮深刻的。除了开始关于erlang的哲学和世界观，基本上就没有和erlang相关的东西了，都是再讲一些系统设计相关的。
 
 **erlang的世界观**
