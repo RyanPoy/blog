@@ -6,8 +6,9 @@ categories = ["Tech"]
 tags = ["Kanban", "Translation"]
 +++
 
-发现[一篇文章](https://matschaffer.com/2014/06/16/rethinking-kanban)，觉得有意思，就翻译了一下。但水平有限，不要大喷
+发现[一篇文章](https://matschaffer.com/2014/06/16/rethinking-kanban)，觉得有意思，就翻译了一下。
 
+<!--more-->
 
 如果你曾今使用过 Trello，Jira，或者 其他看板工具，你可能习惯于像这样看看板：
 
