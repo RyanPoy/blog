@@ -2,9 +2,8 @@
 title = "12年，1780公里，6小时"
 date = 2013-08-03
 
-[taxonomies]
-categories = ["Tech"]
-tags = ["随笔", "生活"]
+categories = ["Life"]
+tags = ["随笔"]
 +++
 
   12年前，青涩的他怀揣着懵懂的梦想踏上了这个被人津津乐道的城市的土地。
