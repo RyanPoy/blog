@@ -6,12 +6,10 @@ categories = ["Tech"]
 tags = ["Architecture"]
 +++
 
-**about title**
-
+## about title
 标题是网上早就有了的。而我是在处理实际的问题时候，想到了一些解决方案，然后再通过解决方案去找就发现了它。就直接拿来用了。
 
-**question**
-
+## question
 问题是这样的：
 
 1. 以前做企业级应用开发的时候，用得多的是Java，WebServer是Tomcat，Tomcat是采用multi thread 方式的。而企业应用一般用户量不大，主要是要稳定。所以，每次只启动一个tomcat实例。另外一个tomcat纯粹是用来做备份的。不提供生产。所以，对于用户登陆信息，就存放到session中的。由于每次都只有一个tomcat服务，所以，这样是合理的，没有问题
@@ -20,12 +18,9 @@ tags = ["Architecture"]
 
 所以，我们就需要解决这个问题
 
-**solutions**
-
+## solutions
 1. 所有的session存放到db中，逻辑上解决了session的共享问题。但是，db的压力会突然间增大，不适合采用，属于下策
-
 2. 后面有一个共享的cache或者cache集群，用来存放用户的session信息，这个解决了db的压力，能够用于实际，额外引入了第3方的东西，属于中策
-
 3. 利用cookie，把session信息进行加密，且设置过期时间。这个解决了db的压力，不需要引入第3方lib，编码的工作很小。所以，属于上策
 
 
