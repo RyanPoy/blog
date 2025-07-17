@@ -3,7 +3,7 @@ title = "几个常用统计指标"
 date = 2010-03-09
 
 categories = ["Tech"]
-tags = ["Data Analysis"， "Data Statistics"]
+tags = ["Data Analysis", "Data Statistics"]
 +++
 
 ## TF/IDF
