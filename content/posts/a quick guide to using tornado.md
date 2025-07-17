@@ -917,8 +917,11 @@ class Download(BaseController):
 是不是简洁了很多？但原理是什么？
 
 ## 基础知识
+
 ### yield和generator
+
 对于python中的yield, 大家应该都知道。
+
 ```python
 # -*- coding:utf-8 -*-
 
@@ -1088,7 +1091,7 @@ download("http://www.baidu.com/")
 
 ioloop.IOLoop.instance().start()
 ```
-这样就好像你在写同步代码一样。而不需要想之前那样处理回调了。如果要你实现一个gen.engine 和 Task 你会怎么实现呢？根据我们之前谈的[yield 和 generator](yield和generator)，我们可以这样写代码：
+这样就好像你在写同步代码一样。而不需要想之前那样处理回调了。如果要你实现一个gen.engine 和 Task 你会怎么实现呢？根据我们之前谈的[yield 和 generator](#yield和generator)，我们可以这样写代码：
 
 ```python
 # -*- coding:utf-8 -*-
