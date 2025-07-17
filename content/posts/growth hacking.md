@@ -3,7 +3,7 @@ title = "黑客增长简悟"
 date = 2020-12-28
 
 categories = ["Tech"]
-tags = ["Thinking"]
+tags = ["Growth hacking", "Thought"]
 +++
 
 # 引子
