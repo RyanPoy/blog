@@ -1,6 +1,6 @@
 +++
-title = ""
-date = 2013-01-25
+title = "2013年的北京QCon"
+date = "2013-01-25"
 
 categories = ["Tech"]
 tags = ["QCon"]
