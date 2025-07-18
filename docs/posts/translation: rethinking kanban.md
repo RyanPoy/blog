@@ -12,7 +12,7 @@ tags = ["Kanban", "Translation"]
 
 如果你曾今使用过 Trello，Jira，或者 其他看板工具，你可能习惯于像这样看看板：
 
-![3列看板](/images/kanban3column.png)
+![3列看板](/asserts/images/kanban3column.png)
 > 注意：便签的名字被修改，以保护内容
 
 这里，我们有一个典型的3列布局；To Do，Doing，和 Done。我们有下面3个可用的维度：
@@ -29,7 +29,7 @@ tags = ["Kanban", "Translation"]
 
 当然，这些情况是少见的，且可以被管理的。所以我仍然很高兴用这种模型来工作。Jira同样让这简单，因为我可以创建过滤器，仅仅关注看板中我工作需要的部分。
 但是，当我最近加入了一个在Trello看板的任务，我看到：
-![多轨迹](/images/kanbanmulticolumn.png)
+![多轨迹](/asserts/images/kanbanmulticolumn.png)
 
 好吧，人们。
 我怎么知道这个便签之前的状态？我怎么分离我自己的已经工作完成的记录？
@@ -38,7 +38,7 @@ tags = ["Kanban", "Translation"]
 然后我恍然大悟：我真正关注的状态仅仅是关于"Doing"。这很容易用颜色体现出来。而且所有这些其它可用颜色我确定使用两种来体现我的故事点数：0表示微不足道，2表示简单，4表示困难。
 
 现在，看板看起来像这样：
-![多轨迹-2](/images/kanbanmulticolumncolored.png)
+![多轨迹-2](/asserts/images/kanbanmulticolumncolored.png)
 现在我的维度是这样：
 
 - 垂直：优先级

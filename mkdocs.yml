@@ -1,3 +1,6 @@
 site_name: 一哥黑板报
 theme:
   name: material
+
+  # icon:
+  #   logo: static
