@@ -1,0 +1,38 @@
+[data-md-color-scheme="py"] {
+  --md-primary-fg-color:        #666622;
+  --md-accent-fg-color:         #666622;
+
+  --md-default-bg-color:        #FEFACD;
+  --md-code-bg-color:         #EEE8AA;
+  
+  /* 调整头部阴影 */
+  --md-shadow-z1: 0 0 10px rgba(238, 15, 15, 0.2);
+
+  --tab-text-color: #FFFACD;
+  
+  .md-tabs {
+    color: var(--tab-text-color);
+  }
+
+  .md-tabs__item {
+    font-weight: bolder;
+    border: 3px solid transparent; /* 透明边框占位 */
+    box-sizing: border-box;
+  }
+
+  /* ===== 激活标签页样式 ===== */
+  .md-tabs__item--active {
+    filter: drop-shadow(0 0 6px #fff);
+    /* border: 3px solid; */
+  }
+
+  /* ===== 悬停状态 ===== */
+  .md-tabs__item:hover { 
+    filter: drop-shadow(0 0 6px #fff);
+  }
+}
+
+/* 可选：添加过渡动画使切换更平滑 */
+html {
+  /* transition: background-color 0.3s, color 0.1s; */
+}

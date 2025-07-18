@@ -1,5 +1,5 @@
 +++
-title = "fudge使用文档"
+title = "Fudge使用文档"
 date = "2012-10-20"
 
 categories = ["Tutorials"]
