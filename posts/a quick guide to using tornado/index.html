@@ -1,0 +1,2647 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../_index/">
+      
+      
+        <link rel="next" href="../a%20user%20guild%20to%20using%20webpy/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>A quick guide to using tornado - 一哥黑板报</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="一哥黑板报" class="md-header__button md-logo" aria-label="一哥黑板报" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            一哥黑板报
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              A quick guide to using tornado
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="一哥黑板报" class="md-nav__button md-logo" aria-label="一哥黑板报" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    一哥黑板报
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Welcome to MkDocs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Posts
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Posts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12%20Years%2C%201780%20Kilometers%2C%206%20Hours/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12 Years, 1780 Kilometers, 6 Hours
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CSRF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CSRF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Idealism%20and%20Realism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Idealism and Realism
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Python%20Socket%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Python Socket Programming
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../QCon%20Beijing%202013/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    QCon Beijing 2013
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Switch%20Homebrew%20to%20a%20china%20mirror/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Switch Homebrew to a china mirror
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../What%20i%20fear%20most%20is%20losing%20my%20curiosity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    What i fear most is losing my curiosity
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Blog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    A quick guide to using tornado
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    A quick guide to using tornado
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      简单尝试
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      主要核心
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="主要核心">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#handler" class="md-nav__link">
+    <span class="md-ellipsis">
+      Handler
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db" class="md-nav__link">
+    <span class="md-ellipsis">
+      DB操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Templates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#route" class="md-nav__link">
+    <span class="md-ellipsis">
+      Route
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#django" class="md-nav__link">
+    <span class="md-ellipsis">
+      合体Django
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="合体Django">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#urlpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      修改 url.py
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settingspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      修改settings.py
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#appcontrollerpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      修改app.controller.py
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applicationpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      修改application.py
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建db
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      启动
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      浏览器访问
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#django_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      加载Django环境
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#django_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      启动django服务
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#urlspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      要修改工程的urls.py
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settingspyadmin_media_prefix" class="md-nav__link">
+    <span class="md-ellipsis">
+      要修改settings.py里面的ADMIN_MEDIA_PREFIX
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#djangoorm" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用Django的orm
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="使用Django的orm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#orm" class="md-nav__link">
+    <span class="md-ellipsis">
+      orm本身
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      事务
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commit_on_success" class="md-nav__link">
+    <span class="md-ellipsis">
+      对于commit_on_success的方式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      异步调用
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      基础知识
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基础知识">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#yieldgenerator" class="md-nav__link">
+    <span class="md-ellipsis">
+      yield和generator
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../a%20user%20guild%20to%20using%20webpy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    A user guild to using webpy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ab%20testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ab testing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agile%20practice%20summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Agile practice summary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fate
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fudge%20using%20document/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fudge using document
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gevent%20on%20pypy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gevent on pypy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../growth%20hacking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Growth hacking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hibernate%20simple%20tutorials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hibernate simple tutorials
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install%20mysql-v5.7%20on%20centos_v7.9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Install mysql v5.7 on centos v7.9
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../java%20PorterStemmer%20in%20Lucene/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    java PorterStemmer in Lucene
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../join%20SOHU/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    join SOHU
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../loaddata%20of%20mysql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Loaddata of mysql
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../parse%20html%20with%20python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Parse html with python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performace%20optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Performace optimization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python%20tricks%20and%20hacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Python tricks and hacks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python%20validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Python validation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../some%20common%20metrics%20in%20Data%20Analysis%20and%20Statistics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    some common metrics in Data Analysis and Statistics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../this%20is%20not%20the%20time%20to%20work%20yourself%20to%20death/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    This is not the time to work yourself to death
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../thoughts%20on%20building%20a%20production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thoughts on building a production
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../thoughts%20on%20vertical%20website%20crawler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thoughts on vertical website crawler
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../translation%3A%20rethinking%20kanban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Translation: rethinking kanban
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%97%A0%E5%85%B1%E4%BA%AB%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    无共享架构
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      简单尝试
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      主要核心
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="主要核心">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#handler" class="md-nav__link">
+    <span class="md-ellipsis">
+      Handler
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db" class="md-nav__link">
+    <span class="md-ellipsis">
+      DB操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Templates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#route" class="md-nav__link">
+    <span class="md-ellipsis">
+      Route
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#django" class="md-nav__link">
+    <span class="md-ellipsis">
+      合体Django
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="合体Django">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#urlpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      修改 url.py
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settingspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      修改settings.py
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#appcontrollerpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      修改app.controller.py
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applicationpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      修改application.py
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建db
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      启动
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      浏览器访问
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#django_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      加载Django环境
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#django_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      启动django服务
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#urlspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      要修改工程的urls.py
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settingspyadmin_media_prefix" class="md-nav__link">
+    <span class="md-ellipsis">
+      要修改settings.py里面的ADMIN_MEDIA_PREFIX
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#djangoorm" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用Django的orm
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="使用Django的orm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#orm" class="md-nav__link">
+    <span class="md-ellipsis">
+      orm本身
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      事务
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commit_on_success" class="md-nav__link">
+    <span class="md-ellipsis">
+      对于commit_on_success的方式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      异步调用
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      基础知识
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基础知识">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#yieldgenerator" class="md-nav__link">
+    <span class="md-ellipsis">
+      yield和generator
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>A quick guide to using tornado</h1>
+
+<p>+++
+title = "tornado教程"
+date = 2011-11-05</p>
+<p>categories = ["Tutorials"]
+tags = ["Python", "Tornado"]
++++</p>
+<p>最近要做一个新的系统：一个披着邮件系统外衣的消息系统。性能肯定是一方面，所以Webpy就不打算用了。Django本来是我的第一选择，但是觉得Django可能也会出现性能问题。我还是考虑其它的吧。选来选去，最后选择了Torando。因为它：<strong>简单</strong>；<strong>传说性能好</strong>；<strong>成熟案例</strong> （ <a href="https://www.zhihu.com">知乎</a>, <a href="http://friendfeed.com/">FriendFeed</a> )</p>
+<!--more-->
+
+<h2 id="_1">简单尝试</h2>
+<ul>
+<li>安装</li>
+</ul>
+<pre><code class="language-shell">sudo pip install tornado
+</code></pre>
+<ul>
+<li>第一个demo</li>
+</ul>
+<pre><code class="language-python">#coding: utf-8
+import tornado.ioloop
+import tornado.web
+
+class Index(tornado.web.RequestHandler):
+    def get(self):
+        self.write('Hello, world ! \n')
+
+urls = (
+    ('/', Index),
+)
+
+def start():
+    app = tornado.web.Application(urls)
+    app.listen(4322)
+    tornado.ioloop.IOLoop.instance().start()
+
+if __name__ == '__main__':
+    start()
+</code></pre>
+<ul>
+<li>启动：python webpy_test.py 0.0.0.0:4322</li>
+<li>GET 测试：curl http://localhost:4322</li>
+</ul>
+<blockquote>
+<p>结果如下：
+  Hello, world</p>
+</blockquote>
+<p>看到了么，和Webpy长得几乎一模一样。我先简单压测一下它。如果好的话，我觉得可以考虑新系统用它来写，旧系统或者也可以往这方面上转。</p>
+<ul>
+<li>压测：ab -c 10 -n 1000 http://192.168.95.222:4322/</li>
+</ul>
+<pre><code class="language-shell">This is ApacheBench, Version 2.3 &lt;$Revision: 655654 $&gt;
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking 192.168.95.222 (be patient)
+Completed 100 requests
+Completed 200 requests
+Completed 300 requests
+Completed 400 requests
+Completed 500 requests
+Completed 600 requests
+Completed 700 requests
+Completed 800 requests
+Completed 900 requests
+Completed 1000 requests
+Finished 1000 requests
+
+
+Server Software:        TornadoServer/2.1.1
+Server Hostname:        192.168.95.222
+Server Port:            4322
+
+Document Path:          /
+Document Length:        16 bytes
+
+Concurrency Level:      10
+Time taken for tests:   0.693 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Total transferred:      174000 bytes
+HTML transferred:       16000 bytes
+Requests per second:    1443.30 [#/sec] (mean)
+Time per request:       6.929 [ms] (mean)
+Time per request:       0.693 [ms] (mean, across all concurrent requests)
+Transfer rate:          245.25 [Kbytes/sec] received
+
+Connection Times (ms)
+                min  mean[+/-sd] median   max
+Connect:        1    1   1.0      1      13
+Processing:     1    6   1.9      5      18
+Waiting:        1    5   1.8      5      18
+Total:          3    7   1.8      6      19
+
+Percentage of the requests served within a certain time (ms)
+    50%      6
+    66%      7
+    75%      7
+    80%      7
+    90%      8
+    95%     10
+    98%     13
+    99%     17
+    100%     19 (longest request)
+</code></pre>
+<p>每秒将近是1443，接近webpy的10倍。</p>
+<ul>
+<li>压测-100并发，2000请求：ab -c 100 -n 2000 http://192.168.95.222:4322/</li>
+</ul>
+<pre><code class="language-shell">This is ApacheBench, Version 2.3 &lt;$Revision: 655654 $&gt;
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking 192.168.95.222 (be patient)
+Completed 200 requests
+Completed 400 requests
+Completed 600 requests
+Completed 800 requests
+Completed 1000 requests
+Completed 1200 requests
+Completed 1400 requests
+Completed 1600 requests
+Completed 1800 requests
+Completed 2000 requests
+Finished 2000 requests
+
+
+Server Software:        TornadoServer/2.1.1
+Server Hostname:        192.168.95.222
+Server Port:            4322
+
+Document Path:          /
+Document Length:        16 bytes
+
+Concurrency Level:      100
+Time taken for tests:   1.075 seconds
+Complete requests:      2000
+Failed requests:        0
+Write errors:           0
+Total transferred:      348000 bytes
+HTML transferred:       32000 bytes
+Requests per second:    1860.06 [#/sec] (mean)
+Time per request:       53.762 [ms] (mean)
+Time per request:       0.538 [ms] (mean, across all concurrent requests)
+Transfer rate:          316.06 [Kbytes/sec] received
+
+Connection Times (ms)
+                min  mean[+/-sd] median   max
+Connect:        1    1   1.0      1       8
+Processing:     4   51  13.0     46      76
+Waiting:        4   51  13.0     46      75
+Total:          8   53  12.8     48      77
+
+Percentage of the requests served within a certain time (ms)
+    50%     48
+    66%     65
+    75%     65
+    80%     65
+    90%     66
+    95%     70
+    98%     73
+    99%     73
+    100%     77 (longest request)
+</code></pre>
+<p>每秒1800个请求，响应为53.8ms，很强大啊。</p>
+<p>那就选它了。</p>
+<h2 id="_2">主要核心</h2>
+<h3 id="handler">Handler</h3>
+<p>对于<code>Tornado</code>而言，MVC中的C就是它的<code>Handler</code>。<code>Torando</code>的Handler非常好写，只要继承自<code>tornado.web.RequestHandler</code>就好了。下面我统一的把<code>Handler</code>叫做<code>Controller</code>，因为习惯了这种叫法。对于<code>Controller</code>的主要调用顺序如下：</p>
+<ul>
+<li><code>__init__</code>：构造方法，如果需要在开始做一些事情的话，不推荐在这里。而推荐使用<code>initialize</code></li>
+<li><code>initialize</code>：这里做事情，比方说给这个Controller加入一些成员变量。例如：</li>
+</ul>
+<pre><code class="language-python">class TestController(tornado.web.RequestHandler):
+
+    def initialize(self): 
+        self.uuid = uuid.uuid4().hex
+</code></pre>
+<ul>
+<li><code>prepare</code>：调用具体的<code>get/post/...</code>方法之前，会调用它。在这里加入加入一些权限控制。比如说，除了登陆页面外，需要登陆成功了才能进行访问。</li>
+</ul>
+<pre><code class="language-python">class TestController(tornado.web.RequestHandler):
+
+    def prepare(self):
+        if not self.request.uri.startswith(self.get_login_url()) \
+            and self.current_user is None:
+            self.redirect(self.get_login_url())
+</code></pre>
+<ul>
+<li><code>get/post/put/delete/...</code>：具体业务的方法</li>
+<li><code>get_error_html</code>：当有异常抛出的时候会调用它, 比方说，我们要渲染自己的错误页面</li>
+</ul>
+<pre><code class="language-python">def get_error_html(self, status_code, **kwargs):
+    return self.render_string(
+        'my_error.html', code=code, message=message, exception=exception
+    )
+</code></pre>
+<ul>
+<li><code>finish</code>：这个是一个很<strong>重要</strong>的方法，因为tornado最后总会调用finish一次，且仅仅调用一次。这个是由于它是异步框架的原因。</li>
+</ul>
+<p>除了上面的调用顺序中的几个方法，常用的就是下面的了:</p>
+<ul>
+<li><code>get_current_user</code>：得到当前用户，这个需要自己重写。一般的做法，从cookie中找到相应的session信息，再通过查session或者查db找到具体的用户</li>
+</ul>
+<pre><code class="language-python">def get_current_user(self):
+    username = self.get_secure_cookie(&quot;user&quot;)
+    return self.db.get(&quot;select * from user where username = %s&quot;, username) if username else None
+</code></pre>
+<ul>
+<li><code>redirect</code>：302跳转到某个地址。我一般喜欢封装一下，封装为：</li>
+</ul>
+<pre><code class="language-python">def redirect_to(self, path, notice = None):
+    self.notice(notice)
+    return self.redirect(path)
+</code></pre>
+<p>这里的notice其实类似于rails中的flash。利用cookie实现的。代码如下：</p>
+<pre><code class="language-python">def notice(self, value = None):
+    if value is not None:
+        _value = urllib2.quote(value.encode('utf-8'), 'true')
+        self.set_cookie(self.FLASH_COOKIE_KEY, _value)
+    else:
+        v = self.get_cookie(self.FLASH_COOKIE_KEY, None)
+        self.clear_cookie(self.FLASH_COOKIE_KEY)
+        return urllib.unquote_plus(v).decode('utf-8') if v is not None else v
+</code></pre>
+<ul>
+<li><code>render</code>：渲染某个页面，同样我也细化封装一下：</li>
+</ul>
+<pre><code class="language-python">def render_view(self, view_name, notice = None, **kwargs):
+    kwargs.update(filters)
+    _notice = notice or self.notice()
+    return self.render(view_name, notice = _notice, **kwargs)
+</code></pre>
+<p>这样我就可以传入更多的默认渲染的东西</p>
+<h3 id="db">DB操作</h3>
+<p>tornado 的db操作非常简单。简单到没有。仅仅只是对 mysql提供了基本的封装。</p>
+<ul>
+<li>打开连接：</li>
+</ul>
+<pre><code class="language-python">db = database.Connection(host, database, user=None, password=None, max_idle_time=7 * 3600)
+</code></pre>
+<ul>
+<li>查询多条记录</li>
+</ul>
+<pre><code class="language-python"># 可能sql注入
+for user in db.query(&quot;SELECT * FROM user WHERE gender='f'&quot;): 
+    print user.username, user.password
+
+# 没有sql注入
+db.query(&quot;SELECT * FROM user WHERE gender = %s&quot;, 'f'): 
+</code></pre>
+<ul>
+<li>查询单条记录：永远只是返回第1条</li>
+</ul>
+<pre><code class="language-python">db.get('SELECT * FROM user WHERE id = 1') # 可能有sql注入    
+db.get('SELECT * FROM user WHERE id = %s', 1) # 没有sql注入
+</code></pre>
+<ul>
+<li>删除/修改/插入</li>
+</ul>
+<pre><code class="language-python">db.execute(sql, *parameters)
+</code></pre>
+<ul>
+<li>批量 的删除/修改/插入</li>
+</ul>
+<pre><code class="language-python">db.executemany(sql, *parameters)
+</code></pre>
+<p><strong>注意：</strong> <em>没有transaction的处理。</em></p>
+<h3 id="templates">Templates</h3>
+<p>tornado的templates，就是MVC的V，即：view。对于页面上常用的tag，基本和django一样。最大的差距就是所有的都是end结尾。不像django的endif等等。</p>
+<p><strong>常用tag</strong></p>
+<ul>
+<li><code>if</code> 比django的好，django没有<code>elif</code></li>
+</ul>
+<pre><code class="language-python">{% if %} {% elif %} {% else %} {% end %}
+</code></pre>
+<ul>
+<li><code>block</code> 和 django不同点：不需要 endblock</li>
+</ul>
+<pre><code class="language-python">{% block %} {% end %} 
+</code></pre>
+<ul>
+<li><code>extend</code>和django的一样</li>
+</ul>
+<pre><code class="language-python">{% extend %}
+</code></pre>
+<ul>
+<li><code>for</code>循环和django一样</li>
+</ul>
+<pre><code class="language-python">{% for %} {% end %}
+</code></pre>
+<ul>
+<li>设置变量：</li>
+</ul>
+<p>一个变量 name = 'poy', 这个对于一些navgation的高亮很有帮助。</p>
+<pre><code class="language-python">{% set name='poy' %}
+</code></pre>
+<ul>
+<li>嵌入python代码：django里面只能是filter，但是Tornado是允许在template里面直接写python的代码的：</li>
+</ul>
+<pre><code class="language-python">{{ 'RyanPoy'.lower() }}
+</code></pre>
+<p>对于python代码，可以直接封装成方法，然后，tornado可以直接在handler render 一个template的的时候把相应的function以key-value的方式传过来，这样就可以直接使用了。</p>
+<pre><code class="language-python">class HelloHandler(WebHandler):
+    return self.render('test.html', hello = lambda name: 'hello, %s' % name)
+</code></pre>
+<p>然后在<code>test.html</code>里面写：</p>
+<pre><code class="language-python">{{ hello('pengyi') }}
+</code></pre>
+<h3 id="route">Route</h3>
+<p>tornado的url就是下面的形式：</p>
+<pre><code class="language-python">urls = [
+    (r'/user/show/', UserShow),
+    (r'/user/login/', UserLogin),
+    (r'/group/maillist/', GroupMaillist),
+]
+</code></pre>
+<p>这里给出一个封装，用来自动的进行route，首先要求，项目目录如下：</p>
+<p><img alt="目录" src="/static/images/tornado-1.png" /></p>
+<p>接下来，就是url的自动生成了。我写了一个route.py的文件。
+route.py</p>
+<pre><code class="language-python">#coding: utf-8
+import os
+import sys
+
+def __url_of(module_name):
+    return '/'.join([ v for v in module_name.split('_') if v ])
+
+def reasoning():
+    from app.controllers.base_controller import BaseController
+    valible_suffix = ['/']
+    controllers_dir = 'app/controllers'
+    controllers_package = '.'.join(controllers_dir.split('/'))
+    controllers_dir = os.path.normpath(os.path.join(os.path.dirname(__file__), '..', controllers_dir))
+    urls = []
+    for _, _, files in os.walk(controllers_dir):
+        for f in files:
+            if f == 'base_controller.py' or not f.endswith('controller.py'):
+                continue
+
+            prefix_name = f[0:-3] # 3 为 len('.py')
+            model_name = prefix_name[0:-11]  # 11 为 len('_controller')
+            module_name = controllers_package + '.' + prefix_name
+            module = __import__(module_name, fromlist=['*']) # 导入所有的内容到内存中
+
+            for class_name in dir(module):
+                try:
+                    obj = getattr(module, class_name)
+                    if obj is BaseController or not issubclass(obj, BaseController):
+                        continue
+                except TypeError, _:
+                    continue
+
+                clazz = getattr(module, class_name)
+                controller_file_name = module_name.split('.')[-1]
+                for suffix in valible_suffix:
+                    if controller_file_name != 'index_controller':
+                        url = '/%s/%s%s' % (__url_of(model_name), class_name.lower(), suffix)
+                    else: # 如果是index_controller，那么映射只有class name，controller name 不要  
+                        url = '/%s%s' % (class_name.lower(), suffix)    
+                    urls.append((url, clazz))
+
+                if class_name.lower() == 'index':
+                    for suffix in valible_suffix:
+                        if controller_file_name != 'index_controller':
+                            url = '/%s%s' % (__url_of(model_name), suffix)
+                            urls.append((url, clazz))
+    return urls
+
+
+def special():
+    import app.controllers as controllers
+    mapping = {
+        '/': controllers.user_controller.Login
+    }
+    urls = []
+    for url, clazz in mapping.iteritems():
+        urls.append((url, clazz)) 
+    return urls
+
+
+def all():
+    def merge(all_urls_dict, mappings):
+        for mapping in mappings:
+            url, clazz = mapping[0], mapping[1]
+            all_urls_dict[url] = (url, clazz)
+
+    def merge_of(reasoning, special):
+        all = {}
+        merge(all, reasoning)
+        merge(all, special)
+        urls = all.values()
+        urls.sort()
+        return urls
+
+    return merge_of(reasoning(), special())
+
+
+def show(url_mappings):
+    for mapping in url_mappings:
+        print mapping
+
+
+if __name__ == '__main__':
+    name = 'all'
+    if len(sys.argv) == 2 and sys.argv[1] in ('all', 'reasoning', 'special'):
+        name = sys.argv[1]
+    urls = eval(name)()
+    show(urls)
+</code></pre>
+<p>对于controller的写法如下：</p>
+<p>company_controller.py</p>
+<pre><code class="language-python">#coding: utf-8
+
+from app.controllers.base_controller import BaseController
+
+class Index(BaseController):
+
+    def get(self):
+        pass
+
+    def post(self):
+        pass
+
+
+class List(BaseController):
+
+    def get(self):
+        pass
+
+    def post(self):
+        pass
+
+
+class Create(BaseController):
+
+    def get(self):
+        pass
+
+    def post(self):
+        pass
+
+class Show(BaseController):
+
+    def get(self):
+        pass
+
+    def post(self):
+        pass
+
+
+class Update(BaseController):
+
+    def get(self):
+        pass
+
+    def post(self):
+        pass
+</code></pre>
+<h2 id="django">合体Django</h2>
+<p>之前有提过，tornado的db非常的简单，只有一个基于mysql的基础封装，而这个封装甚至连事务都没有。所以，如果我们采用tornado的db能做的事情就是写sql语句。</p>
+<p>对于小型的系统还好，对于一些中/中大/大型业务系统，sql写起来是比较费事费时的，成本很高，尤其是以后的维护成本。</p>
+<p>所以，我们需要引入一个第3方的ORM。在Python，ORM最著名的莫过于 sqlalchemy 和 sqlobject了。</p>
+<p>那我们在tornado中就用它们？答案是否定的。原因是：我们期望能够有一个类似DJango的Admin管理界面。</p>
+<p>好吧，程序员总是很懒惰的，哪怕一个字母都不愿意多敲。程序员总是很贪心的，哪怕能多一片叶子，也要仅仅的攥着手中。</p>
+<p>现在的实际情况就来了，我们能不能利用DJango提供的ORM和Admin，为Tornado使用呢 ？</p>
+<p>经过一天的研究，答案是肯定的。下面，我们就来具体的讲讲。</p>
+<p><strong>生成Django项目</strong></p>
+<pre><code class="language-shell">django-admin.py startproject Tornadjango
+</code></pre>
+<p><strong>创建一个app</strong>
+我习惯只有一个app，且命名为app</p>
+<pre><code class="language-shell">cd Tornadjango
+python manage.py startapp app
+</code></pre>
+<p><strong>修改app目录下的文件名</strong>
+这个也是我习惯了的命名规则, 创建controllers.py, 删除views.py，在工程目录下面创建application.py。此时，目录结构应该如下：</p>
+<p><img alt="目录结构" src="/static/images/tornado-2.png" /></p>
+<h3 id="urlpy">修改 url.py</h3>
+<pre><code class="language-python">#coding: utf-8
+
+from django.conf.urls.defaults import patterns, include
+from django.contrib import admin
+import django
+import os
+
+admin.autodiscover()
+
+MEDIA_ROOT = os.path.join(os.path.dirname(django.__file__), 'contrib', 'admin', 'media')
+
+urlpatterns = patterns('',
+    (r'^admin/media/(?P&lt;path&gt;.*)$', 'django.views.static.serve',{'document_root': MEDIA_ROOT, 'show_indexes': False}),
+    (r'^admin/', include(admin.site.urls)),
+)
+</code></pre>
+<h3 id="settingspy">修改settings.py</h3>
+<pre><code class="language-python"># Django settings for Tornadjango project.
+import os
+
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
+PROJECT_PATH = os.path.join(os.path.dirname(__file__))
+
+ADMINS = (
+    # ('Your Name', 'your_email@example.com'),
+)
+
+MANAGERS = ADMINS
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'tornadjango',                      # Or path to database file if using sqlite3.
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+    }
+}
+
+# Local time zone for this installation. Choices can be found here:
+# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
+# although not all choices may be available on all operating systems.
+# On Unix systems, a value of None will cause Django to use the same
+# timezone as the operating system.
+# If running in a Windows environment this must be set to the same as your
+# system time zone.
+TIME_ZONE = 'Asia/Shanghai'
+
+# Language code for this installation. All choices can be found here:
+# http://www.i18nguy.com/unicode/language-identifiers.html
+LANGUAGE_CODE = 'zh-cn'
+
+SITE_ID = 1
+
+# If you set this to False, Django will make some optimizations so as not
+# to load the internationalization machinery.
+USE_I18N = True
+
+# If you set this to False, Django will not format dates, numbers and
+# calendars according to the current locale
+USE_L10N = True
+
+# Absolute filesystem path to the directory that will hold user-uploaded files.
+# Example: &quot;/home/media/media.lawrence.com/media/&quot;
+MEDIA_ROOT = ''
+
+# URL that handles the media served from MEDIA_ROOT. Make sure to use a
+# trailing slash.
+# Examples: &quot;http://media.lawrence.com/media/&quot;, &quot;http://example.com/media/&quot;
+MEDIA_URL = ''
+
+# Absolute path to the directory static files should be collected to.
+# Don't put anything in this directory yourself; store your static files
+# in apps' &quot;static/&quot; subdirectories and in STATICFILES_DIRS.
+# Example: &quot;/home/media/media.lawrence.com/static/&quot;
+STATIC_ROOT = ''
+
+# URL prefix for static files.
+# Example: &quot;http://media.lawrence.com/static/&quot;
+STATIC_URL = '/static/'
+
+# URL prefix for admin static files -- CSS, JavaScript and images.
+# Make sure to use a trailing slash.
+# Examples: &quot;http://foo.com/static/admin/&quot;, &quot;/static/admin/&quot;.
+ADMIN_MEDIA_PREFIX = '/admin/media/'
+
+# Additional locations of static files
+STATICFILES_DIRS = (
+    # Put strings here, like &quot;/home/html/static&quot; or &quot;C:/www/django/static&quot;.
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+)
+
+# List of finder classes that know how to find static files in
+# various locations.
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+)
+
+# Make this unique, and don't share it with anybody.
+SECRET_KEY = 'oa8xplu6_lhlegtxpc(f+!tc=2$%&amp;oumz4zx2_1d*vio75z3c7'
+
+# List of callables that know how to import templates from various sources.
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+#     'django.template.loaders.eggs.Loader',
+)
+
+MIDDLEWARE_CLASSES = (
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+)
+
+ROOT_URLCONF = 'urls'
+
+TEMPLATE_DIRS = (
+    # Put strings here, like &quot;/home/html/django_templates&quot; or &quot;C:/www/django/templates&quot;.
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+)
+
+INSTALLED_APPS = (
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    # Uncomment the next line to enable the admin:
+        'django.contrib.admin',
+    # Uncomment the next line to enable admin documentation:
+        'django.contrib.admindocs',
+    # customer app
+    'app',
+)
+
+# A sample logging configuration. The only tangible logging
+# performed by this configuration is to send an email to
+# the site admins on every HTTP 500 error.
+# See http://docs.djangoproject.com/en/dev/topics/logging for
+# more details on how to customize your logging configuration.
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler'
+        }
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    }
+}
+</code></pre>
+<h3 id="appcontrollerpy">修改app.controller.py</h3>
+<pre><code class="language-python">#coding: utf8
+
+import tornado.web
+
+
+class HelloController(tornado.web.RequestHandler):
+
+    def get(self):
+        self.write('Hello, world ! \n')
+</code></pre>
+<h3 id="applicationpy">修改application.py</h3>
+<pre><code class="language-python">#coding: utf-8
+import os
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
+
+import settings
+import app.urls
+from django.core.handlers.wsgi import WSGIHandler
+from tornado import options, wsgi
+import tornado.httpserver
+
+
+options.define('admin_port', default=9900, type=int, help='Run admin platform on the given port')
+options.define('app_port', default=9901, type=int, help='Run app platform on the given port')
+
+
+tornado_env = dict(
+#    template_path       = os.path.join(os.path.dirname(__file__), 'templates'),
+#    static_path         = os.path.join(os.path.dirname(__file__), 'static'),
+    xsrf_cookies        = False,
+    cookie_secret       = &quot;11oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo=&quot;,
+    autoescape          = None,
+    debug               = settings.DEBUG,
+    login_url           = '/',
+)
+
+
+if __name__ == &quot;__main__&quot;:
+    options.parse_command_line()
+    address, admin_port, app_port = '0.0.0.0', options.options.admin_port, options.options.app_port 
+
+    def admin_listen():
+        wsgi_app = wsgi.WSGIContainer(WSGIHandler())
+        tornado_app = tornado.web.Application([
+            ('/admin/(.*)', tornado.web.FallbackHandler, dict(fallback=wsgi_app)),
+        ])
+        tornado.httpserver.HTTPServer(tornado_app).listen(admin_port)
+        print 'run admin platform on (%s:%s)' % (address, admin_port)
+
+    def app_listen():
+        tornado_app = tornado.web.Application(app.urls.urls)
+        tornado_app.listen(app_port)
+        print 'run app platform on (%s:%s)' % (address, app_port)
+
+    app_listen()
+    admin_listen()
+
+    tornado.ioloop.IOLoop.instance().start()
+</code></pre>
+<h3 id="db_1">创建db</h3>
+<pre><code class="language-python">python manager.py syncdb
+</code></pre>
+<h3 id="_3">启动</h3>
+<pre><code class="language-python">python application.py
+</code></pre>
+<h3 id="_4">浏览器访问</h3>
+<pre><code class="language-python">http://localhost:9901/            # tornado app
+http://localhost:9900/admin/      # django admin
+</code></pre>
+<p>这样整个步骤就完成了。</p>
+<h3 id="django_1">加载Django环境</h3>
+<p>django很优秀的，只需要有一个settings.py就把django需要的环境都包含了。所以，在application.py的上面要写上：</p>
+<pre><code class="language-python">    import os
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
+</code></pre>
+<h3 id="django_2">启动django服务</h3>
+<p>django是http基于wsgi的，所以如果你要用django的admin，就必须启动wsgi。所以，在application.py里面有这样的代码：</p>
+<pre><code class="language-python">def admin_listen():
+    wsgi_app = wsgi.WSGIContainer(WSGIHandler())
+    tornado_app = tornado.web.Application([
+        ('/admin/(.*)', tornado.web.FallbackHandler, dict(fallback=wsgi_app)),
+    ])
+    tornado.httpserver.HTTPServer(tornado_app).listen(admin_port)
+    print 'run admin platform on (%s:%s)' % (address, admin_port)
+
+</code></pre>
+<h3 id="urlspy">要修改工程的urls.py</h3>
+<p>对于纯粹的django环境，django的admin对应的url可以自动的找到。但是由于我们是通过tornado的IOLoop代理过去的，就需要自己手动配置。所以，在urls.py里面有这样的代码：</p>
+<pre><code class="language-python">admin.autodiscover()
+
+MEDIA_ROOT = os.path.join(os.path.dirname(django.__file__), 'contrib', 'admin', 'media')
+
+urlpatterns = patterns('',
+    (r'^admin/media/(?P&lt;path&gt;.*)$', 'django.views.static.serve',{'document_root': MEDIA_ROOT, 'show_indexes': False}),
+    (r'^admin/', include(admin.site.urls)),
+)
+</code></pre>
+<h3 id="settingspyadmin_media_prefix">要修改settings.py里面的ADMIN_MEDIA_PREFIX</h3>
+<p>ADMIN_MEDIA_PREFIX 需要配置成为urls.py里面的urlpatterns对应的地址，否则会找不到静态资源</p>
+<h2 id="djangoorm">使用Django的orm</h2>
+<p>怎么使用django的orm。下面来说一说。</p>
+<h3 id="orm">orm本身</h3>
+<p>直接使用django的orm，不管是django的admin还是tornado都是一样的。</p>
+<h3 id="_5">事务</h3>
+<p>直接看<a href="https://docs.djangoproject.com/en/1.3/topics/db/transactions/">Django 1.3 的事务相关的文档</a></p>
+<h3 id="commit_on_success">对于commit_on_success的方式</h3>
+<p>一定要注意一下：要自动提交，需要django的middleware。但是django的middelware又只有在django的http环境中才生效，那么对于tornado的http环境，如何生效呢？</p>
+<p>大家都知道django的middelware是在进入request之后，和response之前。所以，我们完全可以考虑直接把middelware的方法拿来用。下面是django的traction middelware的源代码。</p>
+<p>django.middleware.transaction.py</p>
+<pre><code class="language-python">class TransactionMiddleware(object):
+    &quot;&quot;&quot;
+    Transaction middleware. If this is enabled, each view function will be run
+    with commit_on_response activated - that way a save() doesn't do a direct
+    commit, the commit is done when a successful response is created. If an
+    exception happens, the database is rolled back.
+    &quot;&quot;&quot;
+    def process_request(self, request):
+        &quot;&quot;&quot;Enters transaction management&quot;&quot;&quot;
+        transaction.enter_transaction_management()
+        transaction.managed(True)
+
+    def process_exception(self, request, exception):
+        &quot;&quot;&quot;Rolls back the database and leaves transaction management&quot;&quot;&quot;
+        if transaction.is_dirty():
+            transaction.rollback()
+        transaction.leave_transaction_management()
+
+    def process_response(self, request, response):
+        &quot;&quot;&quot;Commits and leaves transaction management.&quot;&quot;&quot;
+        if transaction.is_managed():
+            if transaction.is_dirty():
+                transaction.commit()
+            transaction.leave_transaction_management()
+        return response
+</code></pre>
+<p>所以，我们完全可以写这样一个BaseController，用来解决这个问题</p>
+<p>base_controller.py</p>
+<pre><code class="language-python">class BaseController(tornado.web.RequestHandler):
+
+    def initialize(self, application, request, **kwargs):
+        self.has_except = False
+
+    def prepare(self):
+        &quot;&quot;&quot;Enters transaction management&quot;&quot;&quot;
+        transaction.enter_transaction_management()
+        transaction.managed(True)
+
+    def get_error_html(self, status_code, **kwargs):
+        try:
+            self.has_except = True
+            if transaction.is_dirty():
+                transaction.rollback()
+            transaction.leave_transaction_management()
+        except:
+            pass
+        finally:
+            super(BaseController, self).get_error_html(status_code, **kwargs)
+
+    def finish(self, chunk=None):
+        try:
+            return super(BaseController, self).finish(chunk=chunk)
+        finally:
+            if not self.has_except and transaction.is_managed():
+                if transaction.is_dirty():
+                    transaction.commit()
+                transaction.leave_transaction_management()
+            django.db.reset_queries()
+            django.db.close_connection()
+</code></pre>
+<p>这样就达到了自动提交或者回滚transaction的目的。</p>
+<h2 id="_6">异步调用</h2>
+<p>Tornado是一个异步框架，在单独的实例跑的时候，要注意。对于一些响应很长的操作，需要进行异步处理。</p>
+<p>比方说，有一个第3方的api调用，一般都修改为异步处理。这样能保证你的服务正常被响应，而不会出现阻塞。</p>
+<pre><code class="language-python">class Download(BaseController):
+
+    @tornado.web.asynchronous
+    def get(self):
+
+        def _(response):
+            self.finish(response.body)
+
+        url = self.get_argument('download_url', '', True)
+        httpclient.AsyncHTTPClient().fetch(url, _)
+</code></pre>
+<p>上面是这种写法比较麻烦，后来在tornado中加入了一个新的写方，叫做gen，看起来好像写同步代码一样。</p>
+<pre><code class="language-python">class Download(BaseController):
+
+    @tornado.web.asynchronous
+    @gen.engine
+    def get(self):
+        url = self.get_argument('download_url', '', True)
+        response = yield gen.Task(client.fetch, url)
+        self.finish(response.body)
+</code></pre>
+<p><strong>注意 @tornado.web.asynchronous 要在 @gen.engine 之前。</strong>
+是不是简洁了很多？但原理是什么？</p>
+<h2 id="_7">基础知识</h2>
+<h3 id="yieldgenerator">yield和generator</h3>
+<p>对于python中的yield, 大家应该都知道。</p>
+<pre><code class="language-python"># -*- coding:utf-8 -*-
+
+def foo(n):
+    for i in range(n):
+        yield i
+
+for x in foo(2):
+    print x
+</code></pre>
+<p>上面的代码输出的就是1，2。注意上面的代码，可以看到foo(1)其实返回的就是一个generator。
+可以理解为一旦遇到yield的语句，就会返回一个generator。看看官方的解释：</p>
+<blockquote>
+<p>Any function containing a yield keyword is a generator function; </p>
+</blockquote>
+<p>从上面的基本代码来看，我们可以简单的理解为：遇到yield i, 就返回i，并且产生函数的临时中断，控制权交给外面的代码。等外面的代码消耗了这个返回值后，控制权在交回给函数，从之前的临时中断处再接着执行。</p>
+<p>当然，上述的理解并不完全正确。我们再来看看下面的代码。</p>
+<pre><code class="language-python"># -*- coding:utf-8 -*-
+def foo(n):
+    for i in range(n):
+        yield i
+
+g = foo(2)      # 1
+print g.next()  # 2
+print g.next()  # 3
+print g.next()  # 4
+</code></pre>
+<p>上面的代码输出的是：</p>
+<pre><code class="language-python">0
+1
+Traceback (most recent call last):
+    File &quot;/Users/ryan/Workspace/myself/Tornadjango/app/tmp.py&quot;, line 10, in &lt;module&gt;
+    print g.next()
+StopIteration
+</code></pre>
+<p>现在明白了么？因为foo方法里面有yield，所以调用它总是会返回一个generator。所以</p>
+<p>1 得到一个generator，且在1的时候，foo函数不会有任何的执行。在解释器分析代码的时候，发现foo里面有yield，就已经把它当成一个generator了。</p>
+<p>2 得到generator的第一个值 0</p>
+<p>3 得到generator的第二个值 1</p>
+<p>4 由于generator已经完毕，所以，抛出StopIteration异常</p>
+<p>再来看下面的代码：</p>
+<pre><code class="language-python"># -*- coding:utf-8 -*-
+
+def foo(n):
+    for i in range(n):
+        v = yield i
+        print 'v_%s = %s' % (i, v) # 5
+
+g = foo(2)       # 1
+print g.next()   # 2
+print g.next()   # 3
+print g.next()   # 4
+</code></pre>
+<p>这个时候，结果是：</p>
+<pre><code class="language-python">0
+v_0 = None
+1
+v_1 = None
+Traceback (most recent call last):
+    File &quot;/Users/ryan/Workspace/myself/Tornadjango/app/tmp.py&quot;, line 11, in &lt;module&gt;
+    print g.next()
+StopIteration
+</code></pre>
+<p>发现了么？ v的值是None哦。如果你是一个初学者，你肯定会认为 v 的值应该等于i。但是其实不是的。那么v为什么等于None呢 ？</p>
+<p>再看下面的代码：</p>
+<pre><code class="language-python"># -*- coding:utf-8 -*-
+def foo(n):
+    for i in range(n):
+        v = yield i
+        print 'v_%s = %s' % (i, v)
+
+g = foo(2)
+print g.next()
+print g.send('a')
+</code></pre>
+<p>结果如下：</p>
+<pre><code class="language-python">0
+v_0 = a
+1
+</code></pre>
+<p>可以看出。g.send('a')的时候，把'a'的值付给了v。</p>
+<p>那我们这样写呢？</p>
+<pre><code class="language-python"># -*- coding:utf-8 -*-
+
+def foo(n):
+    for i in range(n):
+        v = yield i
+        print 'v_%s = %s' % (i, v)
+
+g = foo(2)
+print g.send('a')
+</code></pre>
+<p>出现了如下的错误：</p>
+<pre><code class="language-python">    Traceback (most recent call last):
+      File &quot;/Users/ryan/Workspace/myself/Tornadjango/app/tmp.py&quot;, line 9, in &lt;module&gt;
+        print g.send('a')
+    TypeError: can't send non-None value to a just-started generator
+</code></pre>
+<p>所以得出如下的结论：</p>
+<ul>
+<li>
+<p><strong>generator.next() 等价于 generator.send(None)</strong></p>
+</li>
+<li>
+<p><strong>对于一个generator，一定要先调用一个next，或者send(None)。才能再调用send(value)</strong></p>
+</li>
+<li>
+<p><strong>调用send(value)的时候，会把value的值赋给里面的接收者，且是上一次next的中断位置</strong></p>
+</li>
+</ul>
+<p>前面，我们说过tornado的web异步调用。下面我们来分析一下。</p>
+<p>先看下面的代码。</p>
+<pre><code class="language-python"># -*- coding:utf-8 -*-
+from tornado import ioloop, httpclient
+
+def deal(response):
+    print 'response.length =', len(response.body)
+    ioloop.IOLoop.instance().stop()
+
+
+def download(url):
+    http_client = httpclient.AsyncHTTPClient()
+    http_client.fetch(url, deal)
+
+
+download(&quot;http://www.baidu.com/&quot;)    
+ioloop.IOLoop.instance().start()
+</code></pre>
+<p>结果如下：</p>
+<pre><code class="language-python">response.length = 10233
+</code></pre>
+<p>很明显的可以看出。http_client的fetch只是一个异步调用。需要传递一个deal方法，作为callback来去处理fetch后的response。</p>
+<p>如果我们用tornado的gen.engine方式可以这样写：</p>
+<pre><code class="language-python">from tornado import ioloop, httpclient, gen
+from tornado.gen import Task
+
+@gen.engine
+def download(url):
+    http_client = httpclient.AsyncHTTPClient()
+    response = yield Task(http_client.fetch, url)
+    print 'response.length =', len(response.body) 
+    ioloop.IOLoop.instance().stop()
+
+download(&quot;http://www.baidu.com/&quot;)
+
+ioloop.IOLoop.instance().start()
+</code></pre>
+<p>这样就好像你在写同步代码一样。而不需要想之前那样处理回调了。如果要你实现一个gen.engine 和 Task 你会怎么实现呢？根据我们之前谈的<a href="#yield和generator">yield 和 generator</a>，我们可以这样写代码：</p>
+<pre><code class="language-python"># -*- coding:utf-8 -*-
+from tornado import ioloop, httpclient
+import functools
+
+
+class MyTask(object):
+
+    def __init__(self, func, *args, **kwargs):
+        self.func = func
+        self.args = args
+        self.kwargs = kwargs
+
+    def callback(self, response):
+        try:
+            self.gen.send(response)
+        except StopIteration:
+            pass
+
+    def run(self, gen):
+        self.gen = gen
+        partail_func = functools.partial(self.func, *self.args, **self.kwargs)
+        partail_func(callback = self.callback)
+
+
+def myengine(func):
+    def _(*args, **kwargs):
+        task_generator = func(*args, **kwargs)
+        task = task_generator.next()
+        task.run(task_generator)
+    return _
+
+
+@myengine
+def download(url):
+    http_client = httpclient.AsyncHTTPClient()
+    response = yield MyTask(http_client.fetch, url)
+    print 'response.length =', len(response.body)
+    ioloop.IOLoop.instance().stop()
+
+
+download(&quot;http://www.baidu.com/&quot;)
+ioloop.IOLoop.instance().start()
+
+这个时候，结果是：
+```python
+response.length = 10233
+</code></pre>
+<p>这样，属于我们自己的engine和task就出来了。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+    
+  </body>
+</html>

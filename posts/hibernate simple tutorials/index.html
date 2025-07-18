@@ -1,0 +1,3956 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../growth%20hacking/">
+      
+      
+        <link rel="next" href="../install%20mysql-v5.7%20on%20centos_v7.9/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>Hibernate simple tutorials - 一哥黑板报</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="一哥黑板报" class="md-header__button md-logo" aria-label="一哥黑板报" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            一哥黑板报
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hibernate simple tutorials
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="一哥黑板报" class="md-nav__button md-logo" aria-label="一哥黑板报" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    一哥黑板报
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Welcome to MkDocs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Posts
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Posts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12%20Years%2C%201780%20Kilometers%2C%206%20Hours/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12 Years, 1780 Kilometers, 6 Hours
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CSRF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CSRF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Idealism%20and%20Realism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Idealism and Realism
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Python%20Socket%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Python Socket Programming
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../QCon%20Beijing%202013/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    QCon Beijing 2013
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Switch%20Homebrew%20to%20a%20china%20mirror/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Switch Homebrew to a china mirror
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../What%20i%20fear%20most%20is%20losing%20my%20curiosity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    What i fear most is losing my curiosity
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Blog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../a%20quick%20guide%20to%20using%20tornado/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    A quick guide to using tornado
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../a%20user%20guild%20to%20using%20webpy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    A user guild to using webpy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ab%20testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ab testing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agile%20practice%20summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Agile practice summary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fate
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fudge%20using%20document/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fudge using document
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gevent%20on%20pypy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gevent on pypy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../growth%20hacking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Growth hacking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Hibernate simple tutorials
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hibernate simple tutorials
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      初次使用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="初次使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pojo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pojo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db" class="md-nav__link">
+    <span class="md-ellipsis">
+      DB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hibernatecfgxml" class="md-nav__link">
+    <span class="md-ellipsis">
+      hibernate.cfg.xml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userhbmxml" class="md-nav__link">
+    <span class="md-ellipsis">
+      User.hbm.xml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xml-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      xml关系映射 1:1
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="xml关系映射 1:1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      DB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pojo_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pojo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapping-xml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mapping Xml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xml-1n" class="md-nav__link">
+    <span class="md-ellipsis">
+      xml关系映射 1:n
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="xml关系映射 1:n">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      DB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pojo_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pojo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapping-xml_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mapping Xml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xml-nn" class="md-nav__link">
+    <span class="md-ellipsis">
+      xml关系映射 n:n
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="xml关系映射 n:n">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      DB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pojo_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pojo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapping-xml_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mapping Xml
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xml-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      xml关系映射 - 复杂的case
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="xml关系映射 - 复杂的case">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      DB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pojo_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pojo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapping-xml_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mapping Xml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#annotation-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      annotation关系映射 1:1
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="annotation关系映射 1:1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pojo_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pojo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      DB
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#annotation-1n" class="md-nav__link">
+    <span class="md-ellipsis">
+      annotation的关系映射 1:n
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="annotation的关系映射 1:n">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pojo_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pojo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      DB
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#annotation-nn" class="md-nav__link">
+    <span class="md-ellipsis">
+      annotation的关系映射 n:n
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="annotation的关系映射 n:n">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pojo_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pojo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      DB
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install%20mysql-v5.7%20on%20centos_v7.9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Install mysql v5.7 on centos v7.9
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../java%20PorterStemmer%20in%20Lucene/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    java PorterStemmer in Lucene
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../join%20SOHU/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    join SOHU
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../loaddata%20of%20mysql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Loaddata of mysql
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../parse%20html%20with%20python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Parse html with python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performace%20optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Performace optimization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python%20tricks%20and%20hacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Python tricks and hacks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python%20validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Python validation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../some%20common%20metrics%20in%20Data%20Analysis%20and%20Statistics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    some common metrics in Data Analysis and Statistics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../this%20is%20not%20the%20time%20to%20work%20yourself%20to%20death/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    This is not the time to work yourself to death
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../thoughts%20on%20building%20a%20production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thoughts on building a production
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../thoughts%20on%20vertical%20website%20crawler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thoughts on vertical website crawler
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../translation%3A%20rethinking%20kanban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Translation: rethinking kanban
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%97%A0%E5%85%B1%E4%BA%AB%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    无共享架构
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      初次使用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="初次使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pojo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pojo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db" class="md-nav__link">
+    <span class="md-ellipsis">
+      DB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hibernatecfgxml" class="md-nav__link">
+    <span class="md-ellipsis">
+      hibernate.cfg.xml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userhbmxml" class="md-nav__link">
+    <span class="md-ellipsis">
+      User.hbm.xml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xml-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      xml关系映射 1:1
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="xml关系映射 1:1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      DB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pojo_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pojo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapping-xml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mapping Xml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xml-1n" class="md-nav__link">
+    <span class="md-ellipsis">
+      xml关系映射 1:n
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="xml关系映射 1:n">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      DB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pojo_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pojo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapping-xml_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mapping Xml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xml-nn" class="md-nav__link">
+    <span class="md-ellipsis">
+      xml关系映射 n:n
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="xml关系映射 n:n">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      DB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pojo_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pojo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapping-xml_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mapping Xml
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xml-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      xml关系映射 - 复杂的case
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="xml关系映射 - 复杂的case">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      DB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pojo_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pojo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapping-xml_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mapping Xml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#annotation-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      annotation关系映射 1:1
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="annotation关系映射 1:1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pojo_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pojo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      DB
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#annotation-1n" class="md-nav__link">
+    <span class="md-ellipsis">
+      annotation的关系映射 1:n
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="annotation的关系映射 1:n">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pojo_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pojo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      DB
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#annotation-nn" class="md-nav__link">
+    <span class="md-ellipsis">
+      annotation的关系映射 n:n
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="annotation的关系映射 n:n">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pojo_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pojo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      DB
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Hibernate simple tutorials</h1>
+
+<p>+++
+title = "Hibernate入门使用"
+date = "2008-07-24"</p>
+<p>categories = ["Tutorials"]
+tags = ["Java", "Hibernate"]
++++</p>
+<p>Hibernate入门使用文章, 主要讲快速使用，不会介绍太多的深层次的东西。方便自己，方便大家。因本人懒惰，记不住hibernate的配置选项，所以，此文实例都是使用myeclipse进行快速开发，数据库都是mysql。</p>
+<!--more-->
+
+<h2 id="_1">初次使用</h2>
+<p>直接上需求：实现对用户的增、删、改、查。</p>
+<p>为了方便，用户就2个属性 用户ID和用户名。实体模型如下：</p>
+<p><img alt="Imgurl" src="/images/hibernate-1.gif" /></p>
+<p>建立工程:HibernateQuickUse，并且建立包。如下：</p>
+<p><img alt="Imgurl" src="/images/hibernate-2.gif" /></p>
+<h3 id="pojo">Pojo</h3>
+<p>根据实体，创建类User，代码如下：</p>
+<pre><code class="language-java">@SuppressWarnings(&quot;serial&quot;)
+public class User implements java.io.Serializable {
+    private String id;
+    private String name;
+    public User() { }
+    public String getId() { return this.id; }   
+    public void setId(String id) { this.id = id; }  
+    public String getName() { return this.name; }
+    public void setName(String name) {this.name = name;}
+}
+</code></pre>
+<h3 id="db">DB</h3>
+<p>根据实体，创建数据表。sql如下：</p>
+<pre><code class="language-sql">use HibernateQuickUse;
+drop table if exists User;
+create table user (
+    id varchar(32) primary key,
+    name varchar(32)
+);
+</code></pre>
+<p>这里的id，我没有采用Integer auto_increment, 原因是为了数据库的数据能方便的导入到另外一种数据库里面，比方说：oracle。当然，这个是以牺牲部分效率为前提的。因为id是integer的，能更加快速查询。不过，从数据库会自动为 primary key 建立 index来看，效率也不会相差太多。</p>
+<h3 id="hibernatecfgxml">hibernate.cfg.xml</h3>
+<p>要想通过hibernate访问数据库。首先要建立描述数据库的文件：hibernate.cfg.xml。放到src下面。内容如下：</p>
+<pre><code class="language-xml">&lt;!DOCTYPE hibernate-configuration PUBLIC  
+            &quot;-//Hibernate/Hibernate Configuration DTD 3.0//EN&quot;  
+            &quot;http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd&quot;&gt;  
+&lt;hibernate-configuration&gt;  
+    &lt;session-factory&gt; 
+        &lt;!-- dialect, 这个对应着hibernate生成哪种数据库的sql。--&gt;
+        &lt;property name=&quot;dialect&quot;&gt;org.hibernate.dialect.MySQLDialect&lt;/property&gt;  
+        &lt;property name=&quot;connection.url&quot;&gt;jdbc:mysql://localhost:3306/hibernatequickUse&lt;/property&gt;  
+        &lt;property name=&quot;connection.username&quot;&gt;root&lt;/property&gt;  
+        &lt;property name=&quot;connection.password&quot;&gt;root&lt;/property&gt;  
+        &lt;property name=&quot;connection.driver_class&quot;&gt;com.mysql.jdbc.Driver&lt;/property&gt;  
+        &lt;!-- show_sql, 这个是为了调试时候输出sql语句到屏幕用 --&gt;
+        &lt;property name=&quot;show_sql&quot;&gt;true&lt;/property&gt;  
+        &lt;mapping resource=&quot;org/py/hib/quickstart/User.hbm.xml&quot; /&gt;  
+    &lt;/session-factory&gt;  
+&lt;/hibernate-configuration&gt;
+</code></pre>
+<h3 id="userhbmxml">User.hbm.xml</h3>
+<p>实体-数据库映射文件 -- 主要是告诉hibernate，这个User类，对应着哪个table，User类里面的那个属性对应着table里面的哪个字段。</p>
+<p>我们可以建立 实体-数据库 的xml映射文件，也可以采用Annotations映射，但是目前只说xml映射方式。如下：</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;  
+&lt;!DOCTYPE hibernate-mapping PUBLIC &quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;  
+    &quot;http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd&quot;&gt;  
+&lt;hibernate-mapping&gt;  
+    &lt;class name=&quot;org.py.hib.quickstart.User&quot; table=&quot;user&quot;&gt;  
+        &lt;id name=&quot;id&quot; type=&quot;java.lang.String&quot; column=&quot;id&quot; length=&quot;32&quot;&gt;  
+            &lt;!-- id的生成策略采用 uuid，也可以是 native等 --&gt;
+            &lt;generator class=&quot;uuid&quot; /&gt;  
+        &lt;/id&gt;
+        &lt;property name=&quot;name&quot;  type=&quot;java.lang.String&quot; column=&quot;name&quot; length=&quot;32&quot; /&gt;  
+    &lt;/class&gt;
+&lt;/hibernate-mapping&gt;
+</code></pre>
+<h3 id="testing">Testing</h3>
+<p>有了上面的准备，那么我们开始来用junit测试.
+我把测试用力放到了test/org.py.hib.quickstart下面。代码如下：</p>
+<pre><code class="language-java">import junit.framework.Assert;
+import junit.framework.TestCase;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.junit.After;
+import org.junit.Before;
+
+public class QuickStartTest extends TestCase {
+    SessionFactory factory;
+    String m_name = &quot;ryanpoy&quot;;
+    String m_name2 = &quot;ryanpoy2&quot;;
+
+    @Before
+    public void setUp() throws Exception {
+        Configuration conf = new Configuration().configure();
+        factory = conf.buildSessionFactory();
+    }
+
+    public void testSave() throws Exception {
+        System.out.println(&quot;\n=== test save ===&quot;);
+        User u = new User();
+        u.setName(m_name); // 设置用户名 = m_name
+
+        Session session = null;
+        Transaction tran = null;
+        try {
+            session = factory.openSession();
+            tran = session.beginTransaction();
+            session.save(u);
+            tran.commit();
+
+            Assert.assertEquals(u.getId() != null, true);
+        } catch (Exception ex) {
+            tran.rollback();
+            throw ex;
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (Exception ex) {
+                    // nothing to do
+                } finally {
+                    if (session != null)
+                        session = null;
+                }
+            }
+        }
+    }
+
+    public void testFind() throws Exception {
+        System.out.println(&quot;=== test find ===&quot;);
+        Session session = null;
+        try {
+            session = factory.openSession();
+            User u = (User) session.createQuery(&quot; from User&quot;).list().get(0);
+
+            Assert.assertEquals(true, u.getId() != null);
+            Assert.assertEquals(m_name, u.getName());
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (Exception ex) {
+                    // nothing to do
+                } finally {
+                    if (session != null)
+                        session = null;
+                }
+            }
+        }
+    }
+
+    public void testModify() throws Exception {
+        System.out.println(&quot;\n=== test modify ===&quot;);
+        Session session = null;
+        Transaction tran = null;
+        try {
+            session = factory.openSession();
+            tran = session.beginTransaction();
+            User u = (User) session.createQuery(&quot; from User&quot;).list().get(0);
+            u.setName(m_name2);  // 修改用户名 = m_name2.（原来用户名= m_name）
+            tran.commit();
+
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (Exception ex) {
+                    // nothing to do
+                } finally {
+                    if (session != null)
+                        session = null;
+                }
+            }
+        }
+
+        /*
+         * 修改后再查询
+         */
+        System.out.println(&quot;\n=== test find after modify ===&quot;);
+        try {
+            session = factory.openSession();
+            User u = (User) session.createQuery(&quot; from User&quot;).list().get(0);
+
+            Assert.assertEquals(true, u.getId() != null);
+            Assert.assertEquals(m_name2, u.getName());
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (Exception ex) {
+                    // nothing to do
+                } finally {
+                    if (session != null)
+                        session = null;
+                }
+            }
+        }
+    }
+
+    public void testDelete() throws Exception {
+        System.out.println(&quot;\n=== test delete ===&quot;);
+        Session session = null;
+        Transaction tran = null;
+        try {
+            session = factory.openSession();
+            tran = session.beginTransaction();
+
+            User u = (User) session.createQuery(&quot; from User&quot;).list().get(0);
+            session.delete(u);
+            tran.commit();
+
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (Exception ex) {
+                    // nothing to do
+                } finally {
+                    if (session != null)
+                        session = null;
+                }
+            }
+        }
+
+        /*
+         * 删除后再查询
+         */
+        System.out.println(&quot;\n=== test find after delete ===&quot;);
+        try {
+            session = factory.openSession();
+            Integer num = (Integer) session.createQuery(&quot; from User&quot;).list().size();
+
+            Assert.assertEquals(0, num.intValue());
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (Exception ex) {
+                    // nothing to do
+                } finally {
+                    if (session != null)
+                        session = null;
+                }
+            }
+        }
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        factory.close();
+    }
+}
+</code></pre>
+<p>运行后，我们很欣慰的看到一路绿灯，全部通过了。那么测试没有问题。呵呵(这里的测试可能还不完善。请大家指出。前面说过，我对测试这块也不熟)。</p>
+<p>看控制台，会输出如下信息：</p>
+<pre><code class="language-sql">=== test save ===
+Hibernate: insert into hibernatequickuse.user (name, id) values (?, ?)
+
+=== test find ===
+Hibernate: select user0_.id as id2_, user0_.name as name2_ from hibernatequickuse.user user0_
+
+=== test modify ===
+Hibernate: select user0_.id as id4_, user0_.name as name4_ from hibernatequickuse.user user0_
+Hibernate: update hibernatequickuse.user set name=? where id=?
+
+=== test find after modify ===
+Hibernate: select user0_.id as id4_, user0_.name as name4_ from hibernatequickuse.user user0_
+
+=== test delete ===
+Hibernate: select user0_.id as id6_, user0_.name as name6_ from hibernatequickuse.user user0_
+Hibernate: delete from hibernatequickuse.user where id=?
+
+=== test find after delete ===
+Hibernate: select user0_.id as id6_, user0_.name as name6_ from hibernatequickuse.user user0_
+</code></pre>
+<p>这些，就是hibernte自动生成的。仔细看看，其实就是标准sql。呵呵。懂jdbc的都能看懂。</p>
+<h2 id="xml-11">xml关系映射 1:1</h2>
+<p>1对1的关系在现实中很常见。比方说：人和身份证。1个身份证对应着一个身份证，一个身份证对应着一个人。那么，我们就以此为原型。进行代码编写。</p>
+<p>实体模型</p>
+<p><img alt="1对1实体模型" src="/images/hibernate-3.gif" /></p>
+<h3 id="db_1">DB</h3>
+<p>根据模型，创建数据库：</p>
+<pre><code class="language-sql">use HibernateQuickUse;
+drop table if exists Person;
+drop table if exists Card;
+
+create table Card (
+    id varchar(32) primary key,
+    cardDesc varchar(128) not null
+);
+
+create table Person (
+    id varchar(32) primary key,
+    name varchar(32) not null,
+    card_id varchar(32) not null,
+    foreign key(card_id) references Card(id)
+);
+</code></pre>
+<h3 id="pojo_1">Pojo</h3>
+<p>java代码如下：</p>
+<p>Person类</p>
+<pre><code class="language-java">
+@SuppressWarnings(&quot;serial&quot;)
+public class Person implements java.io.Serializable {
+    private String id;
+    private String name;
+    private Card card;
+
+    public Person() { }
+
+    public String getId() { return this.id; }
+    public void setId(String id) { this.id = id; }
+
+    public Card getCard() {return this.card;}
+    public void setCard(Card card) { this.card = card; }
+
+    public String getName() { return this.name; }
+    public void setName(String name) { this.name = name; }
+}
+</code></pre>
+<p>Card类：</p>
+<pre><code class="language-java">@SuppressWarnings(&quot;serial&quot;)
+public class Card implements java.io.Serializable
+{
+    private String id;
+
+    private String cardDesc;
+
+    public Card() { }
+
+    public String getId() { return this.id; }
+    public void setId(String id) { this.id = id; }
+
+    public String getCardDesc() { return cardDesc; }
+    public void setCardDesc(String cardDesc) { this.cardDesc = cardDesc; }
+}
+</code></pre>
+<h3 id="mapping-xml">Mapping Xml</h3>
+<p>xml映射文件如下：</p>
+<p>Person.hbm.xml</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;  
+&lt;!DOCTYPE hibernate-mapping PUBLIC &quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;  
+    &quot;http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd&quot;&gt;  
+
+&lt;hibernate-mapping&gt;  
+    &lt;class name=&quot;org.py.hib.relation.one2one.Person&quot; table=&quot;person&quot;&gt;  
+        &lt;id name=&quot;id&quot; type=&quot;java.lang.String&quot; column=&quot;id&quot; length=&quot;32&quot;&gt;  
+            &lt;generator class=&quot;uuid&quot; /&gt;  
+        &lt;/id&gt;  
+
+        &lt;property name=&quot;name&quot; type=&quot;java.lang.String&quot;&gt;  
+            &lt;column name=&quot;name&quot; length=&quot;32&quot; /&gt;  
+        &lt;/property&gt;  
+
+        &lt;many-to-one name=&quot;card&quot; class=&quot;org.py.hib.relation.one2one.Card&quot; unique=&quot;true&quot;  
+            cascade=&quot;all&quot; column=&quot;card_id&quot; /&gt;  
+
+    &lt;/class&gt;  
+&lt;/hibernate-mapping&gt;
+</code></pre>
+<p>今天讲的是one-to-one配置。但是，此处用的是many-to-one，这个是什么原因呢？其实，one-to-one就是特殊的many-to-one。</p>
+<p>Card.hbm.xml：</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;  
+&lt;!DOCTYPE hibernate-mapping PUBLIC &quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;  
+    &quot;http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd&quot;&gt;  
+
+&lt;hibernate-mapping&gt;  
+    &lt;class name=&quot;org.py.hib.relation.one2one.Card&quot; table=&quot;card&quot;&gt;  
+        &lt;id name=&quot;id&quot; type=&quot;java.lang.String&quot; column=&quot;id&quot; length=&quot;32&quot;&gt;  
+            &lt;generator class=&quot;uuid&quot; /&gt;  
+        &lt;/id&gt;  
+
+        &lt;property name=&quot;cardDesc&quot; type=&quot;java.lang.String&quot; column=&quot;cardDesc&quot; length=&quot;128&quot; not-null=&quot;true&quot;/&gt;  
+
+    &lt;/class&gt;  
+&lt;/hibernate-mapping&gt; 
+</code></pre>
+<h3 id="testing_1">Testing</h3>
+<p>测试代码如下：</p>
+<p>One2OneTest.java</p>
+<pre><code class="language-java">import junit.framework.Assert;
+import junit.framework.TestCase;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.junit.After;
+import org.junit.Before;
+
+public class One2OneTest extends TestCase {
+    private SessionFactory factory;
+    private String m_name = &quot;ryanpoy&quot;;
+    private String m_name2 = &quot;ryanpoy2&quot;;
+    private String m_cardDesc1 = &quot;desc_1&quot;;
+    private String m_cardDesc2 = &quot;desc_2&quot;;
+
+    @Before
+    public void setUp() throws Exception {
+        Configuration conf = new Configuration().configure();
+        factory = conf.buildSessionFactory();
+    }
+
+    public void testSave() throws Exception {
+        System.out.println(&quot;\n=== test save ===&quot;);
+
+        Card card = new Card();
+        card.setCardDesc(m_cardDesc1);
+
+        Person person = new Person();
+        person.setName(m_name); // 设置用户名 = m_name
+        person.setCard(card);
+
+        Session session = null;
+        Transaction tran = null;
+        try {
+            session = factory.openSession();
+
+            tran = session.beginTransaction();
+            session.save(person);
+            tran.commit();
+
+            Assert.assertEquals(person.getId() != null, true);
+            Assert.assertEquals(card.getId() != null, true);
+        } catch (Exception ex) {
+            tran.rollback();
+            throw ex;
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (Exception ex) {
+                    // nothing to do
+                } finally {
+                    if (session != null)
+                        session = null;
+                }
+            }
+        }
+    }
+
+    public void testFind() throws Exception {
+        System.out.println(&quot;\n=== test find ===&quot;);
+        Session session = null;
+        try {
+            session = factory.openSession();
+            Person person = (Person) session.createQuery(&quot;from Person&quot;).list().get(0);
+
+            Assert.assertEquals(true, person.getId() != null);
+            Assert.assertEquals(m_name, person.getName());
+
+            Assert.assertEquals(true, person.getCard().getId() != null);
+            Assert.assertEquals(m_cardDesc1, person.getCard().getCardDesc());
+
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (Exception ex) {
+                    // nothing to do
+                } finally {
+                    if (session != null)
+                        session = null;
+                }
+            }
+        }
+    }
+
+    public void testModify() throws Exception {
+        System.out.println(&quot;\n=== test modify ===&quot;);
+        Session session = null;
+        Transaction tran = null;
+        try {
+            session = factory.openSession();
+            tran = session.beginTransaction();
+
+            Person person = (Person) session.createQuery(&quot;from Person&quot;).list().get(0);
+            person.setName(m_name2); // 修改用户名 = m_name2.（原来用户名= m_name）
+            person.getCard().setCardDesc(m_cardDesc2); // 修改cardDesc 为 m_cardDesc2 (原来是：m_cardDesc1)
+            tran.commit();
+
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (Exception ex) {
+                    // nothing to do
+                } finally {
+                    if (session != null)
+                        session = null;
+                }
+            }
+        }
+
+        System.out.println(&quot;\n=== test find after modify ===&quot;);
+        try {
+            session = factory.openSession();
+            Person person = (Person) session.createQuery(&quot;from Person&quot;).list().get(0);
+
+            Assert.assertEquals(true, person.getId() != null);
+            Assert.assertEquals(m_name2, person.getName());
+
+            Assert.assertEquals(true, person.getCard().getId() != null);
+            Assert.assertEquals(m_cardDesc2, person.getCard().getCardDesc());
+
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (Exception ex) {
+                    // nothing to do
+                } finally {
+                    if (session != null)
+                        session = null;
+                }
+            }
+        }
+    }
+
+
+    public void testDelete() throws Exception {
+        System.out.println(&quot;\n=== test delete ===&quot;);
+        Session session = null;
+        Transaction tran = null;
+        try {
+            session = factory.openSession();
+            tran = session.beginTransaction();
+
+            Person person = (Person) session.createQuery(&quot;from Person&quot;).list().get(0);
+            session.delete(person);
+            tran.commit();
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (Exception ex) {
+                    // nothing to do
+                } finally {
+                    if (session != null)
+                        session = null;
+                }
+            }
+        }
+
+        /*
+         * 删除后再查询
+         */
+        System.out.println(&quot;\n=== test find after delete ===&quot;);
+        try {
+            session = factory.openSession();
+
+            Integer num = (Integer) session.createQuery(&quot;from Person&quot;).list().size();
+            Assert.assertEquals(0, num.intValue());
+
+            num = (Integer) session.createQuery(&quot;from Card&quot;).list().size();
+            Assert.assertEquals(0, num.intValue());
+
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (Exception ex) {
+                    // nothing to do
+                } finally {
+                    if (session != null)
+                        session = null;
+                }
+            }
+        }
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        factory.close();
+    }
+
+}
+</code></pre>
+<p>运行test，一路飚绿。呵呵。陶醉一番。不过，这也就是一个拿不出手的测试和一个拿不出手的例子。没有任何实际意义的例子。仅此一个demo而已。</p>
+<p>在1：1中，其实还有一种方式，即：唯一主见关联。但是，我一直倾向于上面的这种形式，所以，唯一主见关联的就不再介绍了。</p>
+<h2 id="xml-1n">xml关系映射 1:n</h2>
+<p>因为n:1就是1:1，两者是一样的，所以不单独说了。下面主要讲主要讲1:n：</p>
+<p>这次用到的例子是Father和child之间的关系。一个father可以有n个child，但是1个child只有一个father。这里只说生父。至于其他的继父、养父、干爹等等，不再范围之内。</p>
+<p>建立实体模型如下：</p>
+<p><img alt="One2Many" src="/images/hibernate-4.gif" /></p>
+<h3 id="db_2">DB</h3>
+<p>根据模型创建数据库。sql脚本如下：</p>
+<pre><code class="language-sql">use HibernateQuickUse;
+drop table if exists Child;
+drop table if exists Father;
+
+create table Father (
+    id varchar(32) primary key,
+    name varchar(32) not null
+);
+
+create table Child (
+    id varchar(32) primary key,
+    name varchar(128) not null,
+    father_id varchar(32) not null,
+    foreign key(father_id) references Father(id)
+);
+</code></pre>
+<h3 id="pojo_2">Pojo</h3>
+<p>根据模型创建java对象。</p>
+<p>Father.java：</p>
+<pre><code class="language-java">import java.util.HashSet;
+import java.util.Set;
+
+@SuppressWarnings(&quot;serial&quot;)
+public class Father implements java.io.Serializable
+{
+    private String id;
+    private String name;
+    private Set children = new HashSet(0);
+
+    public String getId() { return this.id; }
+    public void setId(String id) { this.id = id; }
+
+    public String getName() { return this.name; }
+    public void setName(String name) { this.name = name; }
+
+    public Set getChildren() { return children; }
+    public void setChildren(Set children) { this.children = children; }
+}
+</code></pre>
+<p>Child.java：</p>
+<pre><code class="language-java">
+@SuppressWarnings(&quot;serial&quot;)
+public class Child implements java.io.Serializable
+{
+    private String id;
+    private String name;
+    private Father father;
+
+    public String getId() { return this.id; }
+    public void setId(String id) { this.id = id; }
+
+    public Father getFather() { return this.father; }
+    public void setFather(Father father) { this.father = father; }
+
+    public String getName() { return this.name; }
+    public void setName(String name) { this.name = name;}
+}
+</code></pre>
+<h3 id="mapping-xml_1">Mapping Xml</h3>
+<p>映射文件如下：</p>
+<p>Father.hbm.xml：</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;  
+&lt;!DOCTYPE hibernate-mapping PUBLIC &quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;  
+    &quot;http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd&quot;&gt;  
+
+&lt;hibernate-mapping&gt;  
+    &lt;class name=&quot;org.py.hib.relation.one2many.Father&quot; table=&quot;father&quot;&gt;  
+        &lt;id name=&quot;id&quot; type=&quot;java.lang.String&quot; column=&quot;id&quot; length=&quot;32&quot;&gt;  
+            &lt;generator class=&quot;uuid&quot; /&gt;  
+        &lt;/id&gt;  
+
+        &lt;property name=&quot;name&quot; type=&quot;java.lang.String&quot; column=&quot;name&quot; length=&quot;32&quot; not-null=&quot;true&quot;/&gt;  
+
+        &lt;set name=&quot;children&quot; table=&quot;child&quot; cascade=&quot;all&quot; inverse=&quot;true&quot;&gt;  
+            &lt;key column=&quot;father_id&quot; /&gt;  
+            &lt;one-to-many class=&quot;org.py.hib.relation.one2many.Child&quot; /&gt;  
+        &lt;/set&gt;  
+    &lt;/class&gt;  
+&lt;/hibernate-mapping&gt; 
+</code></pre>
+<p>这里要说说 "set" 这个标签里面的内容。</p>
+<ol>
+<li>"name"是Father里面的属性的名字。</li>
+<li>"table"表示它对应的是数据库中的哪个表。</li>
+<li>cascade="all" 表示所有的操作都级联操作。</li>
+<li>"inverse"表示关系的维护由谁来执行。
+    &gt; true表示不由自己执行，而有对应的另外一方执行。
+    &gt; false则相反，表示由自己维护关系。
+    &gt; 这里设置成 true 是由原因的。如果说把它设置成为false，那么就由他来维护关系了。</li>
+</ol>
+<p><strong>这里得说一下inverse属性的问题</strong>。在one-to-many中，如果关系由one来维护，那么会很麻烦，性能也会很低。每次对many一方的一条记录进行增、删、改 时都会多一次update操作。原因很简单，因为关系的维护设置在了one这一方，所以对many的每一次操作，one这一方都要维护一次双方的关系。</p>
+<p>这个就好像皇帝和老百姓的关系。试问，是来一个老百姓，皇帝就宣布他是我的子民，还是由老百姓直接选择做那个皇帝的子民更加有效率呢？呵呵。不知道这个例子大家有没有明白。关于inverse的更具体的说明，在javaeye上搜一下，就会发现有很多。这里推荐一篇，我认为讲得很明白的： <a href="http://www.iteye.com/topic/156289">inverse</a>  </p>
+<p>"key" 中的 "column" 表示在table(这里的table是child)中, 跟Father关联的字段名称。这里是"father_id"。可以看看开始的sql脚本。</p>
+<p>one-to-many 表示father和children的关系。class则表示是同哪个类是这种关系。</p>
+<p>Child.hbm.xml：</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;  
+&lt;!DOCTYPE hibernate-mapping PUBLIC &quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;  
+    &quot;http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd&quot;&gt;  
+
+&lt;hibernate-mapping&gt;  
+    &lt;class name=&quot;org.py.hib.relation.one2many.Child&quot; table=&quot;child&quot;&gt;  
+        &lt;id name=&quot;id&quot; type=&quot;java.lang.String&quot; column=&quot;id&quot; length=&quot;32&quot; &gt;  
+            &lt;generator class=&quot;uuid&quot; /&gt;  
+        &lt;/id&gt;  
+        &lt;property name=&quot;name&quot; type=&quot;java.lang.String&quot; column=&quot;name&quot; length=&quot;128&quot; not-null=&quot;true&quot;/&gt;  
+
+        &lt;many-to-one name=&quot;father&quot; class=&quot;org.py.hib.relation.one2many.Father&quot; column=&quot;father_id&quot; /&gt;  
+    &lt;/class&gt;  
+&lt;/hibernate-mapping&gt; 
+</code></pre>
+<p>这个里面主要就是多了一个many-to-one，表示child 和 father 的关系是"many-to-one"</p>
+<h3 id="testing_2">Testing</h3>
+<p>测试代码如下：</p>
+<p>One2ManyTest.java</p>
+<pre><code class="language-java">import java.util.Set;
+
+import junit.framework.Assert;
+import junit.framework.TestCase;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.junit.After;
+import org.junit.Before;
+
+public class One2ManyTest extends TestCase {
+    private SessionFactory factory;
+    private static final String[] childname = new String[]{&quot;child_1&quot;, &quot;child_2&quot;, &quot;child_3&quot;};
+    private static final String[] newchildname = new String[]{&quot;new_child_1&quot;, &quot;new_child_2&quot;, &quot;new_child_3&quot;};
+
+    @Before
+    public void setUp() throws Exception {
+        Configuration conf = new Configuration().configure();
+        factory = conf.buildSessionFactory();
+    }
+
+
+    public void testSave() throws Exception {
+        System.out.println(&quot;\n=== test save ===&quot;);
+
+        Father father = new Father();
+        father.setName(&quot;Father_1&quot;);
+
+        Child child1 = new Child();
+        child1.setName(childname[0]);
+
+        Child child2 = new Child();
+        child2.setName(childname[1]);
+
+        Child child3 = new Child();
+        child3.setName(childname[2]);
+
+        father.getChildren().add(child1);
+        father.getChildren().add(child2);
+        father.getChildren().add(child3);
+
+        child1.setFather(father);
+        child2.setFather(father);
+        child3.setFather(father);
+
+        Session session = null;
+        Transaction tran = null;
+        try {
+            session = factory.openSession();
+            tran = session.beginTransaction();
+            session.save(father);
+
+            tran.commit();
+
+            Assert.assertNotNull(father.getId());
+
+            Assert.assertNotNull(child1.getId());
+            Assert.assertNotNull(child2.getId());
+            Assert.assertNotNull(child3.getId());
+
+        } catch (Exception ex) {
+            tran.rollback();
+            throw ex;
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (Exception ex) {
+                    // nothing to do
+                } finally {
+                    if (session != null)
+                        session = null;
+                }
+            }
+        }
+    }
+
+    private boolean isChildrenName(String name) {
+        for (String n : childname) {
+            if (n.equals(name))
+                return true;
+        }
+
+        return false;
+    }
+
+    private boolean isNewChildrenName(String name) {
+        for (String n : newchildname) {
+            if (n.equals(name))
+                return true;
+        }
+
+        return false;
+    }
+
+    public void testFind() throws Exception {
+        System.out.println(&quot;\n=== test find ===&quot;);
+        Session session = null;
+        try {
+            session = factory.openSession();
+            Father father = (Father) session.createQuery(&quot;from Father&quot;).list().get(0);
+
+            Assert.assertNotNull(father.getId());
+            Assert.assertEquals(&quot;Father_1&quot;, father.getName());
+
+            Set children = father.getChildren();
+            for (Child child : children) {
+                Assert.assertEquals(child.getFather(), father);
+
+                Assert.assertNotNull(child.getId());
+
+                Assert.assertTrue(isChildrenName(child.getName()));
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (Exception ex) {
+                    // nothing to do
+                } finally {
+                    if (session != null)
+                        session = null;
+                }
+            }
+        }
+    }
+
+    public void testModify() throws Exception {
+        System.out.println(&quot;\n=== test modify ===&quot;);
+        Session session = null;
+        Transaction tran = null;
+        try {
+            session = factory.openSession();
+            tran = session.beginTransaction();
+
+            Father father = (Father) session.createQuery(&quot;from Father&quot;).list().get(0);
+            father.setName(&quot;Father_2&quot;); // 修改用户名 = m_name2.（原来用户名= m_name）
+
+            Set children = father.getChildren();
+            int i = 0;
+            for (Child child : children) {
+                child.setName(newchildname[i++]);
+            }
+
+            tran.commit();
+
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (Exception ex) {
+                    // nothing to do
+                } finally {
+                    if (session != null)
+                        session = null;
+                }
+            }
+        }
+
+        /*
+         * 修改后再查询
+         */
+        System.out.println(&quot;\n=== test find after modify ===&quot;);
+        try {
+            session = factory.openSession();
+            Father father = (Father) session.createQuery(&quot;from Father&quot;).list().get(0);
+
+            Assert.assertNotNull(father.getId());
+            Assert.assertEquals(&quot;Father_2&quot;, father.getName());
+
+            Set children = father.getChildren();
+
+            for (Child child : children) {
+                Assert.assertEquals(child.getFather(), father);
+
+                Assert.assertNotNull(child.getId());
+
+                Assert.assertTrue(isNewChildrenName(child.getName()));
+            }
+
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (Exception ex) {
+                    // nothing to do
+                } finally {
+                    if (session != null)
+                        session = null;
+                }
+            }
+        }
+    }
+
+    public void testDelete() throws Exception {
+        System.out.println(&quot;\n=== test delete ===&quot;);
+        Session session = null;
+        Transaction tran = null;
+        try {
+            session = factory.openSession();
+            tran = session.beginTransaction();
+
+            Father father = (Father) session.createQuery(&quot;from Father&quot;).list().get(0);
+            session.delete(father);
+            tran.commit();
+
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (Exception ex) {
+                    // nothing to do
+                } finally {
+                    if (session != null)
+                        session = null;
+                }
+            }
+        }
+
+        /*
+         * 删除后再查询
+         */
+        System.out.println(&quot;\n=== test find after delete ===&quot;);
+        try {
+            session = factory.openSession();
+
+            Integer num = (Integer) session.createQuery(&quot;from Father&quot;).list().size();
+            Assert.assertEquals(0, num.intValue());
+
+            num = (Integer) session.createQuery(&quot;from Child&quot;).list().size();
+            Assert.assertEquals(0, num.intValue());
+
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (Exception ex) {
+                    // nothing to do
+                } finally {
+                    if (session != null)
+                        session = null;
+                }
+            }
+        }
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        factory.close();
+    }
+}
+</code></pre>
+<p>这里不得不再重申以下 one-to-many 中 inverse 关系的维护问题。 在one-to-many中，把inverse放到many中来维护是一个好的习惯。大家可以把上面的inverse改成false，看看会发生什么情况。</p>
+<p>在inverse=true的时候，输出结果如下：</p>
+<pre><code class="language-sql">=== test save ===
+Hibernate: insert into father (name, id) values (?, ?)
+Hibernate: insert into child (name, father_id, id) values (?, ?, ?)
+Hibernate: insert into child (name, father_id, id) values (?, ?, ?)
+Hibernate: insert into child (name, father_id, id) values (?, ?, ?)
+
+=== test find ===
+Hibernate: select father0_.id as id13_, father0_.name as name13_ from father father0_
+Hibernate: select children0_.father_id as father3_1_, children0_.id as id1_, children0_.id as id14_0_, children0_.name as name14_0_, children0_.father_id as father3_14_0_ from child children0_ where children0_.father_id=?
+
+=== test modify ===
+Hibernate: select father0_.id as id23_, father0_.name as name23_ from father father0_
+Hibernate: select children0_.father_id as father3_1_, children0_.id as id1_, children0_.id as id24_0_, children0_.name as name24_0_, children0_.father_id as father3_24_0_ from child children0_ where children0_.father_id=?
+Hibernate: update father set name=? where id=?
+Hibernate: update child set name=?, father_id=? where id=?
+Hibernate: update child set name=?, father_id=? where id=?
+Hibernate: update child set name=?, father_id=? where id=?
+
+=== test find after modify ===
+Hibernate: select father0_.id as id23_, father0_.name as name23_ from father father0_
+Hibernate: select children0_.father_id as father3_1_, children0_.id as id1_, children0_.id as id24_0_, children0_.name as name24_0_, children0_.father_id as father3_24_0_ from child children0_ where children0_.father_id=?
+
+=== test delete ===
+Hibernate: select father0_.id as id33_, father0_.name as name33_ from father father0_
+Hibernate: select children0_.father_id as father3_1_, children0_.id as id1_, children0_.id as id34_0_, children0_.name as name34_0_, children0_.father_id as father3_34_0_ from child children0_ where children0_.father_id=?
+Hibernate: delete from child where id=?
+Hibernate: delete from child where id=?
+Hibernate: delete from child where id=?
+Hibernate: delete from father where id=?
+
+=== test find after delete ===
+Hibernate: select father0_.id as id33_, father0_.name as name33_ from father father0_
+Hibernate: select child0_.id as id34_, child0_.name as name34_, child0_.father_id as father3_34_ from child child0_
+</code></pre>
+<p>而改成<strong>inverse=false</strong>后，testDelete()是没法通过的。输出如下：</p>
+<pre><code class="language-sql">log4j:WARN No appenders could be found for logger (org.hibernate.cfg.Environment).
+log4j:WARN Please initialize the log4j system properly.
+
+=== test save ===
+Hibernate: insert into father (name, id) values (?, ?)
+Hibernate: insert into child (name, father_id, id) values (?, ?, ?)
+Hibernate: insert into child (name, father_id, id) values (?, ?, ?)
+Hibernate: insert into child (name, father_id, id) values (?, ?, ?)
+Hibernate: update child set father_id=? where id=?
+Hibernate: update child set father_id=? where id=?
+Hibernate: update child set father_id=? where id=?
+
+=== test find ===
+Hibernate: select father0_.id as id13_, father0_.name as name13_ from father father0_
+Hibernate: select children0_.father_id as father3_1_, children0_.id as id1_, children0_.id as id14_0_, children0_.name as name14_0_, children0_.father_id as father3_14_0_ from child children0_ where children0_.father_id=?
+
+=== test modify ===
+Hibernate: select father0_.id as id23_, father0_.name as name23_ from father father0_
+Hibernate: select children0_.father_id as father3_1_, children0_.id as id1_, children0_.id as id24_0_, children0_.name as name24_0_, children0_.father_id as father3_24_0_ from child children0_ where children0_.father_id=?
+Hibernate: update father set name=? where id=?
+Hibernate: update child set name=?, father_id=? where id=?
+Hibernate: update child set name=?, father_id=? where id=?
+Hibernate: update child set name=?, father_id=? where id=?
+
+=== test find after modify ===
+Hibernate: select father0_.id as id23_, father0_.name as name23_ from father father0_
+Hibernate: select children0_.father_id as father3_1_, children0_.id as id1_, children0_.id as id24_0_, children0_.name as name24_0_, children0_.father_id as father3_24_0_ from child children0_ where children0_.father_id=?
+
+=== test delete ===
+Hibernate: select father0_.id as id33_, father0_.name as name33_ from father father0_
+Hibernate: select children0_.father_id as father3_1_, children0_.id as id1_, children0_.id as id34_0_, children0_.name as name34_0_, children0_.father_id as father3_34_0_ from child children0_ where children0_.father_id=?
+Hibernate: update child set father_id=null where father_id=?
+</code></pre>
+<p>产生了错误，原因是：违反了非空约束。</p>
+<p>得修改sql脚本，把Child的建表脚本中的：</p>
+<pre><code class="language-sql">father_id varchar(32) not null, 
+</code></pre>
+<p>修改成为：</p>
+<pre><code>father_id varchar(32),
+</code></pre>
+<p>才能通过。这个时候输出的结果是：</p>
+<pre><code class="language-sql">log4j:WARN No appenders could be found for logger (org.hibernate.cfg.Environment).
+log4j:WARN Please initialize the log4j system properly.
+
+=== test save ===
+Hibernate: insert into father (name, id) values (?, ?)
+Hibernate: insert into child (name, father_id, id) values (?, ?, ?)
+Hibernate: insert into child (name, father_id, id) values (?, ?, ?)
+Hibernate: insert into child (name, father_id, id) values (?, ?, ?)
+Hibernate: update child set father_id=? where id=?
+Hibernate: update child set father_id=? where id=?
+Hibernate: update child set father_id=? where id=?
+
+=== test find ===
+Hibernate: select father0_.id as id13_, father0_.name as name13_ from father father0_
+Hibernate: select children0_.father_id as father3_1_, children0_.id as id1_, children0_.id as id14_0_, children0_.name as name14_0_, children0_.father_id as father3_14_0_ from child children0_ where children0_.father_id=?
+
+=== test modify ===
+Hibernate: select father0_.id as id23_, father0_.name as name23_ from father father0_
+Hibernate: select children0_.father_id as father3_1_, children0_.id as id1_, children0_.id as id24_0_, children0_.name as name24_0_, children0_.father_id as father3_24_0_ from child children0_ where children0_.father_id=?
+Hibernate: update father set name=? where id=?
+Hibernate: update child set name=?, father_id=? where id=?
+Hibernate: update child set name=?, father_id=? where id=?
+Hibernate: update child set name=?, father_id=? where id=?
+
+=== test find after modify ===
+Hibernate: select father0_.id as id23_, father0_.name as name23_ from father father0_
+Hibernate: select children0_.father_id as father3_1_, children0_.id as id1_, children0_.id as id24_0_, children0_.name as name24_0_, children0_.father_id as father3_24_0_ from child children0_ where children0_.father_id=?
+
+=== test delete ===
+Hibernate: select father0_.id as id33_, father0_.name as name33_ from father father0_
+Hibernate: select children0_.father_id as father3_1_, children0_.id as id1_, children0_.id as id34_0_, children0_.name as name34_0_, children0_.father_id as father3_34_0_ from child children0_ where children0_.father_id=?
+Hibernate: update child set father_id=null where father_id=?
+Hibernate: delete from child where id=?
+Hibernate: delete from child where id=?
+Hibernate: delete from child where id=?
+Hibernate: delete from father where id=?
+
+=== test find after delete ===
+Hibernate: select father0_.id as id33_, father0_.name as name33_ from father father0_
+Hibernate: select child0_.id as id34_, child0_.name as name34_, child0_.father_id as father3_34_ from child child0_
+</code></pre>
+<p>所以，<strong>inverse的设置是很重要的一个事情。</strong></p>
+<h2 id="xml-nn">xml关系映射 n:n</h2>
+<p>我们以老师和学生为例，一个老师可以交很多学生，同样一个学生可以拥有多个老师，所以，他们之间的关系就是n：n的。</p>
+<p>实体模型：
+<img alt="many2many" src="/images/hibernate-5.gif" /></p>
+<p>从实体模型来看。有2个对象，但是为了在数据库中表示出2者的n:n的关系，我们还得引入一张表。</p>
+<h3 id="db_3">DB</h3>
+<p>sql脚本如下：</p>
+<pre><code class="language-sql">use HibernateQuickUse;
+drop table if exists teacher_student_relation;
+drop table if exists Teacher;
+drop table if exists Student;
+
+create table Teacher (
+    tid varchar(32) primary key,
+    name varchar(32) not null
+);
+
+create table Student (
+    sid varchar(32) primary key,
+    name varchar(128) not null
+);
+
+create table teacher_student_relation (
+    id integer auto_increment primary key,
+    teacher_id varchar(32) not null,
+    student_id varchar(32) not null,
+    foreign key(teacher_id) references Teacher(tid),
+    foreign key(student_id) references Student(sid)
+);
+</code></pre>
+<h3 id="pojo_3">Pojo</h3>
+<p>通过模型，创建java类如下：</p>
+<p>Student.java</p>
+<pre><code class="language-java">import java.util.HashSet;
+import java.util.Set;
+
+@SuppressWarnings(&quot;serial&quot;)
+public class Student implements java.io.Serializable {
+    private String id;
+    private String name;
+    private Set teachers = new HashSet(0);
+
+    public Student() {}
+
+    public String getId() {return this.id;}
+    public void setId(String id) {this.id = id;}
+
+    public String getName() {return this.name;}
+    public void setName(String name) {this.name = name;}
+
+    public Set getTeachers() {return teachers;}
+    public void setTeachers(Set teachers) {this.teachers = teachers;}
+}
+</code></pre>
+<p>Teacher.java:</p>
+<pre><code class="language-java">import java.util.HashSet;
+import java.util.Set;
+
+@SuppressWarnings(&quot;serial&quot;)
+public class Teacher implements java.io.Serializable {
+    private String id;
+    private String name;
+    private Set students = new HashSet(0);
+
+    public Teacher() {}
+
+    public String getId() { return this.id;}
+    public void setId(String id) { this.id = id;}
+
+    public String getName() { return this.name;}
+    public void setName(String name) { this.name = name;}
+
+    public Set getStudents() { return students;}
+    public void setStudents(Set students) { this.students = students;}
+}
+</code></pre>
+<h3 id="mapping-xml_2">Mapping Xml</h3>
+<p>xml映射文件如下</p>
+<p>Student.hbm.xml</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;  
+&lt;!DOCTYPE hibernate-mapping PUBLIC &quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;  
+    &quot;http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd&quot;&gt;  
+
+&lt;hibernate-mapping&gt;  
+    &lt;class name=&quot;org.py.hib.relation.many2many.Student&quot;  
+        table=&quot;student&quot;&gt;  
+        &lt;id name=&quot;id&quot; type=&quot;java.lang.String&quot; column=&quot;sid&quot; length=&quot;32&quot;&gt;  
+            &lt;generator class=&quot;uuid&quot; /&gt;  
+        &lt;/id&gt;  
+
+        &lt;property name=&quot;name&quot; type=&quot;java.lang.String&quot; column=&quot;name&quot;  
+            length=&quot;128&quot; not-null=&quot;true&quot; /&gt;  
+
+        &lt;set name=&quot;teachers&quot; table=&quot;teacher_student_relation&quot; cascade=&quot;save-update&quot; inverse=&quot;false&quot;&gt;  
+            &lt;key column=&quot;student_id&quot; not-null=&quot;true&quot; /&gt;  
+
+            &lt;many-to-many column=&quot;teacher_id&quot;  
+                class=&quot;org.py.hib.relation.many2many.Teacher&quot;   
+                /&gt;  
+        &lt;/set&gt;  
+    &lt;/class&gt;  
+&lt;/hibernate-mapping&gt;
+</code></pre>
+<p><strong>注意</strong>
+1. set中的 table 指向的是数据库中的关联表。
+1. cascade 用的是save-update , 且inverse用的是false，这样的话，当进行修改和保存和删除时，关联表中的记录也会删掉.
+1. 如果cascade 用的是 all 那么连同student表中的记录也会被删除掉。
+1. key中的column指的是： 关联表中与Student发生关系的字段。
+1. 而many-to-many中的column指的是：关联表中，与class(这里是：org.py.hib.relation.many2many.Teacher)发生关系的字段。</p>
+<p>Teacher.hbm.xml</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;  
+&lt;!DOCTYPE hibernate-mapping PUBLIC &quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;  
+    &quot;http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd&quot;&gt;  
+
+&lt;hibernate-mapping&gt;  
+    &lt;class name=&quot;org.py.hib.relation.many2many.Teacher&quot;  
+        table=&quot;teacher&quot;&gt;  
+        &lt;id name=&quot;id&quot; type=&quot;java.lang.String&quot; column=&quot;tid&quot;  
+            length=&quot;32&quot;&gt;  
+            &lt;generator class=&quot;uuid&quot; /&gt;  
+        &lt;/id&gt;  
+
+        &lt;property name=&quot;name&quot; type=&quot;java.lang.String&quot; column=&quot;name&quot;  
+            length=&quot;32&quot; not-null=&quot;true&quot; /&gt;  
+
+        &lt;set name=&quot;students&quot; table=&quot;teacher_student_relation&quot; cascade=&quot;save-update&quot;  
+            inverse=&quot;false&quot;&gt;  
+            &lt;key column=&quot;teacher_id&quot; not-null=&quot;true&quot; /&gt;  
+            &lt;many-to-many class=&quot;org.py.hib.relation.many2many.Student&quot;  
+                column=&quot;student_id&quot; /&gt;  
+        &lt;/set&gt;  
+    &lt;/class&gt;  
+&lt;/hibernate-mapping&gt;
+</code></pre>
+<p><strong>注意：</strong> 这里的inverse也采用了false，这样子的话，Teacher和Student都维护关系表中的关系。</p>
+<p>测试类，Many2ManyTest.java</p>
+<pre><code class="language-java">import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import junit.framework.Assert;
+import junit.framework.TestCase;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.junit.After;
+import org.junit.Before;
+
+public class Many2ManyTest extends TestCase {
+    private SessionFactory factory;
+
+    @Before
+    public void setUp() throws Exception {
+        Configuration conf = new Configuration().configure();
+        factory = conf.buildSessionFactory();
+    }
+
+    public void testSave() throws Exception {
+        System.out.println(&quot;\n=== test save ===&quot;);
+
+        Teacher teacher1 = new Teacher();
+        teacher1.setName(&quot;teacher_1&quot;);
+
+        Teacher teacher2 = new Teacher();
+        teacher2.setName(&quot;teacher_2&quot;);
+
+        Student stu1 = new Student();
+        stu1.setName(&quot;student_1&quot;);
+
+        Student stu2 = new Student();
+        stu2.setName(&quot;student_2&quot;);
+
+        stu1.getTeachers().add(teacher1);
+        stu1.getTeachers().add(teacher2);
+
+        stu2.getTeachers().add(teacher2);
+        teacher1.getStudents().add(stu2);
+
+        Session session = null;
+        Transaction tran = null;
+        try {
+            session = factory.openSession();
+            tran = session.beginTransaction();
+
+            session.save(stu1);
+            session.save(stu2);
+            tran.commit();
+
+            Assert.assertNotNull(teacher1.getId());
+            Assert.assertNotNull(teacher2.getId());
+
+            Assert.assertNotNull(stu1.getId());
+            Assert.assertNotNull(stu2.getId());
+
+        } catch (Exception ex) {
+            tran.rollback();
+            throw ex;
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (Exception ex) {
+                    // nothing to do
+                } finally {
+                    if (session != null)
+                        session = null;
+                }
+            }
+        }
+    }
+
+    @SuppressWarnings(&quot;unchecked&quot;)
+    public void testFindFromTeacher() throws Exception {
+        System.out.println(&quot;\n=== test find from Teacher ===&quot;);
+        Session session = null;
+        try {
+            session = factory.openSession();
+            Iterator iter = session.createQuery(&quot;from Teacher&quot;).iterate();
+            while (iter.hasNext()) {
+                Teacher teacher = iter.next();
+                Assert.assertNotNull(teacher.getId());
+                String teacherName = teacher.getName();
+                if (&quot;teacher_1&quot;.equals(teacherName)) {
+                    Set stus = teacher.getStudents();
+                    Assert.assertEquals(stus.size(), 2);
+                    for (Student stu : stus) {
+                        String stuName = stu.getName();
+                        Assert.assertNotNull(stu.getId());
+                        Assert.assertTrue(stuName.equals(&quot;student_1&quot;) || stuName.equals(&quot;student_2&quot;));
+                    }
+                } else if (&quot;teacher_2&quot;.equals(teacherName)) {
+                    Set stus = teacher.getStudents();
+                    Assert.assertEquals(stus.size(), 2);
+
+                    for (Student stu : stus) {
+                        String stuName = stu.getName();
+                        Assert.assertNotNull(stu.getId());
+                        Assert.assertTrue(stuName.equals(&quot;student_1&quot;) || stuName.equals(&quot;student_2&quot;));
+                    }
+                } else {
+                    throw new Exception(&quot;teacher name error exception.&quot;);
+                }
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (Exception ex) {
+                    // nothing to do
+                } finally {
+                    if (session != null)
+                        session = null;
+                }
+            }
+        }
+    }
+
+    @SuppressWarnings(&quot;unchecked&quot;)
+    public void testFindFromStudent() throws Exception {
+        System.out.println(&quot;\n=== test find from Student ===&quot;);
+        Session session = null;
+        try {
+            session = factory.openSession();
+            Iterator iter = session.createQuery(&quot;from Student&quot;).iterate();
+            while (iter.hasNext()) {
+                Student stu = iter.next();
+                Assert.assertNotNull(stu.getId());
+                String stuName = stu.getName();
+                if (&quot;student_1&quot;.equals(stuName)) {
+                    Set teachers = stu.getTeachers();
+                    Assert.assertEquals(teachers.size(), 2);
+                    for (Teacher teacher : teachers) {
+                        String tName = teacher.getName();
+                        Assert.assertNotNull(teacher.getId());
+                        Assert.assertTrue(tName.equals(&quot;teacher_1&quot;) || tName.equals(&quot;teacher_2&quot;));
+                    }
+                } else if (&quot;student_2&quot;.equals(stuName)) {
+                    Set teachers = stu.getTeachers();
+                    Assert.assertEquals(teachers.size(), 2);
+                    for (Teacher teacher : teachers) {
+                        String tName = teacher.getName();
+                        Assert.assertNotNull(teacher.getId());
+                        Assert.assertTrue(tName.equals(&quot;teacher_1&quot;) || tName.equals(&quot;teacher_2&quot;));
+                    }
+                } else {
+                    throw new Exception(&quot;student name error exception.&quot;);
+                }
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (Exception ex) {
+                    // nothing to do
+                } finally {
+                    if (session != null)
+                        session = null;
+                }
+            }
+        }
+    }
+
+    public void testModify() throws Exception {
+        System.out.println(&quot;\n=== test modify ===&quot;);
+        Session session = null;
+        Transaction tran = null;
+        try {
+            session = factory.openSession();
+            tran = session.beginTransaction();
+
+            Teacher t1 = (Teacher) session.createQuery(&quot;from Teacher t where t.name='teacher_1'&quot;).list().get(0);
+            t1.setName(&quot;new_teacher_1&quot;); // 修改用户名 = m_name2.（原来用户名= m_name）
+
+            Set stus = t1.getStudents();
+            for (Student stu : stus) {
+                if (stu.getName().equals(&quot;student_1&quot;)) {
+                    stus.remove(stu);
+                    break;
+                }
+            }
+
+            tran.commit();
+
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (Exception ex) {
+                    // nothing to do
+                } finally {
+                    if (session != null)
+                        session = null;
+                }
+            }
+        }
+
+        /*
+         * 修改后再查询
+         */
+        System.out.println(&quot;\n=== test find from Teacher after modify===&quot;);
+        try {
+            session = factory.openSession();
+            Iterator iter = session.createQuery(&quot;from Teacher&quot;).iterate();
+            while (iter.hasNext()) {
+                Teacher teacher = iter.next();
+                Assert.assertNotNull(teacher.getId());
+                String teacherName = teacher.getName();
+                if (&quot;new_teacher_1&quot;.equals(teacherName)) {
+                    Set stus = teacher.getStudents();
+                    Assert.assertEquals(stus.size(), 1);
+                    for (Student stu : stus) {
+                        String stuName = stu.getName();
+                        Assert.assertNotNull(stu.getId());
+                        Assert.assertTrue(stuName.equals(&quot;student_2&quot;));
+                    }
+                } else if (&quot;teacher_2&quot;.equals(teacherName)) {
+                    Set stus = teacher.getStudents();
+                    Assert.assertEquals(stus.size(), 2);
+
+                    for (Student stu : stus) {
+                        String stuName = stu.getName();
+                        Assert.assertNotNull(stu.getId());
+                        Assert.assertTrue(stuName.equals(&quot;student_1&quot;) || stuName.equals(&quot;student_2&quot;));
+                    }
+                } else {
+                    throw new Exception(&quot;teacher name error exception.&quot;);
+                }
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (Exception ex) {
+                    // nothing to do
+                } finally {
+                    if (session != null)
+                        session = null;
+                }
+            }
+        }
+    }
+
+    public void testDelete() throws Exception {
+        System.out.println(&quot;\n=== test delete ===&quot;);
+        Session session = null;
+        Transaction tran = null;
+        try {
+            session = factory.openSession();
+            tran = session.beginTransaction();
+
+            Iterator iter = session.createQuery(&quot;from Teacher&quot;).iterate();
+            while (iter.hasNext())
+                session.delete(iter.next());
+
+            tran.commit();
+
+            Integer count = (Integer) session.createQuery(&quot;select count(*) from Teacher&quot;).list().get(0);
+            Assert.assertEquals(0, count.intValue());
+
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (Exception ex) {
+                    // nothing to do
+                } finally {
+                    if (session != null)
+                        session = null;
+                }
+            }
+        }
+
+        /*
+         * 删除后再查询
+         */
+        System.out.println(&quot;\n=== test find after delete ===&quot;);
+        try {
+            session = factory.openSession();
+
+            Integer num = (Integer) session.createQuery(&quot;from Teacher&quot;).list().size();
+            Assert.assertEquals(0, num.intValue());
+
+            num = (Integer) session.createQuery(&quot;from Student&quot;).list().size();
+            Assert.assertEquals(0, num.intValue());
+
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (Exception ex) {
+                    // nothing to do
+                } finally {
+                    if (session != null)
+                        session = null;
+                }
+            }
+        }
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        factory.close();
+    }
+
+}
+</code></pre>
+<p>从这个例子中可以看出，many-to-many中，需要引入第3张表来表示关系。</p>
+<h2 id="xml-case">xml关系映射 - 复杂的case</h2>
+<p>需求：丈夫有1个妻子，这样是1夫1妻。但是，丈夫花心，同时有多个情妇。</p>
+<p>例子归例子，大家不要做这样的丈夫。只是为了更加深入记忆。</p>
+<h3 id="db_4">DB</h3>
+<p>先看sql：</p>
+<pre><code class="language-sql">use HibernateQuickUse;
+
+drop table if exists Paramour;
+drop table if exists Husband;
+drop table if exists Wife;
+
+create table Wife (
+    wid varchar(32) primary key,
+    name varchar(128) not null
+);
+
+
+create table Husband (
+    hid varchar(32) primary key,
+    name varchar(32) not null,
+    wife_id varchar(32) not null,
+    foreign key(wife_id) references Wife(wid)
+);
+
+create table Paramour (
+    pid varchar(32)  primary key,
+    name varchar(128) not null,
+    husband_id varchar(32) not null,
+    foreign key(husband_id) references Husband(hid)
+);
+</code></pre>
+<h3 id="pojo_4">Pojo</h3>
+<p>然后看java文件。</p>
+<p>Husband.java</p>
+<pre><code class="language-java">import java.util.HashSet;
+import java.util.Set;
+
+@SuppressWarnings(&quot;serial&quot;)
+public class Husband implements java.io.Serializable {
+    private String id;
+    private String name;
+    private Wife wife;
+    private Set paramours = new HashSet();
+
+    public Husband(){}
+
+    public String getId() { return id;}
+    public void setId(String id) { this.id = id;}
+
+    public String getName() { return name;}
+    public void setName(String name) { this.name = name;}
+
+    public Wife getWife() { return wife;}
+    public void setWife(Wife wife) { this.wife = wife;}
+
+    public Set getParamours() { return paramours;}
+    public void setParamours(Set paramours) { this.paramours = paramours;}
+}
+</code></pre>
+<p>Wife.java</p>
+<pre><code class="language-java">@SuppressWarnings(&quot;serial&quot;)
+public class Wife implements java.io.Serializable {
+    private String id;
+    private String name;
+
+    public Wife() { }
+
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+
+    public String getName() { return this.name; }
+    public void setName(String name) { this.name = name; }
+}
+</code></pre>
+<p>Paramour.java</p>
+<pre><code class="language-java">@SuppressWarnings(&quot;serial&quot;)
+public class Paramour implements java.io.Serializable {
+    private String id;
+    private String name;
+    private Husband husband;
+
+    public Paramour(){ }
+
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+
+    public Husband getHusband() { return this.husband; }
+    public void setHusband(Husband husband) { this.husband = husband; }
+
+    public String getName() { return this.name; }
+    public void setName(String name) { this.name = name; }
+}
+</code></pre>
+<h3 id="mapping-xml_3">Mapping Xml</h3>
+<p>接下来再看xml映射文件。</p>
+<p>Husband.hbm.xml</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;  
+&lt;!DOCTYPE hibernate-mapping PUBLIC &quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;  
+    &quot;http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd&quot;&gt;  
+
+&lt;hibernate-mapping&gt;  
+    &lt;class name=&quot;org.py.hib.relation.complex.Husband&quot; table=&quot;husband&quot;&gt;  
+        &lt;id name=&quot;id&quot; type=&quot;java.lang.String&quot; column=&quot;hid&quot;  
+            length=&quot;32&quot;&gt;  
+            &lt;generator class=&quot;uuid&quot; /&gt;  
+        &lt;/id&gt;  
+
+        &lt;property name=&quot;name&quot; type=&quot;java.lang.String&quot; column=&quot;name&quot;  
+            length=&quot;32&quot; not-null=&quot;true&quot; /&gt;  
+
+        &lt;many-to-one name=&quot;wife&quot; class=&quot;org.py.hib.relation.complex.Wife&quot; cascade=&quot;all&quot; column=&quot;wife_id&quot; /&gt;  
+
+        &lt;set name=&quot;paramours&quot; cascade=&quot;all&quot; inverse=&quot;true&quot; &gt;  
+            &lt;key column=&quot;husband_id&quot; /&gt;  
+            &lt;one-to-many class=&quot;org.py.hib.relation.complex.Paramour&quot; /&gt;  
+        &lt;/set&gt;  
+    &lt;/class&gt;  
+&lt;/hibernate-mapping&gt; 
+</code></pre>
+<p>Wife.hbm.xml</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;  
+&lt;!DOCTYPE hibernate-mapping PUBLIC &quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;  
+    &quot;http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd&quot;&gt;  
+
+&lt;hibernate-mapping&gt;  
+    &lt;class name=&quot;org.py.hib.relation.complex.Wife&quot; table=&quot;wife&quot;&gt;  
+        &lt;id name=&quot;id&quot; type=&quot;java.lang.String&quot; column=&quot;wid&quot; length=&quot;32&quot;&gt;  
+            &lt;generator class=&quot;uuid&quot; /&gt;  
+        &lt;/id&gt;  
+
+        &lt;property name=&quot;name&quot; type=&quot;java.lang.String&quot; column=&quot;name&quot;  length=&quot;128&quot; not-null=&quot;true&quot; /&gt;  
+
+    &lt;/class&gt;  
+&lt;/hibernate-mapping&gt; 
+</code></pre>
+<p>Paramour.hbm.xml</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;  
+&lt;!DOCTYPE hibernate-mapping PUBLIC &quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;  
+    &quot;http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd&quot;&gt;   
+&lt;hibernate-mapping&gt;  
+    &lt;class name=&quot;org.py.hib.relation.complex.Paramour&quot; table=&quot;paramour&quot;&gt;  
+        &lt;id name=&quot;id&quot; type=&quot;java.lang.String&quot; column=&quot;pid&quot;&gt;  
+            &lt;generator class=&quot;uuid&quot; /&gt;  
+        &lt;/id&gt;  
+
+        &lt;property name=&quot;name&quot; type=&quot;java.lang.String&quot; column=&quot;name&quot; not-null=&quot;true&quot; /&gt;  
+
+        &lt;many-to-one name=&quot;husband&quot; class=&quot;org.py.hib.relation.complex.Husband&quot; column=&quot;husband_id&quot; /&gt;  
+
+    &lt;/class&gt;  
+
+&lt;/hibernate-mapping&gt; 
+</code></pre>
+<h3 id="testing_3">Testing</h3>
+<p>这里只测试了save。其他的测试大家感兴趣的可以补充。
+ComplexTest.java</p>
+<pre><code class="language-java">import junit.framework.Assert;
+import junit.framework.TestCase;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.junit.After;
+import org.junit.Before;
+
+/**
+ * 这个测试忽略了hibernate的异常
+ **/
+public class ComplexTest extends TestCase {
+    private SessionFactory factory;
+
+    @Before
+    public void setUp() throws Exception {
+        Configuration conf = new Configuration().configure();
+        factory = conf.buildSessionFactory();
+    }
+
+    public void testSave() {
+        Session session = factory.openSession();
+        Transaction tran = session.beginTransaction();
+
+        Husband hus = new Husband();
+        hus.setName(&quot;husband&quot;);
+
+        Wife wife = new Wife();
+        wife.setName(&quot;wife&quot;);
+
+        Paramour p1 = new Paramour();
+        p1.setName(&quot;paramour_1&quot;);
+
+        Paramour p2 = new Paramour();
+        p2.setName(&quot;paramour_2&quot;);
+
+        Paramour p3 = new Paramour();
+        p3.setName(&quot;paramour_3&quot;);
+
+        hus.setWife(wife);
+
+        hus.getParamours().add(p1);
+        hus.getParamours().add(p2);
+        hus.getParamours().add(p3);
+
+        p1.setHusband(hus);
+        p2.setHusband(hus);
+        p3.setHusband(hus);
+
+        session.save(hus);
+
+        tran.commit();
+
+        Assert.assertNotNull(hus.getId());
+        Assert.assertNotNull(wife.getId());
+
+        Assert.assertNotNull(p1.getId());
+        Assert.assertNotNull(p2.getId());
+        Assert.assertNotNull(p3.getId());
+
+        session.close();
+    }
+
+    @After
+    public void tearDown() {
+        factory.close();
+    }
+}
+</code></pre>
+<h2 id="annotation-11">annotation关系映射 1:1</h2>
+<p>讲完了xml的关系映射，下面讲一下annatation的关系映射
+这讲OneToOne的用法。而且是基于主外键的关联。因为这个是实际开发中最最常见的。</p>
+<p>这里先说明一下，我的java类的命名都以Test开头。而对应的对象名却没有用test开头。这里是为了更好的说明注视中的value到底是类名还是对象名。</p>
+<h3 id="pojo_5">Pojo</h3>
+<p>先看java代码：</p>
+<p>TestUser.java</p>
+<pre><code class="language-java">import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+@Entity
+public class TestUser
+{
+    String   id;
+    String   username;
+    TestCard card;
+
+    @Id
+    public String getId() {return id; }
+    public void setId(String id) {this.id = id; }
+
+    public String getUsername() {return username; }
+    public void setUsername(String username) {this.username = username; }
+
+    @OneToOne
+    public TestCard getCard() {return card; }
+    public void setCard(TestCard card) {this.card = card; }
+}
+</code></pre>
+<p>TestCard：</p>
+<pre><code class="language-java">import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class TestCard
+{
+    String id;
+    String cardNumber;
+
+    @Id
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+
+    public String getCardNumber() { return cardNumber; }
+    public void setCardNumber(String cardNumber) { this.cardNumber = cardNumber; }
+}
+</code></pre>
+<p>这样子就是OneToOne了。这个是单向的关系，即：由TestCard控制TestUser。看sql语句就知道了。</p>
+<h3 id="db_5">DB</h3>
+<p>hibernate自动生成的sql为：</p>
+<pre><code class="language-sql">drop table test_card cascade constraints;
+
+drop table test_user cascade constraints;
+
+create table test_card (
+    id varchar2(255 char) not null,
+    card_number varchar2(255 char),
+    primary key (id)
+);
+
+create table test_user (
+    id varchar2(255 char) not null,
+    username varchar2(255 char),
+    card_id varchar2(255 char),
+    primary key (id)
+);
+
+alter table test_user add constraint FKB9A96B58A237D846 foreign key (card_id) references test_card;
+</code></pre>
+<p>个人认为，应该这样子理解OneToOne。</p>
+<ol>
+<li>首先，他是用来声明在方法上的。（这句好似废话）</li>
+<li>然后，他其实是用来annation这个方法的返回值的。即：描述TestCard的。
+    &gt; 也就是说：TestCard 为控制方。TestUser为被控方。那么对应的表中，test_user表有一个外键字段对应着test_card表中的一个主键。</li>
+</ol>
+<p>这样，就好理解了。</p>
+<p>上面的为单向关联。那么，双向关联呢？修改TestCard如下：</p>
+<pre><code class="language-java">import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+@Entity
+public class TestCard {
+    String   id;
+    String   cardNumber;
+    TestUser user;
+
+    @Id
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+
+    @OneToOne
+    public TestUser getUser() { return user; }
+    public void setUser(TestUser user) { this.user = user; }
+
+
+    public String getCardNumber() { return cardNumber; }
+    public void setCardNumber(String cardNumber) { this.cardNumber = cardNumber; }
+}
+</code></pre>
+<p>这样，产生的sql为：</p>
+<pre><code class="language-sql">drop table test_card cascade constraints;
+drop table test_user cascade constraints;
+
+create table test_card (
+    id varchar2(255 char) not null,
+    card_number varchar2(255 char),
+    user_id varchar2(255 char),
+    primary key (id)
+);
+
+create table test_user (
+    id varchar2(255 char) not null,
+    username varchar2(255 char),
+    card_id varchar2(255 char),
+    primary key (id)
+);
+
+alter table test_card add constraint FKB9A0FA9D7876DA66 foreign key (user_id) references test_user;
+
+alter table test_user add constraint FKB9A96B58A237D846 foreign key (card_id) references test_card;
+</code></pre>
+<p>可以看到，当我双方都声明了OneToOne时候，也就达到了双向的One2One效果。但是很遗憾。Hibernate不知道你由哪边控制哪边，或者说由哪边来维护关系。所以，他生成的sql语句中可以看到，都有test_card和test_user是相互关联的，即：都有FK关联上堆放的PK。很明显，这个不是我们要的效果。</p>
+<p>我们需要的是，pojo中能双向one2one，但是db中不需要。所以，我们需要修改一下。</p>
+<p>修改TestCard.java代码：</p>
+<pre><code class="language-java">import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+@Entity
+public class TestCard {
+    String   id;
+    String   cardNumber;
+    TestUser user;
+
+    @Id
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+
+    @OneToOne(mappedBy=&quot;card&quot;)
+    public TestUser getUser() { return user; }
+    public void setUser(TestUser user) { this.user = user; }
+
+    public String getCardNumber() { return cardNumber; }
+    public void setCardNumber(String cardNumber) { this.cardNumber = cardNumber; }
+}
+</code></pre>
+<p><strong>注意：</strong> OneToOne中的mappedBy就指出了此处返回的TestUser对应的test_user表中有一个指向TestUser的属性"card"的外键。可以看sql。</p>
+<pre><code class="language-sql">drop table test_card cascade constraints;
+
+drop table test_user cascade constraints;
+
+create table test_card (
+    id varchar2(255 char) not null,
+    card_number varchar2(255 char),
+    primary key (id)
+);
+
+create table test_user (
+    id varchar2(255 char) not null,
+    username varchar2(255 char),
+    card_id varchar2(255 char),
+    primary key (id)
+);
+
+alter table test_user add constraint FKB9A96B58A237D846 foreign key (card_id) references test_card;
+</code></pre>
+<p>而这得"mappedBy=card"中的card是TestUser中的TestCard类型的成员变量名。这也就是为什么我要用Test修饰类名，而对象名却不用的理由。</p>
+<p>或者，还可以这样子来理解OneToOne。</p>
+<p>1.单向OneToOne中。声明了OneToOne这个Annotation的方法，他的返回值即：维护方。(主键方)
+1.双向OneToOne中。在OneToOne中声明了mappedBy="xx"的，他的返回值即：被维护方。(外键方)</p>
+<h2 id="annotation-1n">annotation的关系映射 1:n</h2>
+<p>这次说说OneToMany和ManyToOne</p>
+<p>我们的场景是 1个父亲n多个孩子</p>
+<h3 id="pojo_6">Pojo</h3>
+<p>先来看看这中做法：</p>
+<p>TestFather.java</p>
+<pre><code class="language-java">import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
+public class TestFather{
+    String          id;
+    String          name;
+    List children = new ArrayList();
+
+    @Id
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    @OneToMany
+    public List getChildren() { return children; }
+    public void setChildren(List children) { this.children = children; }
+}
+</code></pre>
+<p>TestChild.java</p>
+<pre><code class="language-Java">import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class TestChild {
+    String     id;
+    String     name;
+
+    @Id
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+}
+</code></pre>
+<h3 id="db_6">DB</h3>
+<p>这样子，好像就可以了。那么是的么？我们来看看hib产生的sql</p>
+<pre><code class="language-sql">drop table test_child cascade constraints;
+drop table test_father cascade constraints;
+drop table test_father_children cascade constraints;
+
+create table test_child (
+    id varchar2(255 char) not null,
+    name varchar2(255 char),
+    primary key (id)
+);
+
+create table test_father (
+    id varchar2(255 char) not null,
+    name varchar2(255 char),
+    primary key (id)
+);
+
+create table test_father_children (
+    null_id varchar2(255 char) not null,
+    children_id varchar2(255 char) not null,
+    unique (children_id)
+);
+
+alter table test_father_children 
+    add constraint FK2E6E87D5901B7DBB 
+    foreign key (null_id) 
+    references test_father;
+
+alter table test_father_children 
+    add constraint FK2E6E87D58CD0E56B 
+    foreign key (children_id) 
+    references test_child;
+
+alter table test_user 
+    add constraint FKB9A96B58A237D846 
+    foreign key (card_id) 
+    references test_card;
+</code></pre>
+<p>oh！ My God ！它居然又帮我们多创建了一个table。作为关联。太笨了。</p>
+<p>很明显，这不是我们所需要的。</p>
+<p>那我们该如何呢？这就需要ManyToMany了。</p>
+<h2 id="annotation-nn">annotation的关系映射 n:n</h2>
+<p>场景：Product和Customer。</p>
+<h3 id="pojo_7">Pojo</h3>
+<p>先看TestProduct.java</p>
+<pre><code class="language-java">import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+@Entity
+public class TestProduct
+{
+    private String             id;
+    private String             name;
+    private float              price;
+    private List customers = new ArrayList();
+
+    @Id
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public float getPrice() { return price; }
+    public void setPrice(float price) { this.price = price; }
+
+    @ManyToMany
+    public List getCustomers() { return customers; }
+    public void setCustomers(List customers) { this.customers = customers; }
+
+}
+</code></pre>
+<p>注意这里的ManyToMany什么都没有写。</p>
+<p>再看TestCustomer.java</p>
+<pre><code class="language-java">import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+@Entity
+public class TestCustomer {
+    private String            id;
+    private String            tel;
+    private List products = new ArrayList();
+
+    @Id
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+
+    public String getTel() { return tel; }
+    public void setTel(String tel) { this.tel = tel; }
+
+    @ManyToMany(mappedBy = &quot;customers&quot;)
+    public List getProducts() { return products; }
+    public void setProducts(List products) { this.products = products; }
+}
+</code></pre>
+<p><strong>注意：</strong>这里的ManyToMany我写了mappedBy这个attribute。</p>
+<h3 id="db_7">DB</h3>
+<p>然后看hib产生的sql:</p>
+<pre><code class="language-sql">drop table test_customer cascade constraints;
+drop table test_product cascade constraints;
+drop table test_product_customers cascade constraints;
+
+create table test_customer (
+    id varchar2(255 char) not null,
+    tel varchar2(255 char),
+    primary key (id)
+);
+
+create table test_product (
+    id varchar2(255 char) not null,
+    price float not null,
+    name varchar2(255 char),
+    primary key (id)
+);
+
+create table test_product_customers (
+    products_id varchar2(255 char) not null,
+    customers_id varchar2(255 char) not null
+);
+</code></pre>
+<p>ok! 非常好。hib终于在ManyToMany上没有犯白痴了。</p>
+<p>上面强调了mappedBy这个属性。其实，之前有提到mappedBy这个东西。只是，我没有说到底是什么意思。其实很简单：这个东西就相当于xml配置中的inverse。写了mappedBy就代表这个方法的返回值是被维护方。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+    
+  </body>
+</html>
