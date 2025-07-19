@@ -1,1 +1,10 @@
-# 生活文章
+---
+title: 生活文章
+template: list.html
+pagination:
+  enabled: true
+  per_page: 5
+  collection: posts
+  sort_field: date
+  sort_reverse: true
+---
