@@ -6,7 +6,16 @@ category: Tech
 tags: [Java, PorterStemmer]
 ---
 
-搜索引擎在进行索引和检索的时候，需要对一些词语的各种形式转换为原型。在 Lucene 中，提供了这样的一个java文件。
+在搜索引擎的索引和检索场景中，在自然语言处理（NLP） 场景，需要将单词还原为“词干”形式。而PorterStemmer 是 Java 中常用的 词干提取工具，它的作用:
+
+- connection → connect
+- connected → connect
+- connecting → connect
+- connections → connect
+
+在 Lucene 中，就提供了这样的一个java文件。
+
+<!---->
 
 ```java
 import java.io.FileInputStream;

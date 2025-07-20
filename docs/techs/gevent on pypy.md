@@ -6,6 +6,12 @@ category: Tech
 tags: [Python, Gevent, Pypy]
 ---
 
+在 PyPy 环境中使用 Gevent 开发 是一种常见的组合方式，尤其适合对 性能要求较高、又希望保持 Python 协程语义 的网络服务。
+
+下面我会从 环境搭建 → 基础用法 → 注意事项 → 适用场景 全面介绍你该怎么在 PyPy 下使用 Gevent 进行开发。
+
+<!---->
+
 ## install pypy
 - wget https://bitbucket.org/squeaky/portable-pypy/downloads/pypy-2.3.1-linux_x86_64-portable.tar.bz2
 - bunzip2 pypy-2.3.1-linux_x86_64-portable.tar.bz2

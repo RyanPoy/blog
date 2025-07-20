@@ -6,7 +6,9 @@ category: Tech
 tags: [MySQL]
 ---
 
-经常先进入mysql的命令行，然后用source命令导入内容。当数据量达到一定程度，就会变得很慢。所以，采用了loaddata这种方式。
+LOAD DATA 是 MySQL 中用于 高效批量导入数据 的命令，适合把 CSV 或 TSV 文件中的数据直接加载到表中，速度远远高于逐条插入（INSERT）。
+
+<!---->
 
 进入数据库，敲入：
 ```sql

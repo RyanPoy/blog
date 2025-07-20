@@ -6,7 +6,9 @@ category: Tech
 tags: [Python]
 ---
 
-rails中，有一个active_validation，用来做一些常见的校验，十分方便。于是乎，模仿了它，写下了它。
+在`Ruby on Rails`中，`Active Validation`是模型层中处理“数据校验”的核心机制。它提供了统一的校验逻辑。但是在Python中缺没有类似的工具。所以，模仿了 Active Validation，写了Python版本的。
+
+<!---->
 
 ```python
 #coding: utf-8

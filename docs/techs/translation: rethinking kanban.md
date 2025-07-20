@@ -1,14 +1,17 @@
 ---
 title: 重新设计我的看板
-date: 2014-08-11
+date: 2024-08-11
 
 category: Tech
 tags: [Kanban, Translation]
 ---
 
-发现[一篇文章](https://matschaffer.com/2014/06/16/rethinking-kanban)，觉得有意思，就翻译了一下。
+**Kanban（看板）**是一种可视化工作流管理方法，最初源自丰田生产系统，用于制造业中的**拉动式生产**，后来被广泛应用于软件开发、项目管理、运营支持等领域。尤其在**敏捷开发**中，**看板**成为了展示任务状态、流程阶段、工作进度的一种轻量级敏捷方法。
 
 <!--more-->
+
+最近也读到一篇文章：[**Rethinking My Kanban Board**](https://matschaffer.com/2014/06/16/rethinking-kanban)，写得不错。所以，翻译了一下。
+
 
 如果你曾今使用过 Trello，Jira，或者 其他看板工具，你可能习惯于像这样看看板：
 

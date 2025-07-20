@@ -6,6 +6,10 @@ category: Tech
 tags: [Python, Socket]
 ---
 
+Python 的 socket 编程是进行网络通信的基础方式之一，它可以用来实现 TCP/UDP 服务端与客户端程序。下面我会用通俗的语言和代码例子，带你快速理解 socket 编程的基本用法和常见场景。
+
+<!---->
+
 ## synchronization
 
 ### TCP

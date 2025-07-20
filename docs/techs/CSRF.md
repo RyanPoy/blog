@@ -6,7 +6,6 @@ category: Tech
 tags: [CSRF]
 ---
 
-## csrf是什么
 csrf 简单的说就是以跨域的方式，利用你正常的cookie，修改你在website上的数据。举一个例子：
 1. 当你正常登陆www.xxx.com。xxx.com会记录一个cookie到你的client端。表示，你现在已经正常登陆过了。
 2. 然后你访问一个恶意网站，www.evil.com, evil.com有一个链接，会提交一个post请求到xxx.com，修改你在xxx.com上的密码
