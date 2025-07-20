@@ -10,12 +10,8 @@
       <div>
         <!-- <span class="catalogue-pinned">Pinned ·</span> -->
         <time datetime="{{md.meta.date}} 00:00:00 +0000" class="catalogue-time">{{md.meta.date}}</time>
-        <h1 class="catalogue-title">{{md.meta.title or md.title}}</h1>
+        <h1 class="catalogue-title">{{md.title}}</h1>
         <div class="catalogue-line">{{md.url }}</div>
-        <hr>
-        {{ md.meta }} - {{page_item.meta}}
-        <hr>
-        
         <p>{{md.content.split('<!--')[0]}}</p>
       </div>
     </a>
