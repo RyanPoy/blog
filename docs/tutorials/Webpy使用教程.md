@@ -1,10 +1,10 @@
-+++
-title = "Webpy使用教程"
-date = 2011-08-18
+---
+title: Webpy使用教程
+date: 2011-08-18
 
-categories = ["Tutorials"]
-tags = ["Python", "Webpy"]
-+++
+category: Tutorials
+tags: [Python, Webpy]
+---
 
 来[搜狐](https://sohu.com)后，这里做的系统几乎都是 webpy + twsited 写的。所以，有必要好好学习一下这两个东西了。从今天开始介绍webpy。
 

@@ -1,10 +1,10 @@
-+++
-title = "也谈AB测试"
-date = 2020-12-25
+---
+title: 也谈AB测试
+date: 2020-12-25
 
-categories = ["Tech"]
-tags = ["Testing"]
-+++
+category: Tech
+tags: [Testing]
+---
 
 前一阵子，团队做了一套AB测试的通用解决方案。在这里，不想聊具体怎么实现的。反而想聊一下怎样才是正确AB测试。因为在内部推广的时候，发现大家对AB测还是不明白。
 - 不明白为什么要AB测试

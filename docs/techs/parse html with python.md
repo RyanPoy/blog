@@ -1,10 +1,10 @@
-+++
-title = "网页解析"
-date = 2011-02-27
+---
+title: 网页解析
+date: 2011-02-27
 
-categories = ["Tech"]
-tags = ["Python", "Crawler"]
-+++
+category: Tech
+tags: [Python, Crawler]
+---
 
 对于crawler, parse html 是一个必不可少的工作。现阶段有很多的开源库，python中也有自己的标准库。都是为了方便的解析html的。但是，由于我们的需求可能会变得很奇怪，比方说：对于script的东西也许也要解析。对于comment的东西可能也要分析。或者，还有其它的需求。为此，我重新造个轮子。
 

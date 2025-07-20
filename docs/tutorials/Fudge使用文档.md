@@ -1,11 +1,10 @@
-+++
-title = "Fudge使用文档"
-date = "2012-10-20"
+---
+title: Fudge使用文档
+date: 2012-10-20
 
-categories = ["Tutorials"]
-tags = ["Python", "Fudge"]
-menu = "main"
-+++
+category: Tutorials
+tags: [Python, Fudge]
+---
 
 fudge是一个python的mock框架，我非常喜欢它。决定把使用文档翻译出来。
 

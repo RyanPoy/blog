@@ -1,10 +1,10 @@
-+++
-title = "centos7.9安装mysql5.7"
-date = 2021-12-30
+---
+title: centos7.9安装mysql5.7
+date: 2021-12-30
 
-categories = ["Tech"]
-tags = ["MySQL"]
-+++
+category: Tech
+tags: [MySQL]
+---
 
 最近在一台centos7.9的服务器上装mysql，整体并不顺利，比较折腾。所以，特点记录下来，方便以后查找。
 

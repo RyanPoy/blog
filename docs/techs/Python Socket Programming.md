@@ -1,10 +1,10 @@
-+++
-title = "Python Socket Programming"
-date = 2010-06-13
+---
+title: Python Socket Programming
+date: 2010-06-13
 
-categories = ["Tech"]
-tags = ["Python", "Socket"]
-+++
+category: Tech
+tags: [Python, Socket]
+---
 
 ## synchronization
 

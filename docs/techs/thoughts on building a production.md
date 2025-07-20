@@ -1,10 +1,10 @@
-+++
-title = "对产品的思考"
-date = 2012-09-02
+---
+title: 对产品的思考
+date: 2012-09-02
 
-categories = ["Tech"]
-tags = ["Production"]
-+++
+category: Tech
+tags: [Production]
+---
 
 产品是一个很有意思的东西。可以很大，可以很小。但是无一例外，所有的大产品都是从小产品一步一步做起来的。
 

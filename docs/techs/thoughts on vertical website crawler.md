@@ -1,10 +1,10 @@
-+++
-title = "关于垂直网站爬虫的思考"
-date = "2009-09-01"
+---
+title: 关于垂直网站爬虫的思考
+date: 2009-09-01
 
-categories = ["Tech"]
-tags = ["Crawler"]
-+++
+category: Tech
+tags: [Crawler]
+---
 
 ## 基本指标和难点
 

@@ -1,10 +1,10 @@
-+++
-title = "Hibernate入门使用"
-date = "2008-07-24"
+---
+title: Hibernate入门使用
+date: 2008-07-24
 
-categories = ["Tutorials"]
-tags = ["Java", "Hibernate"]
-+++
+category: Tutorials
+tags: [Java, Hibernate]
+---
 
 Hibernate入门使用文章, 主要讲快速使用，不会介绍太多的深层次的东西。方便自己，方便大家。因本人懒惰，记不住hibernate的配置选项，所以，此文实例都是使用myeclipse进行快速开发，数据库都是mysql。
 

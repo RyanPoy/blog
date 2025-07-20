@@ -1,10 +1,10 @@
-+++
-title = "pypy环境的gevent开发"
-date = 2014-08-20
+---
+title: pypy环境的gevent开发
+date: 2014-08-20
 
-categories = ["Tech"]
-tags = ["Python", "Gevent", "Pypy"]
-+++
+category: Tech
+tags: [Python, Gevent, Pypy]
+---
 
 ## install pypy
 - wget https://bitbucket.org/squeaky/portable-pypy/downloads/pypy-2.3.1-linux_x86_64-portable.tar.bz2

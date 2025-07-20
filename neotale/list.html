@@ -4,7 +4,7 @@
 <main>
   <div class="catalogue">
   {% set current_dir = page.url %}
-  {% for page_item in pages if page_item.url.startswith(current_dir) %}
+  {% for page_item in pages if page_item.url != current_dir and page_item.url.startswith(current_dir) %}
     {% set md = page_item.page %}
     <a href="{{md.url|url}}" class="catalogue-item">
       <div>

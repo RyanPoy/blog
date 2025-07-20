@@ -1,10 +1,10 @@
-+++
-title = "几个常用统计指标"
-date = 2010-03-09
+---
+title: 几个常用统计指标
+date: 2010-03-09
 
-categories = ["Tech"]
-tags = ["Data Analysis", "Data Statistics"]
-+++
+category: Tech
+tags: [Data Analysis, Data Statistics]
+---
 
 ## TF/IDF
 - TF: 词在一个文档出现的次数 / 文档中的所有词

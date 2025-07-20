@@ -1,10 +1,10 @@
-+++
-title = "Homebrew修改国内源"
-date = 2020-12-19
+---
+title: Homebrew修改国内源
+date: 2020-12-19
 
-categories = ["Tech"]
-tags = ["Homebrew"]
-+++
+category: [Tech]
+tags: [Homebrew]
+---
 
 因为众所周知的原因，正常访问homebrew是很难的。所以，我们需要修改它的源，让其指向国内。
 

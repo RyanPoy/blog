@@ -1,10 +1,10 @@
-+++
-title = "无共享架构"
-date = 2010-07-26
+---
+title: 无共享架构
+date: 2010-07-26
 
-categories = ["Tech"]
-tags = ["Architecture"]
-+++
+category: Tech
+tags: [Architecture]
+---
 
 "无共享架构"这个词是网上早就有了的。而我是在处理实际的问题时候，想到了一些解决方案，然后再通过解决方案去找就发现了它。就直接拿来用了。
 

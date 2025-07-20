@@ -1,10 +1,10 @@
-+++
-title = "java常用工具-PorterStemmer"
-date = 2009-03-28
+---
+title: java常用工具-PorterStemmer
+date: 2009-03-28
 
-categories = ["Tech"]
-tags = ["Java", "PorterStemmer"]
-+++
+category: Tech
+tags: [Java, PorterStemmer]
+---
 
 搜索引擎在进行索引和检索的时候，需要对一些词语的各种形式转换为原型。在 Lucene 中，提供了这样的一个java文件。
 

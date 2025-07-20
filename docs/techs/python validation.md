@@ -1,10 +1,10 @@
-+++
-title = "python validation"
-date = "2010-11-13"
+---
+title: python validation
+date: 2010-11-13
 
-categories = ["Tech"]
-tags = ["Python"]
-+++
+category: Tech
+tags: [Python]
+---
 
 rails中，有一个active_validation，用来做一些常见的校验，十分方便。于是乎，模仿了它，写下了它。
 

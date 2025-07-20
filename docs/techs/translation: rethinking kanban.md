@@ -1,10 +1,10 @@
-+++
-title = "重新设计我的看板"
-date = 2014-08-11
+---
+title: 重新设计我的看板
+date: 2014-08-11
 
-categories = ["Tech"]
-tags = ["Kanban", "Translation"]
-+++
+category: Tech
+tags: [Kanban, Translation]
+---
 
 发现[一篇文章](https://matschaffer.com/2014/06/16/rethinking-kanban)，觉得有意思，就翻译了一下。
 

@@ -1,10 +1,10 @@
-+++
-title = "tornado教程"
-date = 2011-11-05
+---
+title: tornado教程
+date: 2011-11-05
 
-categories = ["Tutorials"]
-tags = ["Python", "Tornado"]
-+++
+category: Tutorials
+tags: [Python, Tornado]
+---
 
 最近要做一个新的系统：一个披着邮件系统外衣的消息系统。性能肯定是一方面，所以Webpy就不打算用了。Django本来是我的第一选择，但是觉得Django可能也会出现性能问题。我还是考虑其它的吧。选来选去，最后选择了Torando。因为它：**简单**；**传说性能好**；**成熟案例** （ [知乎](https://www.zhihu.com), [FriendFeed](http://friendfeed.com/) )
 

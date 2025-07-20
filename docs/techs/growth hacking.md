@@ -1,10 +1,10 @@
-+++
-title = "黑客增长简悟"
-date = 2020-12-28
+---
+title: 黑客增长简悟
+date: 2020-12-28
 
-categories = ["Tech"]
-tags = ["Growth hacking", "Thought"]
-+++
+category: Tech
+tags: [Growth hacking, Thought]
+---
 
 `黑客增长`这个词已经出现很久了，之前只是听说过，也仅仅只是听说。这段时间，通过一些资料阅读，算是有一些了解了。简单说一下自己的领悟吧。
 

@@ -1,10 +1,10 @@
-+++
-title = "谈 CSRF"
-date = 2012-12-10
+---
+title: 谈CSRF
+date: 2012-12-10
 
-categories = ["Tech"]
-tags = ["CSRF"]
-+++
+category: Tech
+tags: [CSRF]
+---
 
 ## csrf是什么
 csrf 简单的说就是以跨域的方式，利用你正常的cookie，修改你在website上的数据。举一个例子：

@@ -1,10 +1,10 @@
-+++
-title = "python奇技淫巧"
-date = 2009-09-11
+---
+title: python奇技淫巧
+date: 2009-09-11
 
-categories = ["Tech"]
-tags = ["Python", "Tricks"]
-+++
+category: Tech
+tags: [Python, Tricks]
+---
 
 在Python中，有一些常见不常用又很有用的**奇技淫巧**
 
