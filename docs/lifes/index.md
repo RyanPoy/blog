@@ -1,5 +1,5 @@
 ---
-title: 生活文章
+title: Life
 template: list.html
 pagination:
   enabled: true

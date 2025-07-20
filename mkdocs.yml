@@ -11,14 +11,16 @@ theme:
   # features: 
   # palette:
   #   - scheme: py
+  plugins:
+    - filters  # 启用自定义过滤器插件
 
-extra_css:
-  - asserts/stylesheets/extra.css
+markdown_extensions:
+  - meta
+
 
 nav:
-  - Home: index.md
-  - Tech: lifes/index.md
-  - Life: techs/index.md
+  - Tech: techs/index.md
+  - Life: lifes/index.md
   - About: about.md
   
 copyright:  Copyright © 2008 <a href="https://github.com/RyanPoy/blog">彭一</a> Rights Reserved

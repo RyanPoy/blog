@@ -6,9 +6,8 @@ categories = ["Tech"]
 tags = ["QCon"]
 +++
 
-## 引子
 
-**接到了QCon BeiJing的邀请**，很荣幸，也很有压力，不知道能不能讲好。尽力吧。
+很荣幸，**接到了QCon BeiJing的邀请**，去当讲师，去讲一个有关于`python`的topic。
 
 <!--more-->
 

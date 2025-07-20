@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block htmltitle %}{% endblock %}</title>
+    <link rel="stylesheet" href="/assets/styles/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+    {% block extrahead %}{% endblock %}
+</head>
+<body>
+    <header>{% include "_header.html" %}</header>
+
+    <!-- 这是 MkDocs 注入页面内容的地方 -->
+    <main>{% block main %}{% endblock %}</main>
+
+    <!-- 你的网站页脚 (可选的) -->
+    <footer>{% include "_footer.html" %}</footer>
+
+    <!-- 你的 JavaScript 脚本在这里 -->
+    {% block scripts %}{% endblock %}
+</body>
+</html>
