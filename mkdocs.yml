@@ -6,7 +6,6 @@ theme:
   name: null
   custom_dir: neotale
 
-
 markdown_extensions:
   - meta
 
@@ -14,10 +13,6 @@ nav:
   - Tech: techs/index.md
   - Life: lifes/index.md
   - About: about.md
-
-hooks:
-  - hooks.py
-
 
 copyright:  Copyright © 2008 <a href="https://github.com/RyanPoy/blog">彭一</a> Rights Reserved
 
