@@ -512,7 +512,7 @@ python manage.py startapp app
 **修改app目录下的文件名**
 这个也是我习惯了的命名规则, 创建controllers.py, 删除views.py，在工程目录下面创建application.py。此时，目录结构应该如下：
 
-![目录结构](/asserts/images/tornado-2.png)
+![目录结构](/assets/images/tornado-2.png)
 
 ### 修改 url.py
 ```python

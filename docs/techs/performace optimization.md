@@ -11,13 +11,13 @@ tags: [Optimization]
 
 <!--more-->
 
-![原始系统架构](/asserts/images/buy-ticket-1.png)
+![原始系统架构](/assets/images/buy-ticket-1.png)
 
 这种架构是最传统的，对于压力不大的情况下，没有任何问题。当压力逐级增大，通过水平扩展 web 服务 和 水平扩展db就达到目的了。但如果瞬时大并发过来，例如：30w/s，也来不及扩展。而且，要求的服务器资源很多，成本不能接受。那么，就要考虑优化和改造了。
 
 30w的瞬时并发，对于后面的压力，主要来源于：nginx，抢票api，db。nginx裸压，轻松上15w并发。所以，nginx只需要有3个就够了。抢票API要水平扩展很多服务器，成本不能接受。而db考虑分库操作，改动比较大，对于现有数据的迁移也是成本。为此，我们只要能解决抢票api和DB的压力就ok了。所以，考虑用**MQ解耦**。具体架构如下：
 
-![新系统架构](/asserts/images/buy-ticket-2.png)
+![新系统架构](/assets/images/buy-ticket-2.png)
 
 这样子压力转嫁到MQ上。只要抢票API能扛住压力，MQ肯定没有问题。而DB的压力，完全由Consumer的数量决定，是可控的。也就是说，DB完全没有压力。
 

@@ -11,12 +11,10 @@ theme:
   # features: 
   # palette:
   #   - scheme: py
-  plugins:
-    - filters  # 启用自定义过滤器插件
+
 
 markdown_extensions:
   - meta
-
 
 nav:
   - Tech: techs/index.md

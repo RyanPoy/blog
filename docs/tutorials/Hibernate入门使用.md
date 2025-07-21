@@ -15,11 +15,11 @@ Hibernate入门使用文章, 主要讲快速使用，不会介绍太多的深层
 
 为了方便，用户就2个属性 用户ID和用户名。实体模型如下：
 
-![Imgurl](/asserts/images/hibernate-1.gif)
+![Imgurl](/assets/images/hibernate-1.gif)
 
 建立工程:HibernateQuickUse，并且建立包。如下：
 
-![Imgurl](/asserts/images/hibernate-2.gif)
+![Imgurl](/assets/images/hibernate-2.gif)
 
 ### Pojo
 根据实体，创建类User，代码如下：
@@ -314,7 +314,7 @@ Hibernate: select user0_.id as id6_, user0_.name as name6_ from hibernatequickus
 
 实体模型
 
-![1对1实体模型](/asserts/images/hibernate-3.gif)
+![1对1实体模型](/assets/images/hibernate-3.gif)
 
 ### DB
 根据模型，创建数据库：
@@ -653,7 +653,7 @@ public class One2OneTest extends TestCase {
 
 建立实体模型如下：
 
-![One2Many](/asserts/images/hibernate-4.gif)
+![One2Many](/assets/images/hibernate-4.gif)
  
 ### DB 
 根据模型创建数据库。sql脚本如下：
@@ -1195,7 +1195,7 @@ Hibernate: select child0_.id as id34_, child0_.name as name34_, child0_.father_i
 我们以老师和学生为例，一个老师可以交很多学生，同样一个学生可以拥有多个老师，所以，他们之间的关系就是n：n的。
 
 实体模型：
-![many2many](/asserts/images/hibernate-5.gif)
+![many2many](/assets/images/hibernate-5.gif)
 
 从实体模型来看。有2个对象，但是为了在数据库中表示出2者的n:n的关系，我们还得引入一张表。
 
