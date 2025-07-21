@@ -5,12 +5,6 @@ site_author: 彭一
 theme:
   name: null
   custom_dir: neotale
-  # name: material
-  # favicon: /assets/images/favicon.png
-  # logo: /assets/images/logo_450x300.png
-  # features: 
-  # palette:
-  #   - scheme: py
 
 
 markdown_extensions:
