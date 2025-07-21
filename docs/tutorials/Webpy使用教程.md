@@ -6,9 +6,11 @@ category: Tutorials
 tags: [Python, Webpy]
 ---
 
-来[搜狐](https://sohu.com)后，这里做的系统几乎都是 webpy + twsited 写的。所以，有必要好好学习一下这两个东西了。从今天开始介绍webpy。
+Web.py 是一个轻量级的 Python Web 框架，它以简单、直接而闻名，旨在让 Web 应用开发变得快速而容易。Web.py的核心代码库非常小巧，只提供构建 Web 应用所需的基本功能，如 URL 路由、请求/响应处理、模板渲染等。这让它非常容易学习和上手。
 
 <!--more-->
+
+来[搜狐](https://sohu.com)后，这里做的系统几乎都是 webpy + twsited 写的。所以，有必要好好学习一下这两个东西了。从今天开始介绍Web.py。
 
 ## Server
 

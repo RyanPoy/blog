@@ -8,7 +8,7 @@
     <br />
     <span>on</span>
     <time datetime="{{page.meta.date}} 00:00:00 +0000">
-      {{ page.meta.date }}
+      {{ page.meta.date | strptime("%b %d, %Y") }}
     </time>
   </div>
 

@@ -1,18 +1,23 @@
 site_name: 一哥黑板报
 site_url: https://www.pengyi.me
 site_author: 彭一
+site_copyright:  
+  Copyright © <time datetime="2008-07-21 00:00:00 +0000">2008</time> <a href="https://github.com/RyanPoy/blog">彭一</a> Rights Reserved <br>
+  Made with <a href="https://github.com/mkdocs/mkdocs/">mkdocs</a> using the <a href="https://github.com/chesterhow/tale/">Tale</a> theme.
 
 theme:
   name: null
-  custom_dir: neotale
+  custom_dir: tale
 
 markdown_extensions:
   - meta
 
 nav:
+  - Home: index.md
   - Tech: techs/index.md
   - Life: lifes/index.md
+  - Tutorial: tutorials/index.md
   - About: about.md
 
-copyright:  Copyright © 2008 <a href="https://github.com/RyanPoy/blog">彭一</a> Rights Reserved
+
 

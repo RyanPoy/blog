@@ -6,9 +6,18 @@ category: Tutorials
 tags: [Python, Tornado]
 ---
 
-最近要做一个新的系统：一个披着邮件系统外衣的消息系统。性能肯定是一方面，所以Webpy就不打算用了。Django本来是我的第一选择，但是觉得Django可能也会出现性能问题。我还是考虑其它的吧。选来选去，最后选择了Torando。因为它：**简单**；**传说性能好**；**成熟案例** （ [知乎](https://www.zhihu.com), [FriendFeed](http://friendfeed.com/) )
+
+最近要做一个新的系统：一个披着邮件系统外衣的消息系统。性能肯定是一方面，所以Webpy就不打算用了。Django本来是我的第一选择，但是觉得Django可能也会出现性能问题。我还是考虑其它的吧。选来选去，最后选择了Torando。
 
 <!--more-->
+
+Tornado 是一个用 Python 编写的 Web 框架和异步网络库。它最初由 FriendFeed 开发，后来 Facebook 收购了 FriendFeed 并开源了 Tornado，它有如下特点：
+
+- 简单
+- 传说性能好
+- 成熟案例 [知乎](https://www.zhihu.com), [FriendFeed](http://friendfeed.com/)
+
+
 
 ## 简单尝试
 - 安装
