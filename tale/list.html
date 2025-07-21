@@ -3,18 +3,12 @@
 {% block main %}
 <main>
   <div class="catalogue">
-  {% set current_dir = page.url %}
-  {% set vs = [2,3]%}
-  {% for page_item in pages if page_item.url != current_dir and page_item.url.startswith(current_dir) %}
-    {% if page_item.url.split('/') | length > 2 %}
-      {% set vs = [ 1,2 ] %}
-    {% endif %}
-  {% endfor %}
-  <hr>
-  {{ vs }}
-    
-  {% for page_item in pages|sort(attribute="date")%}
-    {% if page_item.url.split('/') | length > 2 %}
+
+    {% for page_item in pages|sort(attribute="date")%}
+    {% if page_item.url.split('/') | length > 2 
+      and page_item.url != page.url 
+      and page_item.url.startswith(page.url)
+    %}
       {% set md = page_item.page %}
       <a href="{{md.url|url}}" class="catalogue-item">
         <div>
