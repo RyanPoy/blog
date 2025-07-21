@@ -13,7 +13,6 @@ markdown_extensions:
   - meta
 
 nav:
-  - Home: index.md
   - Tech: techs/index.md
   - Life: lifes/index.md
   - Tutorial: tutorials/index.md
