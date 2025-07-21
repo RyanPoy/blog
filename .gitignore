@@ -4,5 +4,6 @@ __pycache__
 .python-version
 .git
 .venv
+.idea/
 uv.lock
 site/
