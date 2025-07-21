@@ -4,8 +4,8 @@ site_author: 彭一
 
 theme:
   name: material
-  favicon: /asserts/images/favicon.png
-  logo: /asserts/images/logo_450x300.png
+  favicon: /assets/images/favicon.png
+  logo: /assets/images/logo_450x300.png
   features: 
     # - navigation.instant      # 点击链接时使用 XHR 即时加载页面
     # - navigation.tracking     # 页面滚动时自动更新 URL 中的 hash
@@ -23,7 +23,7 @@ theme:
     - scheme: py
 
 extra_css:
-  - asserts/stylesheets/extra.css
+  - assets/stylesheets/extra.css
 
 nav: [
   index.md,

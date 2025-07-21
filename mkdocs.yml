@@ -6,8 +6,8 @@ theme:
   name: null
   custom_dir: neotale
   # name: material
-  # favicon: /asserts/images/favicon.png
-  # logo: /asserts/images/logo_450x300.png
+  # favicon: /assets/images/favicon.png
+  # logo: /assets/images/logo_450x300.png
   # features: 
   # palette:
   #   - scheme: py
