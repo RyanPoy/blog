@@ -11,7 +11,7 @@ theme:
 
 markdown_extensions:
   - meta
-
+  
 nav:
   - Tech: techs/index.md
   - Life: lifes/index.md

@@ -428,16 +428,19 @@ pre code {
     width: 80%
 }
 
-main,footer,.nav-container {
+main,footer,.nav-container,.post {
     display: block;
     margin: 0 auto;
-    max-width: 800px;
-    width: 80%
+    max-width: 1200px;
+    width: 70%
 }
 
+header {
+    padding: 1.6rem 0;
+}
 .nav {
-    box-shadow: 0 2px 2px -2px rgba(0,0,0,0.2);
-    overflow: auto
+    /* box-shadow: 0 2px 2px -2px rgba(0,0,0,0.2); */
+    overflow: auto;
 }
 
 .nav-container {
@@ -563,7 +566,7 @@ footer span {
 }
 
 .catalogue-item {
-    border-bottom: 1px solid #e5e5e5;
+    /* border-bottom: 1px solid #e5e5e5; */
     color: #555;
     display: block;
     padding: 2rem 0
