@@ -11,3 +11,9 @@ dependencies = [
     "mkdocs-material>=9.6.15",
     "mkdocs-simple-hooks>=0.1.5",
 ]
+
+[project.entry-points."mkdocs.plugins"]
+tale = "tale:TalePlugin"
+
+[project.entry-points."mkdocs.themes"]
+tale = "tale"

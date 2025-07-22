@@ -6,8 +6,7 @@ site_copyright:
   - Made with <a href="https://github.com/mkdocs/mkdocs/">mkdocs</a> using the <a href="https://github.com/chesterhow/tale/">Tale</a> theme.
 
 theme:
-  name: null
-  custom_dir: tale
+  name: tale
 
 markdown_extensions:
   - meta
@@ -18,5 +17,7 @@ nav:
   - Tutorial: tutorials/index.md
   - About: about.md
 
+plugins:
+  - tale
 
 
