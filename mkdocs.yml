@@ -10,6 +10,10 @@ theme:
 
 markdown_extensions:
   - meta
+  - admonition
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.emoji
   
 nav:
   - Tech: techs/index.md
