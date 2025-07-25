@@ -23,3 +23,16 @@ nav:
 
 plugins:
   - tale
+
+### Optional: Enable GitHub Discussion Comments via Giscus
+# To enable Giscus comment integration, add the following to your `mkdocs.yml`:
+extra:
+  giscus:
+    repo: "YOUR REPO"
+    repo_id: "YOUR REPO ID"
+    category: "Comments"
+    category_id: "YOUR CATEGORY ID"
+    mapping: pathname
+    theme: light
+    reactions_enabled: '1'
+    input-position: 'bottom'
