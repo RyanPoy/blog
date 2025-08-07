@@ -14,7 +14,9 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.highlight
   - pymdownx.emoji
-  
+  - toc:
+      permalink: true
+
 nav:
   - Tech: techs/index.md
   - Life: lifes/index.md
