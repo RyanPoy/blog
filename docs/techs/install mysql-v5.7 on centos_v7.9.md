@@ -13,10 +13,12 @@ tags: [MySQL]
 ## yum更新mysql源
 因为yum默认是mariadb，所以，需要更新yum的mysql源
 具体如下：
+
 - `wget https://dev.mysql.com/get/mysql57-community-release-el7-10.noarch.rpm`
 - `yum install -y mysql57-community-release-el7-10.noarch.rpm`
 
 ## yum 安装并启动mysql
+
 - `yum install mysql`
 - `systemctl start mysqld`
 
@@ -26,6 +28,7 @@ mysql安装完毕后，会给一个随机密码，具体可以通过执行 `grep
 通过mysql -uroot -p 登录成功后，执行 `alter user root@'localhost' identified by 'new-password';` 就修改新的root密码了
 
 ## 重新指定mysql的数据库位置
+
 下面我们需要重新制定mysql数据库的位置。因为默认mysql数据库是在 /var/lib/mysql 目录下面 。而服务器的/var/lib/mysql一般没有多大空间。所以，我们把数据库位置放到 /data/lib/mysql上来。
 
 - 关闭mysql：`systemctl stop mysqld`
