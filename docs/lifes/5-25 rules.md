@@ -1,6 +1,6 @@
 ---
 title: 5/25法则
-date: 2017/08/28
+date: 2025/08/12
 
 category: Life
 tags: [Essay]
