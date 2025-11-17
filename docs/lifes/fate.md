@@ -2,7 +2,7 @@
 title: "善·缘"
 date: 2012-10-13
 
-category: Tech
+category: Life
 tags: [Essay]
 ---
 
